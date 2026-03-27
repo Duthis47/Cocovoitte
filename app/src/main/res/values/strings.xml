@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Cocovoitte</string>
+    <string name="title_Accueil">Accueil</string>
+    <string name="title_Connexion">Connexion</string>
+    <string name="title_Profil">Profil</string>
+    <string name="title_Proposer">Proposer</string>
+    <string name="title_Rechercher">Rechercher</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
