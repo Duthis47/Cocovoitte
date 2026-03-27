@@ -6,7 +6,7 @@ import androidx.room.ForeignKey;
 @Entity(primaryKeys = {"idT", "idU"},
 foreignKeys = {
         @ForeignKey(
-                entity = Trajet.class,
+                entity = Proposer.class,
                 parentColumns = "idT",
                 childColumns = "idT"
         ),
