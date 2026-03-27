@@ -31,9 +31,10 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        //Préparation du premier fragment
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
-
+        //Préparation du premier fragment si nouvel création
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+        }
         //Preparation du bottomNavView
         bottomNavView = findViewById(R.id.bottom_nav);
         bottomNavView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //On verifie les id (impossible d'utiliser switch)
                 if(id == R.id.menu_home) {
+                    //On instancie les fragments
                     selectedFragment = new HomeFragment();
                 }else if(id == R.id.menu_user){
                     selectedFragment = new ConnexionFragment();
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
+                //On envoie le fragment correspondant
                 if (selectedFragment != null){
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
                 }
