@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.cocovoitte.Fragment.ConnexionFragment;
 import com.example.cocovoitte.Fragment.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -29,24 +30,32 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        //Préparation du premier fragment
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+
         //Preparation du bottomNavView
         bottomNavView = findViewById(R.id.bottom_nav);
         bottomNavView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+                //Ici on selectionne et on charge les bons fragments
                 Fragment selectedFragment = null;
                 //On recupere l'id du bouton cliquer
                 int id = item.getItemId();
 
                 //On verifie les id (impossible d'utiliser switch)
                 if(id == R.id.menu_home) {
-                    //selectedFragment = new HomeFragment()
-                    Toast.makeText(MainActivity.this, "Home", Toast.LENGTH_SHORT).show();
-                }else if(id == R.id.menu_rechercher){
-                    Toast.makeText(MainActivity.this, "Rechercher", Toast.LENGTH_SHORT).show();
+                    selectedFragment = new HomeFragment();
+                }else if(id == R.id.menu_user){
+                    selectedFragment = new ConnexionFragment();
                 }else{
 
+                }
+
+                if (selectedFragment != null){
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
                 }
                 return true;
             }
