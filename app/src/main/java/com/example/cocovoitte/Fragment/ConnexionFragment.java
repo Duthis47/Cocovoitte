@@ -9,9 +9,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.example.cocovoitte.AppDatabase;
+import com.example.cocovoitte.database.AppDatabase;
 import com.example.cocovoitte.R;
 
 /**

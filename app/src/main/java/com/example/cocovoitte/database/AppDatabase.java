@@ -1,12 +1,12 @@
-package com.example.cocovoitte;
+package com.example.cocovoitte.database;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.cocovoitte.Classes.Autorisation;
@@ -22,12 +22,14 @@ import com.example.cocovoitte.ClassesDAO.ReserverDAO;
 import com.example.cocovoitte.ClassesDAO.TrajetDAO;
 import com.example.cocovoitte.ClassesDAO.UtilisateurDAO;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Database(entities = {Autorisation.class, Autoriser.class, Proposer.class, Reserver.class, Trajet.class, Utilisateur.class},
         version = 1)
+//Ajout du convertisseur pour gerer les Dates
+@TypeConverters({Converters.class})
+
 public abstract class AppDatabase extends RoomDatabase {
     public abstract AutorisationDAO autorisationDAO();
     public abstract AutoriserDAO autoriserDAO();
