@@ -22,11 +22,11 @@ public class Utilisateur {
         this.note = note;
     }
 
-    public int getidU() {
+    public int getIdU() {
         return idU;
     }
 
-    public void setidU(int idU) {
+    public void setIdU(int idU) {
         this.idU = idU;
     }
 
