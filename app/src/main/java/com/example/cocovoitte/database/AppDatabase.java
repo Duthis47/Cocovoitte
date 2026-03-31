@@ -14,16 +14,19 @@ import com.example.cocovoitte.Classes.Autoriser;
 import com.example.cocovoitte.Classes.Reserver;
 import com.example.cocovoitte.Classes.Trajet;
 import com.example.cocovoitte.Classes.Utilisateur;
+import com.example.cocovoitte.Classes.UtilisateurLocal;
 import com.example.cocovoitte.ClassesDAO.AutorisationDAO;
 import com.example.cocovoitte.ClassesDAO.AutoriserDAO;
 import com.example.cocovoitte.ClassesDAO.ReserverDAO;
 import com.example.cocovoitte.ClassesDAO.TrajetDAO;
 import com.example.cocovoitte.ClassesDAO.UtilisateurDAO;
+import com.example.cocovoitte.ClassesDAO.UtilisateurLocalDAO;
+
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Autorisation.class, Autoriser.class, Reserver.class, Trajet.class, Utilisateur.class},
+@Database(entities = {Autorisation.class, Autoriser.class, Reserver.class, Trajet.class, Utilisateur.class, UtilisateurLocal.class},
         version = 1)
 //Ajout du convertisseur pour gerer les Dates
 @TypeConverters({Converters.class})
@@ -34,6 +37,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract ReserverDAO reserverDAO();
     public abstract TrajetDAO trajetDAO();
     public abstract UtilisateurDAO utilisateurDAO();
+    public abstract UtilisateurLocalDAO utilisateurLocalDAO();
+
 
     private static volatile AppDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
