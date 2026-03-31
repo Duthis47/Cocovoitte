@@ -20,19 +20,10 @@ public class Trajet {
     private Boolean estRegulier = false;
     private ArrayList<Boolean> jourFrequence = new ArrayList<>(List.of(false, false, false, false, false, false, false));
 
-    public Trajet(int idT, String lieuDepart, String lieuArrive, Date dateDebut, float dureeTrajet, int nbPassagerP) {
-        this.idT = idT;
-        this.lieuDepart = lieuDepart;
-        this.lieuArrive = lieuArrive;
-        this.dateDebut = dateDebut;
-        this.dureeTrajet = dureeTrajet;
-        this.nbPassagerP = nbPassagerP;
-    }
-
-    public Trajet(int idT, String lieuDepart, String lieuArrive, Date dateDebut, float dureeTrajet, int nbPassagerP, ArrayList<Boolean> jourFrequence) {
+    public Trajet(int idT, String lieuDepart, String lieuArrive, Date dateDebut, float dureeTrajet, int nbPassagerP, ArrayList<Boolean> jourFrequence, Boolean estRegulier) {
         this.idT = idT;
         this.jourFrequence = jourFrequence;
-        this.estRegulier = true;
+        this.estRegulier = estRegulier;
         this.nbPassagerP = nbPassagerP;
         this.dureeTrajet = dureeTrajet;
         this.dateDebut = dateDebut;
@@ -40,11 +31,11 @@ public class Trajet {
         this.lieuDepart = lieuDepart;
     }
 
-    public int getId() {
+    public int getIdT() {
         return idT;
     }
 
-    public void setId(int idT) {
+    public void setIdT(int idT) {
         this.idT = idT;
     }
 

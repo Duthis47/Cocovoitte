@@ -16,11 +16,11 @@ public class Autorisation {
         this.libelleAutorisation = libelleAutorisation;
     }
 
-    public int getId() {
+    public int getIdA() {
         return idA;
     }
 
-    public void setId(int idA) {
+    public void setIdA(int idA) {
         this.idA = idA;
     }
 
