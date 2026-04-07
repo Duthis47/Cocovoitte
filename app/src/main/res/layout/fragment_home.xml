@@ -20,6 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal|center_vertical"
+                android:paddingBottom="40dp"
                 android:text="Bienvenue "
                 android:textSize="30dp" />
 

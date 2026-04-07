@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Cocovoitte</string>
     <string name="title_Accueil">Accueil</string>
-    <string name="title_Connexion">Connexion</string>
+    <string name="title_Parametres">Parametres</string>
     <string name="title_Profil">Profil</string>
     <string name="title_Proposer">Proposer</string>
     <string name="title_Rechercher">Rechercher</string>

@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">Cocovoitte</string>
-    <string name="title_Accueil">Accueil</string>
-    <string name="title_Connexion">connection</string>
-    <string name="title_Profil">Profil</string>
-    <string name="title_Proposer">Proposer</string>
-    <string name="title_Rechercher">Rechercher</string>
-    <string name="title_Bienvenue">Bienvenue sur Cocovoitte !</string>
+    <string name="title_Accueil">Home</string>
+    <string name="title_Parametres">Settings</string>
+    <string name="title_Profil">User</string>
+    <string name="title_Proposer">Propose</string>
+    <string name="title_Rechercher">Search</string>
+    <string name="title_Bienvenue">Welcome in Cocovoitte !</string>
 
     <string name="btn_log_in">Log In</string>
     <string name="btn_sign_up">Sign In</string>

@@ -60,10 +60,15 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         db = AppDatabase.getDatabase(view.getContext());
         db.utilisateurLocalDAO().getLocalUser().observe(getViewLifecycleOwner(), userLocal -> {
-            userLocal = localUser;
+            localUser = userLocal;
         });
+        String prenomUser = "";
+        if (localUser != null){
+            prenomUser="Bienvenue " +  localUser.getPrenom();
+        }else {
+            prenomUser="Bienvenue Guest";
+        }
         welcomeTxt = view.findViewById(R.id.tv_welcome);
-        String prenomUser = "Bienvenue " +  localUser.getPrenom();
         welcomeTxt.setText(prenomUser);
     }
 }
