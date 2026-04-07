@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="@string/title_Accueil"
+    <item
+        android:id="@+id/menu_home"
         android:icon="@drawable/baseline_home_24"
-        android:id= "@+id/menu_home"/>
+        android:title="@string/title_Accueil"
+        android:visible="true" />
     <item android:title="@string/title_Rechercher"
         android:icon="@drawable/baseline_home_24"
         android:id= "@+id/menu_rechercher"/>
@@ -10,7 +12,10 @@
     <item android:title="@string/title_Proposer"
         android:icon="@drawable/baseline_home_24"
         android:id= "@+id/menu_proposer"/>
-    <item android:title="@string/title_Connexion"
+    <item android:title="@string/title_Profil"
         android:icon="@drawable/baseline_home_24"
-        android:id= "@+id/menu_user"/>
+        android:id= "@+id/menu_Profil"/>
+    <item android:title="@string/title_Parametres"
+        android:icon="@drawable/baseline_home_24"
+        android:id= "@+id/menu_parametres"/>
 </menu>

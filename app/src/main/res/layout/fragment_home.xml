@@ -25,7 +25,6 @@
                 android:textSize="30dp" />
 
             <TextView
-                android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -33,6 +32,7 @@
                 android:text="Vos Trajets proposées" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_driveProp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="20dp">
@@ -48,6 +48,7 @@
                 android:text="Vos Trajets a prendre" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_driveT"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -62,6 +63,7 @@
                 android:text="Vos Trajets à validées" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_driveV"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>

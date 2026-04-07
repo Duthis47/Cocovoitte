@@ -5,15 +5,19 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.cocovoitte.Classes.Trajet;
 import com.example.cocovoitte.Classes.UtilisateurLocal;
 import com.example.cocovoitte.R;
 import com.example.cocovoitte.database.AppDatabase;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +33,13 @@ public class HomeFragment extends Fragment {
     private TextView welcomeTxt;
     private AppDatabase db;
     private UtilisateurLocal localUser;
+    private RecyclerView rvDriveProp;
+    private ArrayList<Trajet> lesTrajetsProposes;
+    private RecyclerView rvDriveT;
+    private ArrayList<Trajet> lesTrajetsReserves;
+
+    private RecyclerView rvDriveV;
+    private ArrayList<Trajet> lesTrajetsValides;
 
 
     public HomeFragment() {
@@ -65,6 +76,10 @@ public class HomeFragment extends Fragment {
         String prenomUser = "";
         if (localUser != null){
             prenomUser="Bienvenue " +  localUser.getPrenom();
+            rvDriveProp = view.findViewById(R.id.rv_driveProp);
+            rvDriveT = view.findViewById(R.id.rv_driveT);
+            rvDriveV = view.findViewById(R.id.rv_driveV);
+
         }else {
             prenomUser="Bienvenue Guest";
         }

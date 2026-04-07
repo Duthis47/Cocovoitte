@@ -1,5 +1,6 @@
 package com.example.cocovoitte;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -60,12 +61,12 @@ public class MainActivity extends AppCompatActivity {
                 if (id == R.id.menu_home) {
                     //On instancie les fragments
                     selectedFragment = new HomeFragment();
-                } else if (id == R.id.menu_user) {
+                } else if (id == R.id.menu_Profil) {
                     selectedFragment = new ConnexionFragment();
-                } else {
-
+                } else if (id == R.id.menu_rechercher){
+                    Intent change = new Intent(getApplicationContext(), WelcomeActivity.class);
+                    startActivity(change);
                 }
-
                 //On envoie le fragment correspondant
                 if (selectedFragment != null) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
