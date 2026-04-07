@@ -1,6 +1,7 @@
 package com.example.cocovoitte.Classes;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
@@ -8,8 +9,14 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-@Entity
+@Entity(foreignKeys = {
+        @ForeignKey(entity = Utilisateur.class,
+                childColumns = "idU",
+                parentColumns = "idU"
+        )
+})
 public class Trajet {
+
     @PrimaryKey(autoGenerate = true)
     private int idT;
     private String lieuDepart;
@@ -19,7 +26,7 @@ public class Trajet {
     private int nbPassagerP;
     private Boolean estRegulier = false;
     private ArrayList<Boolean> jourFrequence = new ArrayList<>(List.of(false, false, false, false, false, false, false));
-
+    private int idU;
     public Trajet(int idT, String lieuDepart, String lieuArrive, Date dateDebut, float dureeTrajet, int nbPassagerP, ArrayList<Boolean> jourFrequence, Boolean estRegulier) {
         this.idT = idT;
         this.jourFrequence = jourFrequence;
@@ -93,5 +100,13 @@ public class Trajet {
 
     public void setNbPassagerP(int nbPassagerP) {
         this.nbPassagerP = nbPassagerP;
+    }
+
+    public int getIdU() {
+        return idU;
+    }
+
+    public void setIdU(int idU) {
+        this.idU = idU;
     }
 }

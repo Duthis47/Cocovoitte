@@ -76,6 +76,16 @@ public class HomeFragment extends Fragment {
         String prenomUser = "";
         if (localUser != null){
             prenomUser="Bienvenue " +  localUser.getPrenom();
+            db.trajetDAO().getTrajetByIdU(localUser.getIdU()).observe(getViewLifecycleOwner(), lesTrajetsProp -> {
+                lesTrajetsProposes =  new ArrayList<>(lesTrajetsProp);
+            });
+            db.trajetDAO().getTrajetByIdU(localUser.getIdU()).observe(getViewLifecycleOwner(), lesTrajetsResa -> {
+                lesTrajetsReserves =  new ArrayList<>(lesTrajetsResa);
+            });
+            db.trajetDAO().getTrajetByIdU(localUser.getIdU()).observe(getViewLifecycleOwner(), lesTrajetsVal -> {
+                lesTrajetsValides =  new ArrayList<>(lesTrajetsVal);
+            });
+
             rvDriveProp = view.findViewById(R.id.rv_driveProp);
             rvDriveT = view.findViewById(R.id.rv_driveT);
             rvDriveV = view.findViewById(R.id.rv_driveV);
