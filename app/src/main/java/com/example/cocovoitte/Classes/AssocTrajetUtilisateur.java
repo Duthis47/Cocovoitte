@@ -4,18 +4,42 @@ import androidx.room.Embedded;
 import androidx.room.Relation;
 
 public class AssocTrajetUtilisateur {
-    @Embedded
+    @Embedded(prefix="resa_")
     Reserver laResa;
 
-    @Relation(
-            entity = Reserver.class,
-            parentColumn = "idU",
-            entityColumn = "idU")
+@Embedded(prefix="user_")
     Utilisateur leUser;
 
-    @Relation(
-            entity = Reserver.class,
-            parentColumn = "idT",
-            entityColumn = "idT")
+    @Embedded
     Trajet leTrajet;
+
+    public AssocTrajetUtilisateur(Reserver laResa, Utilisateur leUser, Trajet leTrajet) {
+        this.laResa = laResa;
+        this.leUser = leUser;
+        this.leTrajet = leTrajet;
+    }
+
+    public Reserver getLaResa() {
+        return laResa;
+    }
+
+    public void setLaResa(Reserver laResa) {
+        this.laResa = laResa;
+    }
+
+    public Utilisateur getLeUser() {
+        return leUser;
+    }
+
+    public void setLeUser(Utilisateur leUser) {
+        this.leUser = leUser;
+    }
+
+    public Trajet getLeTrajet() {
+        return leTrajet;
+    }
+
+    public void setLeTrajet(Trajet leTrajet) {
+        this.leTrajet = leTrajet;
+    }
 }

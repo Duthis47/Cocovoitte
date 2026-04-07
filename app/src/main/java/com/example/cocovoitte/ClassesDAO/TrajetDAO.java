@@ -20,7 +20,7 @@ public interface TrajetDAO {
     @Query("SELECT * FROM Trajet WHERE idU = :idU")
     LiveData<List<Trajet>> getTrajetByIdU(int idU);
 
-    @Query("SELECT * FROM Trajet " +
+    @Query("SELECT Trajet.*, Reserver.idT as resa_idT, Reserver.idU as resa_idU, Utilisateur.idU as user_idu FROM Trajet " +
             "INNER JOIN Reserver ON Trajet.idT = Reserver.idT " +
             "INNER JOIN Utilisateur ON Reserver.idU = Utilisateur.idU " +
             "WHERE Utilisateur.idU = :idU")
