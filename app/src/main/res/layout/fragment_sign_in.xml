@@ -4,9 +4,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Fragment.LogInFragment">
+    tools:context=".Fragment.SignInFragment">
 
     <TextView
+        android:id="@+id/textView10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_lastName" />
+
+    <EditText
+        android:id="@+id/et_lastName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_firstName" />
+
+    <EditText
+        android:id="@+id/et_firstName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/textView9"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/tv_email" />
@@ -36,4 +62,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btn_submit" />
+
 </LinearLayout>

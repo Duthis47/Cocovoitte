@@ -14,4 +14,11 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tv_email">email</string>
     <string name="title_Connexion">Connexion</string>
+    <string name="tv_password">mot de passe</string>
+    <string name="btn_submit">valider</string>
+    <string name="tv_driveProp">Vos Trajets Proposés</string>
+    <string name="tv_driveT">Vos Trajets Réservés</string>
+    <string name="tv_driveV">Vos Trajets à Valider</string>
+    <string name="tv_lastName">nom</string>
+    <string name="tv_firstName">prénom</string>
 </resources>

@@ -3,7 +3,6 @@ package com.example.cocovoitte;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -14,7 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.cocovoitte.Classes.UtilisateurLocal;
-import com.example.cocovoitte.Fragment.ConnexionFragment;
+import com.example.cocovoitte.Fragment.SignInFragment;
 import com.example.cocovoitte.Fragment.HomeFragment;
 import com.example.cocovoitte.database.AppDatabase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -62,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                     //On instancie les fragments
                     selectedFragment = new HomeFragment();
                 } else if (id == R.id.menu_Profil) {
-                    selectedFragment = new ConnexionFragment();
+                    selectedFragment = new SignInFragment();
                 } else if (id == R.id.menu_rechercher){
                     Intent change = new Intent(getApplicationContext(), WelcomeActivity.class);
                     startActivity(change);
