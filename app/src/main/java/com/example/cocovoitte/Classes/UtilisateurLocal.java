@@ -1,6 +1,7 @@
 package com.example.cocovoitte.Classes;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 
@@ -22,6 +23,16 @@ public class UtilisateurLocal {
         this.mail = mail;
         this.motDePasse = motDePasse;
         this.note = note;
+    }
+
+    @Ignore
+    public UtilisateurLocal(Utilisateur user) {
+        this.idU = user.getIdU();
+        this.nom = user.getNom();
+        this.prenom = user.getPrenom();
+        this.mail = user.getPrenom();
+        this.motDePasse = user.getMotDePasse();
+        this.note = user.getNote();
     }
 
     public int getIdU() {

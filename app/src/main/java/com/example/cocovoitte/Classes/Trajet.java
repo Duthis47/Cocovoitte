@@ -2,6 +2,7 @@ package com.example.cocovoitte.Classes;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class Trajet {
     private Boolean estRegulier = false;
     private ArrayList<Boolean> jourFrequence = new ArrayList<>(List.of(false, false, false, false, false, false, false));
     private int idU;
-    public Trajet(int idT, String lieuDepart, String lieuArrive, Date dateDebut, float dureeTrajet, int nbPassagerP, ArrayList<Boolean> jourFrequence, Boolean estRegulier) {
+    public Trajet(int idT, String lieuDepart, String lieuArrive, Date dateDebut, float dureeTrajet, int nbPassagerP, ArrayList<Boolean> jourFrequence, Boolean estRegulier, int idU) {
         this.idT = idT;
         this.jourFrequence = jourFrequence;
         this.estRegulier = estRegulier;
@@ -36,6 +37,20 @@ public class Trajet {
         this.dateDebut = dateDebut;
         this.lieuArrive = lieuArrive;
         this.lieuDepart = lieuDepart;
+        this.idU = idU;
+    }
+
+    @Ignore
+    public Trajet(String lieuDepart, String lieuArrive, Date dateDebut, float dureeTrajet, int nbPassagerP, ArrayList<Boolean> jourFrequence, Boolean estRegulier, int idU) {
+        this.jourFrequence = jourFrequence;
+        this.estRegulier = estRegulier;
+        this.nbPassagerP = nbPassagerP;
+        this.dureeTrajet = dureeTrajet;
+        this.dateDebut = dateDebut;
+        this.lieuArrive = lieuArrive;
+        this.lieuDepart = lieuDepart;
+        this.idU = idU;
+
     }
 
     public int getIdT() {

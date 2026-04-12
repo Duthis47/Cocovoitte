@@ -23,6 +23,8 @@ import com.example.cocovoitte.ClassesDAO.UtilisateurDAO;
 import com.example.cocovoitte.ClassesDAO.UtilisateurLocalDAO;
 
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -46,14 +48,15 @@ public abstract class AppDatabase extends RoomDatabase {
     static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     public static AppDatabase getDatabase(final Context context) {
-        // on ne crée pas le singleton si il existe deja
         if (INSTANCE == null) {
             synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(
-                            context.getApplicationContext(),
-                            AppDatabase.class, "base-nom"
-                    ).build();
+                                    context.getApplicationContext(),
+                                    AppDatabase.class, "base-nom"
+                            )
+                            .addCallback(roomCallback) // <--- IL MANQUAIT CETTE LIGNE
+                            .build();
                 }
             }
         }
@@ -66,7 +69,13 @@ public abstract class AppDatabase extends RoomDatabase {
                 public void onCreate(@NonNull SupportSQLiteDatabase db) {
                     super.onCreate(db);
                     INSTANCE.databaseWriteExecutor.execute(() -> {
+
+                        Utilisateur userTest = new Utilisateur("NomTest", "PremonTest", "MailTest", "MdPTest");
                         //Instanciation au début du programme
+                        INSTANCE.utilisateurDAO().insert(userTest);
+                        INSTANCE.utilisateurLocalDAO().insert(new UtilisateurLocal(userTest));
+                        long x = INSTANCE.trajetDAO().insert(new Trajet("test", "test", new Date(),10, 3, new ArrayList<>(),false, 1));
+
                     });
                 }
                 @Override

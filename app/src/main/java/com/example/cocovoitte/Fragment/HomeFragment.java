@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -12,9 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.cocovoitte.Classes.AssocTrajetUtilisateur;
 import com.example.cocovoitte.Classes.Trajet;
 import com.example.cocovoitte.Classes.UtilisateurLocal;
 import com.example.cocovoitte.R;
+import com.example.cocovoitte.RecyclerView.TrajetRecyclerViewAdapter;
 import com.example.cocovoitte.database.AppDatabase;
 
 import java.util.ArrayList;
@@ -36,10 +39,10 @@ public class HomeFragment extends Fragment {
     private RecyclerView rvDriveProp;
     private ArrayList<Trajet> lesTrajetsProposes;
     private RecyclerView rvDriveT;
-    private ArrayList<Trajet> lesTrajetsReserves;
+    private ArrayList<AssocTrajetUtilisateur> lesTrajetsAPrendre;
 
     private RecyclerView rvDriveV;
-    private ArrayList<Trajet> lesTrajetsValides;
+    private ArrayList<AssocTrajetUtilisateur> lesTrajetsValides;
 
 
     public HomeFragment() {
@@ -70,30 +73,44 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         db = AppDatabase.getDatabase(view.getContext());
+
+        //On prepare les trajets proposées (je suis conducteur et je vois les trajets que je vais faire)
+        rvDriveProp = view.findViewById(R.id.rv_driveProp);
+        rvDriveProp.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        TrajetRecyclerViewAdapter adapterR = new TrajetRecyclerViewAdapter(false);
+        rvDriveProp.setAdapter(adapterR);
+
+        //On prépare les trajets a prendre (je suis passager et je vois les trajets ou je serais passager)
+        rvDriveT = view.findViewById(R.id.rv_driveT);
+
+        //On prépare les demandes a validé (je suis conducteur et je veux accepter des passagers)
+        rvDriveV = view.findViewById(R.id.rv_driveV);
+
         db.utilisateurLocalDAO().getLocalUser().observe(getViewLifecycleOwner(), userLocal -> {
             localUser = userLocal;
+            String prenomUser = "";
+            if (localUser != null){
+                prenomUser="Bienvenue " +  localUser.getPrenom();
+                db.trajetDAO().getTrajetByIdU(localUser.getIdU()).observe(getViewLifecycleOwner(), lesTrajetsProp -> {
+                    lesTrajetsProposes =  new ArrayList<>(lesTrajetsProp);
+                    adapterR.setLstTrajet(lesTrajetsProposes);
+                    adapterR.notifyDataSetChanged();
+                });
+                db.trajetDAO().getTrajetAPrendre(localUser.getIdU()).observe(getViewLifecycleOwner(), lesTrajetsResa -> {
+                    lesTrajetsAPrendre =  new ArrayList<>(lesTrajetsResa);
+                });
+                db.trajetDAO().getTrajetAValider(localUser.getIdU()).observe(getViewLifecycleOwner(), lesTrajetsVal -> {
+                    lesTrajetsValides =  new ArrayList<>(lesTrajetsVal);
+                });
+
+
+
+
+            }else {
+                prenomUser="Bienvenue Guest";
+            }
+            welcomeTxt = view.findViewById(R.id.tv_welcome);
+            welcomeTxt.setText(prenomUser);
         });
-        String prenomUser = "";
-        if (localUser != null){
-            prenomUser="Bienvenue " +  localUser.getPrenom();
-            db.trajetDAO().getTrajetByIdU(localUser.getIdU()).observe(getViewLifecycleOwner(), lesTrajetsProp -> {
-                lesTrajetsProposes =  new ArrayList<>(lesTrajetsProp);
-            });
-            db.trajetDAO().getTrajetByIdU(localUser.getIdU()).observe(getViewLifecycleOwner(), lesTrajetsResa -> {
-                lesTrajetsReserves =  new ArrayList<>(lesTrajetsResa);
-            });
-            db.trajetDAO().getTrajetByIdU(localUser.getIdU()).observe(getViewLifecycleOwner(), lesTrajetsVal -> {
-                lesTrajetsValides =  new ArrayList<>(lesTrajetsVal);
-            });
-
-            rvDriveProp = view.findViewById(R.id.rv_driveProp);
-            rvDriveT = view.findViewById(R.id.rv_driveT);
-            rvDriveV = view.findViewById(R.id.rv_driveV);
-
-        }else {
-            prenomUser="Bienvenue Guest";
-        }
-        welcomeTxt = view.findViewById(R.id.tv_welcome);
-        welcomeTxt.setText(prenomUser);
     }
 }
