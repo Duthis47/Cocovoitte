@@ -17,7 +17,7 @@
     <string name="tv_password">mot de passe</string>
     <string name="btn_submit">valider</string>
     <string name="tv_driveProp">Vos Trajets Proposés</string>
-    <string name="tv_driveT">Vos Trajets Réservés</string>
+    <string name="tv_driveT">Vos Trajets à Prendre</string>
     <string name="tv_driveV">Vos Trajets à Valider</string>
     <string name="tv_lastName">nom</string>
     <string name="tv_firstName">prénom</string>

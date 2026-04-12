@@ -1,72 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F8F9FA"
     tools:context=".Fragment.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <ScrollView
+    <!-- Utilisation de NestedScrollView au lieu de ScrollView pour les RecyclerViews -->
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:padding="16dp">
 
+            <!-- TEXTE DE BIENVENUE -->
             <TextView
                 android:id="@+id/tv_welcome"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal|center_vertical"
-                android:paddingBottom="40dp"
-                android:text="Bienvenue "
-                android:textSize="30dp" />
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingVertical="32dp"
+                android:text="Bienvenue"
+                android:textColor="#1A237E"
+                android:textSize="28sp"
+                android:textStyle="bold" />
 
+            <!-- SECTION 1 : TRAJETS PROPOSÉS -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingBottom="10dp"
-                android:text="Vos Trajets proposées" />
+                android:layout_marginBottom="8dp"
+                android:text="@string/tv_driveProp"
+                android:textAllCaps="true"
+                android:textColor="#757575"
+                android:textSize="12sp"
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_driveProp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="20dp">
+                android:layout_marginBottom="24dp"
+                android:nestedScrollingEnabled="false" /> <!-- IMPORTANT -->
 
-            </androidx.recyclerview.widget.RecyclerView>
-
+            <!-- SECTION 2 : TRAJETS À PRENDRE -->
             <TextView
-                android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingBottom="10dp"
-                android:text="Vos Trajets a prendre" />
+                android:layout_marginBottom="8dp"
+                android:text="@string/tv_driveT"
+                android:textAllCaps="true"
+                android:textColor="#757575"
+                android:textSize="12sp"
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_driveT"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingBottom="20dp" />
+                android:layout_marginBottom="24dp"
+                android:nestedScrollingEnabled="false" /> <!-- IMPORTANT -->
 
+            <!-- SECTION 3 : TRAJETS À VALIDER -->
             <TextView
-                android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingBottom="10dp"
-                android:text="Vos Trajets à validées" />
+                android:layout_marginBottom="8dp"
+                android:text="@string/tv_driveV"
+                android:textAllCaps="true"
+                android:textColor="#757575"
+                android:textSize="12sp"
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_driveV"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-    </ScrollView>
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" /> <!-- IMPORTANT -->
 
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </FrameLayout>
