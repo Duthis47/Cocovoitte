@@ -41,10 +41,6 @@ public class HomeFragment extends Fragment {
     private ArrayList<AssocTrajetUtilisateur> lesTrajetsValides;
 
 
-    public String userFirstName;
-
-
-
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -86,20 +82,6 @@ public class HomeFragment extends Fragment {
 
         welcomeTxt = view.findViewById(R.id.tv_welcome);
 
-        //On recupere les donnees de l'utilisateur local
-        SharedPreferences userPreferenses = getActivity().getPreferences(Context.MODE_PRIVATE);
-        userFirstName = userPreferenses.getString("firstName","");
-
-
-        //lorsque les données de l'utilisateur changent, on met à jour
-        SharedPreferences.OnSharedPreferenceChangeListener miseAJourInfosUtilisateur = new SharedPreferences.OnSharedPreferenceChangeListener() {
-            @Override
-            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-                userFirstName = userPreferenses.getString("firstName", "");
-                welcomeTxt.setText(String.format("Bonjour %s !", userFirstName));
-            }
-        };
-
 
 
         db.utilisateurLocalDAO().getLocalUser().observe(getViewLifecycleOwner(), userLocal -> {
@@ -128,4 +110,5 @@ public class HomeFragment extends Fragment {
             welcomeTxt.setText(prenomUser);
         });
     }
+
 }

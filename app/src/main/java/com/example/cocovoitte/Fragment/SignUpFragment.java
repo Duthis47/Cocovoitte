@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.cocovoitte.Classes.Utilisateur;
+import com.example.cocovoitte.Classes.UtilisateurLocal;
 import com.example.cocovoitte.MainActivity;
 import com.example.cocovoitte.database.AppDatabase;
 import com.example.cocovoitte.R;
@@ -72,18 +73,11 @@ public class SignUpFragment extends Fragment {
                 String password = et_password.getText().toString();
                 //on enregistre l'utilisateur dans la bd
                 Utilisateur nouvelUtilisateur = new Utilisateur(lastName, firstName, email, password);
+                UtilisateurLocal nouvelUtilisateurLocal = new UtilisateurLocal(nouvelUtilisateur);
                 AppDatabase.databaseWriteExecutor.execute(() -> {
                     db.utilisateurDAO().insert(nouvelUtilisateur);
-
                     // On enregistre l'utilisateur localement pour qu'il reste connecté
-                    SharedPreferences preferences = requireActivity().getSharedPreferences("CocovoittePreferences", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putBoolean("isLoggedIn", true);
-                    editor.putString("mail", nouvelUtilisateur.getMail());
-                    editor.putString("firstName", nouvelUtilisateur.getPrenom());
-                    editor.putString("lastName",nouvelUtilisateur.getNom());
-                    editor.apply();
-
+                    db.utilisateurLocalDAO().insert(nouvelUtilisateurLocal);
                     // On redirige vers la page d'accueil
                     requireActivity().runOnUiThread(() -> {
                         Intent unIntent = new Intent(requireActivity(), MainActivity.class);
@@ -92,9 +86,6 @@ public class SignUpFragment extends Fragment {
                         startActivity(unIntent);
                     });
                 });
-
-
-
             }
         });
 
