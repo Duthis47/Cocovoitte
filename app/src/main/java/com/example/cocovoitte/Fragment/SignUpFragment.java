@@ -1,5 +1,8 @@
 package com.example.cocovoitte.Fragment;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,11 +16,15 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.cocovoitte.Classes.Utilisateur;
+import com.example.cocovoitte.MainActivity;
 import com.example.cocovoitte.database.AppDatabase;
 import com.example.cocovoitte.R;
 
 
-public class SignInFragment extends Fragment {
+import java.util.Objects;
+
+
+public class SignUpFragment extends Fragment {
 
     private AppDatabase db;
     private EditText et_firstName;
@@ -26,12 +33,12 @@ public class SignInFragment extends Fragment {
     private EditText et_password;
     private Button btn_submit;
 
-    public SignInFragment() {
+    public SignUpFragment() {
         // Required empty public constructor
     }
 
-    public static SignInFragment newInstance() {
-        SignInFragment fragment = new SignInFragment();
+    public static SignUpFragment newInstance() {
+        SignUpFragment fragment = new SignUpFragment();
         return fragment;
     }
 
@@ -43,12 +50,12 @@ public class SignInFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sign_in, container, false);
+        return inflater.inflate(R.layout.fragment_sign_up, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        db = AppDatabase.getDatabase(getActivity().getApplicationContext());
+        db = AppDatabase.getDatabase(requireActivity().getApplicationContext());
         et_firstName = view.findViewById(R.id.et_firstName);
         et_lastName = view.findViewById(R.id.et_lastName);
         et_email = view.findViewById(R.id.et_email);
@@ -58,14 +65,35 @@ public class SignInFragment extends Fragment {
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //on recupere les informations saisies
                 String firstName = et_firstName.getText().toString();
                 String lastName = et_lastName.getText().toString();
                 String email = et_email.getText().toString();
                 String password = et_password.getText().toString();
+                //on enregistre l'utilisateur dans la bd
                 Utilisateur nouvelUtilisateur = new Utilisateur(lastName, firstName, email, password);
-                //db.databaseWriteExecutor.execute(() -> {
-                //    db.UtilisateurDao().insert(nouvelUtilisateur);
-                //});
+                AppDatabase.databaseWriteExecutor.execute(() -> {
+                    db.utilisateurDAO().insert(nouvelUtilisateur);
+
+                    // On enregistre l'utilisateur localement pour qu'il reste connecté
+                    SharedPreferences preferences = requireActivity().getSharedPreferences("CocovoittePreferences", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putBoolean("isLoggedIn", true);
+                    editor.putString("mail", nouvelUtilisateur.getMail());
+                    editor.putString("firstName", nouvelUtilisateur.getPrenom());
+                    editor.putString("lastName",nouvelUtilisateur.getNom());
+                    editor.apply();
+
+                    // On redirige vers la page d'accueil
+                    requireActivity().runOnUiThread(() -> {
+                        Intent unIntent = new Intent(requireActivity(), MainActivity.class);
+                        //On supprime la pile des activités avant de rediriger vers la page etant donné qu'on ne pourra pas revenir en arriere
+                        unIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |  Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(unIntent);
+                    });
+                });
+
+
 
             }
         });

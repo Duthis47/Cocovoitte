@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Fragment.SignInFragment">
+    tools:context=".Fragment.SignUpFragment">
 
     <TextView
         android:id="@+id/textView10"

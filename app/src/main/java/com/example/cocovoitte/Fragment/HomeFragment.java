@@ -1,5 +1,7 @@
 package com.example.cocovoitte.Fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -28,11 +30,6 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    // TODO: Rename and change types of parameters
-
     private TextView welcomeTxt;
     private AppDatabase db;
     private UtilisateurLocal localUser;
@@ -40,17 +37,18 @@ public class HomeFragment extends Fragment {
     private ArrayList<Trajet> lesTrajetsProposes;
     private RecyclerView rvDriveT;
     private ArrayList<AssocTrajetUtilisateur> lesTrajetsAPrendre;
-
     private RecyclerView rvDriveV;
     private ArrayList<AssocTrajetUtilisateur> lesTrajetsValides;
+
+
+    public String userFirstName;
+
 
 
     public HomeFragment() {
         // Required empty public constructor
     }
 
-
-    // TODO: Rename and change types and number of parameters
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
@@ -74,17 +72,35 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         db = AppDatabase.getDatabase(view.getContext());
 
-        //On prepare les trajets proposées (je suis conducteur et je vois les trajets que je vais faire)
+        //On prepare les trajets proposés (je suis conducteur et je vois les trajets que je vais faire)
         rvDriveProp = view.findViewById(R.id.rv_driveProp);
         rvDriveProp.setLayoutManager(new LinearLayoutManager(view.getContext()));
         TrajetRecyclerViewAdapter adapterR = new TrajetRecyclerViewAdapter(false);
         rvDriveProp.setAdapter(adapterR);
 
-        //On prépare les trajets a prendre (je suis passager et je vois les trajets ou je serais passager)
+        //On prépare les trajets a prendre (je suis passager et je vois les trajets ou je serai passager)
         rvDriveT = view.findViewById(R.id.rv_driveT);
 
-        //On prépare les demandes a validé (je suis conducteur et je veux accepter des passagers)
+        //On prépare les demandes a valider (je suis conducteur et je veux accepter des passagers)
         rvDriveV = view.findViewById(R.id.rv_driveV);
+
+        welcomeTxt = view.findViewById(R.id.tv_welcome);
+
+        //On recupere les donnees de l'utilisateur local
+        SharedPreferences userPreferenses = getActivity().getPreferences(Context.MODE_PRIVATE);
+        userFirstName = userPreferenses.getString("firstName","");
+
+
+        //lorsque les données de l'utilisateur changent, on met à jour
+        SharedPreferences.OnSharedPreferenceChangeListener miseAJourInfosUtilisateur = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+                userFirstName = userPreferenses.getString("firstName", "");
+                welcomeTxt.setText(String.format("Bonjour %s !", userFirstName));
+            }
+        };
+
+
 
         db.utilisateurLocalDAO().getLocalUser().observe(getViewLifecycleOwner(), userLocal -> {
             localUser = userLocal;
@@ -109,7 +125,6 @@ public class HomeFragment extends Fragment {
             }else {
                 prenomUser="Bienvenue Guest";
             }
-            welcomeTxt = view.findViewById(R.id.tv_welcome);
             welcomeTxt.setText(prenomUser);
         });
     }
