@@ -16,6 +16,9 @@ public interface UtilisateurLocalDAO {
     @Query("SELECT * FROM UtilisateurLocal LIMIT 1")
     LiveData<UtilisateurLocal> getLocalUser();
 
+    @Query("DELETE FROM UtilisateurLocal")
+    void deleteAll();
+
     @Insert
     void insert(UtilisateurLocal objUtilisateur);
 

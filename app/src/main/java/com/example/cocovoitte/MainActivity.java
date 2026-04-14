@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.cocovoitte.Classes.UtilisateurLocal;
+import com.example.cocovoitte.Fragment.SettingsFragment;
 import com.example.cocovoitte.Fragment.SignUpFragment;
 import com.example.cocovoitte.Fragment.HomeFragment;
 import com.example.cocovoitte.database.AppDatabase;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         }
         //Preparation du bottomNavView
         bottomNavView = findViewById(R.id.bottom_nav);
+
         bottomNavView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -54,17 +56,20 @@ public class MainActivity extends AppCompatActivity {
                 //Ici on selectionne et on charge les bons fragments
                 Fragment selectedFragment = null;
                 //On recupere l'id du bouton cliquer
-                int id = item.getItemId();
+                int idButton = item.getItemId();
 
                 //On verifie les id (impossible d'utiliser switch)
-                if (id == R.id.menu_home) {
-                    //On instancie les fragments
+                if (idButton == R.id.menu_home) {
                     selectedFragment = new HomeFragment();
-                } else if (id == R.id.menu_Profil) {
-                    selectedFragment = new SignUpFragment();
-                } else if (id == R.id.menu_rechercher){
+                } else if (idButton == R.id.menu_rechercher){
                     Intent change = new Intent(getApplicationContext(), WelcomeActivity.class);
                     startActivity(change);
+                } else if (idButton == R.id.menu_proposer) {
+                    //
+                }else if (idButton == R.id.menu_Profil) {
+                    //
+                }else if(idButton == R.id.menu_parametres){
+                    selectedFragment = new SettingsFragment();
                 }
                 //On envoie le fragment correspondant
                 if (selectedFragment != null) {
