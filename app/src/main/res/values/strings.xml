@@ -22,4 +22,9 @@
     <string name="tv_lastName">nom</string>
     <string name="tv_firstName">prénom</string>
     <string name="btn_disconnect">se déconnecter</string>
+    <string name="tv_proposedDrive">proposés</string>
+    <string name="tv_bookedDrive">réservés</string>
+    <string name="tv_rate">note globale</string>
+    <string name="btn_seeReviews">voir les avis</string>
+    <string name="tv_preferences">Préférences</string>
 </resources>

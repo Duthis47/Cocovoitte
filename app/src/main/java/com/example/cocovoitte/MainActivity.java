@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.cocovoitte.Classes.UtilisateurLocal;
+import com.example.cocovoitte.Fragment.ProfileFragment;
 import com.example.cocovoitte.Fragment.SettingsFragment;
 import com.example.cocovoitte.Fragment.SignUpFragment;
 import com.example.cocovoitte.Fragment.HomeFragment;
@@ -62,12 +63,11 @@ public class MainActivity extends AppCompatActivity {
                 if (idButton == R.id.menu_home) {
                     selectedFragment = new HomeFragment();
                 } else if (idButton == R.id.menu_rechercher){
-                    Intent change = new Intent(getApplicationContext(), WelcomeActivity.class);
-                    startActivity(change);
+                    //
                 } else if (idButton == R.id.menu_proposer) {
                     //
                 }else if (idButton == R.id.menu_Profil) {
-                    //
+                    selectedFragment = new ProfileFragment();
                 }else if(idButton == R.id.menu_parametres){
                     selectedFragment = new SettingsFragment();
                 }
