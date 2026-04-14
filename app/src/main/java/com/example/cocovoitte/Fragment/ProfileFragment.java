@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -30,6 +31,8 @@ public class ProfileFragment extends Fragment {
     private RatingBar rb_rate;
     private TextView tv_reviewsCount;
     private Button btn_seeReviews;
+    private LinearLayout ll_preferences;
+
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -66,13 +69,38 @@ public class ProfileFragment extends Fragment {
         rb_rate = view.findViewById(R.id.rb_rate);
         tv_reviewsCount = view.findViewById(R.id.tv_reviewsCount);
         btn_seeReviews = view.findViewById(R.id.btn_seeReviews);
+        ll_preferences = view.findViewById(R.id.ll_preferences);
+
+
 
 
         //on recupere les informations de l'utilisateur
         db.utilisateurLocalDAO().getLocalUser().observe(getViewLifecycleOwner(), user -> {
 
-            tv_username.setText(user.getPrenom()+" "+user.getNom());
+            iv_profilePicture.setImageResource(R.drawable.ic_launcher_background); //pour le moment tant qu'on sait pas faire photos
+            tv_username.setText(String.format("%s %s", user.getPrenom(), user.getNom()));
+            tv_description.setText(String.format("%s", user.getDescription()));
+            tv_inscriptionDate.setText(String.format("%s", user.getDateInscription()));
+            tv_countProposedDrive.setText(String.format("%s", user.getNbTrajetsProposes()));
+            tv_countBookedDrive.setText(String.format("%s", user.getNbTrajetsReserves()));
+            rb_rate.setRating(user.getNote());
+            tv_reviewsCount.setText(String.format("%s %s", "10", getString(R.string.tv_reviewsCount))); //faire requete pour le nombre d'avis
 
+            ll_preferences.removeAllViews();
+            for (String preference : user.getPreferences()){
+                TextView unePref = new TextView(getContext());
+                unePref.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                unePref.setText(preference);
+                ll_preferences.addView(unePref);
+            }
+
+        });
+
+        btn_seeReviews.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                //redirection vers la page des avis
+            }
         });
 
 

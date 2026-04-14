@@ -4,6 +4,10 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Utilisateur {
     @PrimaryKey(autoGenerate = true)
@@ -13,14 +17,26 @@ public class Utilisateur {
     private String mail;
     private String motDePasse;
     private float note;
+    private int nbTrajetsProposes;
+    private int nbTrajetsReserves;
+    private String description;
+    private String photo;
+    private Date dateInscription;
+    private ArrayList preferences; //liste des precisions apportées par l'utilisateur
 
-    public Utilisateur(int idU, String nom, String prenom, String mail, String motDePasse, float note) {
+    public Utilisateur(int idU, String nom, String prenom, String mail, String motDePasse){
         this.idU = idU;
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
         this.motDePasse = motDePasse;
-        this.note = note;
+        this.note = 0;
+        this.nbTrajetsProposes = 0;
+        this.nbTrajetsReserves = 0;
+        this.description = "";
+        this.photo = "";
+        this.dateInscription = new Date(System.currentTimeMillis());
+        this.preferences = new ArrayList<>();
     }
 
     @Ignore
@@ -77,5 +93,53 @@ public class Utilisateur {
 
     public void setNote(float note) {
         this.note = note;
+    }
+
+    public int getNbTrajetsProposes() {
+        return nbTrajetsProposes;
+    }
+
+    public int getNbTrajetsReserves() {
+        return nbTrajetsReserves;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public Date getDateInscription() {
+        return dateInscription;
+    }
+
+    public ArrayList<String> getPreferences() {
+        return preferences;
+    }
+
+    public void setNbTrajetsProposes(int nbTrajetsProposes) {
+        this.nbTrajetsProposes = nbTrajetsProposes;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setNbTrajetsReserves(int nbTrajetsReserves) {
+        this.nbTrajetsReserves = nbTrajetsReserves;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public void setDateInscription(Date dateInscription) {
+        this.dateInscription = dateInscription;
+    }
+
+    public void setPreferences(ArrayList<String> preferences) {
+        this.preferences = preferences;
     }
 }
