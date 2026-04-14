@@ -19,6 +19,7 @@ import com.example.cocovoitte.Classes.AssocTrajetUtilisateur;
 import com.example.cocovoitte.Classes.Trajet;
 import com.example.cocovoitte.Classes.UtilisateurLocal;
 import com.example.cocovoitte.R;
+import com.example.cocovoitte.RecyclerView.AssocTrajetUtilisateurRecyclerViewAdapter;
 import com.example.cocovoitte.RecyclerView.TrajetRecyclerViewAdapter;
 import com.example.cocovoitte.database.AppDatabase;
 
@@ -76,9 +77,15 @@ public class HomeFragment extends Fragment {
 
         //On prépare les trajets a prendre (je suis passager et je vois les trajets ou je serai passager)
         rvDriveT = view.findViewById(R.id.rv_driveT);
+        rvDriveT.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        AssocTrajetUtilisateurRecyclerViewAdapter adapterProp = new AssocTrajetUtilisateurRecyclerViewAdapter(false);
+        rvDriveT.setAdapter(adapterProp);
 
         //On prépare les demandes a valider (je suis conducteur et je veux accepter des passagers)
         rvDriveV = view.findViewById(R.id.rv_driveV);
+        rvDriveV.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        AssocTrajetUtilisateurRecyclerViewAdapter adapterV = new AssocTrajetUtilisateurRecyclerViewAdapter(true);
+        rvDriveV.setAdapter(adapterV);
 
         welcomeTxt = view.findViewById(R.id.tv_welcome);
 
@@ -96,9 +103,13 @@ public class HomeFragment extends Fragment {
                 });
                 db.trajetDAO().getTrajetAPrendre(localUser.getIdU()).observe(getViewLifecycleOwner(), lesTrajetsResa -> {
                     lesTrajetsAPrendre =  new ArrayList<>(lesTrajetsResa);
+                    adapterProp.setLstTrajet(new ArrayList<>(lesTrajetsResa));
+                    adapterProp.notifyDataSetChanged();
                 });
                 db.trajetDAO().getTrajetAValider(localUser.getIdU()).observe(getViewLifecycleOwner(), lesTrajetsVal -> {
                     lesTrajetsValides =  new ArrayList<>(lesTrajetsVal);
+                    adapterV.setLstTrajet(new ArrayList<>(lesTrajetsVal));
+                    adapterV.notifyDataSetChanged();
                 });
 
 

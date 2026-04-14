@@ -75,9 +75,7 @@ public abstract class AppDatabase extends RoomDatabase {
                         Utilisateur userTest = new Utilisateur("NomTest", "PremonTest", "MailTest", "MdPTest");
                         //Instanciation au début du programme
                         INSTANCE.utilisateurDAO().insert(userTest);
- /*                       INSTANCE.utilisateurLocalDAO().insert(new UtilisateurLocal(userTest));
                         long x = INSTANCE.trajetDAO().insert(new Trajet("test", "test", new Date(),10, 3, new ArrayList<>(),false, 1));
-*/
                     });
                 }
                 @Override
