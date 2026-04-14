@@ -1,6 +1,7 @@
 package com.example.cocovoitte.database;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
@@ -63,17 +64,18 @@ public abstract class AppDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-    private static RoomDatabase.Callback roomCallback = new
+    private static final RoomDatabase.Callback roomCallback = new
             RoomDatabase.Callback() {
                 @Override
                 public void onCreate(@NonNull SupportSQLiteDatabase db) {
                     super.onCreate(db);
-                    INSTANCE.databaseWriteExecutor.execute(() -> {
-/*
+                    Log.d("AppDatabase", "creation du jeu d'essai");
+                    AppDatabase.databaseWriteExecutor.execute(() -> {
+
                         Utilisateur userTest = new Utilisateur("NomTest", "PremonTest", "MailTest", "MdPTest");
                         //Instanciation au début du programme
                         INSTANCE.utilisateurDAO().insert(userTest);
-                        INSTANCE.utilisateurLocalDAO().insert(new UtilisateurLocal(userTest));
+ /*                       INSTANCE.utilisateurLocalDAO().insert(new UtilisateurLocal(userTest));
                         long x = INSTANCE.trajetDAO().insert(new Trajet("test", "test", new Date(),10, 3, new ArrayList<>(),false, 1));
 */
                     });

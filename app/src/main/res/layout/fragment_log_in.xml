@@ -36,4 +36,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btn_submit" />
+
+    <TextView
+        android:id="@+id/tv_erreur"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#E61F1F" />
 </LinearLayout>

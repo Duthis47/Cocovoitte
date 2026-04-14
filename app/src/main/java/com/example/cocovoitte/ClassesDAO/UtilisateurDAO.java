@@ -16,6 +16,12 @@ public interface UtilisateurDAO {
     @Query("SELECT * FROM Utilisateur")
     LiveData<List<Utilisateur>> getAll();
 
+    @Query("SELECT * FROM Utilisateur WHERE idU = :id")
+    LiveData<Utilisateur> getUtilisateurById(int id);
+
+    @Query("SELECT * FROM Utilisateur WHERE mail = :mail AND motDePasse= :password")
+    Utilisateur getUtilisateurByMailAndPassword(String mail, String password);
+
     @Insert
     void insert(Utilisateur objUtilisateur);
 
