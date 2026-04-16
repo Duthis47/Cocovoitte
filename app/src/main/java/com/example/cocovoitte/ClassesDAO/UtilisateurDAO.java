@@ -23,7 +23,7 @@ public interface UtilisateurDAO {
     Utilisateur getUtilisateurByMailAndPassword(String mail, String password);
 
     @Insert
-    void insert(Utilisateur objUtilisateur);
+    long insert(Utilisateur objUtilisateur);
 
     @Update
     void update(Utilisateur objUtilisateur);

@@ -95,7 +95,7 @@ public class HomeFragment extends Fragment {
             localUser = userLocal;
             String prenomUser = "";
             if (localUser != null){
-                prenomUser="Bienvenue " +  localUser.getPrenom();
+                prenomUser= getString(R.string.tv_bienvenue) + " " +  localUser.getPrenom();
                 db.trajetDAO().getTrajetByIdU(localUser.getIdU()).observe(getViewLifecycleOwner(), lesTrajetsProp -> {
                     lesTrajetsProposes =  new ArrayList<>(lesTrajetsProp);
                     adapterR.setLstTrajet(lesTrajetsProposes);

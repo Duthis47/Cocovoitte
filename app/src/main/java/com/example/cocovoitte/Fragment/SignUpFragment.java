@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.cocovoitte.Classes.Reserver;
+import com.example.cocovoitte.Classes.Trajet;
 import com.example.cocovoitte.Classes.Utilisateur;
 import com.example.cocovoitte.Classes.UtilisateurLocal;
 import com.example.cocovoitte.MainActivity;
@@ -22,6 +24,8 @@ import com.example.cocovoitte.database.AppDatabase;
 import com.example.cocovoitte.R;
 
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 
 
@@ -75,9 +79,23 @@ public class SignUpFragment extends Fragment {
                 Utilisateur nouvelUtilisateur = new Utilisateur(lastName, firstName, email, password);
                 UtilisateurLocal nouvelUtilisateurLocal = new UtilisateurLocal(nouvelUtilisateur);
                 AppDatabase.databaseWriteExecutor.execute(() -> {
-                    db.utilisateurDAO().insert(nouvelUtilisateur);
+                    long idU = db.utilisateurDAO().insert(nouvelUtilisateur);
                     // On enregistre l'utilisateur localement pour qu'il reste connecté
+                    //Je set l'id de l'utilisateur local comme l'Id dans la BDD 'en ligne'
+                    nouvelUtilisateurLocal.setIdU((int) idU);
                     db.utilisateurLocalDAO().insert(nouvelUtilisateurLocal);
+
+                    //Ajout de valeurs pour tester le tableau de départ
+                    db.trajetDAO().insert(new Trajet("test", "test", new Date(),10, 3, new ArrayList<>(),false, 1));
+                    db.trajetDAO().insert(new Trajet("test3", "test3", new Date(),10, 3, new ArrayList<>(),false, 1));
+                    Utilisateur nU = new Utilisateur("a", "b", "c@c", "d");
+                    db.utilisateurDAO().insert(nU);
+                    db.trajetDAO().insert(new Trajet("test2", "test2", new Date(),10, 3, new ArrayList<>(),false, 2));
+                    db.reserverDAO().insert(new Reserver(1, 2));
+                    Reserver x = new Reserver(3, 1);
+                    db.reserverDAO().insert(x);
+                    x.setEtatAcceptation(true);
+                    db.reserverDAO().update(x);
                     // On redirige vers la page d'accueil
                     requireActivity().runOnUiThread(() -> {
                         Intent unIntent = new Intent(requireActivity(), MainActivity.class);

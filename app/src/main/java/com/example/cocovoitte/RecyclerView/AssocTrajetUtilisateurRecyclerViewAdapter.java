@@ -1,5 +1,6 @@
 package com.example.cocovoitte.RecyclerView;
 
+import com.example.cocovoitte.Classes.Reserver;
 import com.example.cocovoitte.Classes.Trajet;
 import com.example.cocovoitte.Classes.Utilisateur;
 import com.example.cocovoitte.Classes.AssocTrajetUtilisateur;
@@ -45,14 +46,21 @@ public class AssocTrajetUtilisateurRecyclerViewAdapter extends RecyclerView.Adap
         AssocTrajetUtilisateur uneAssoc = lstAssocTrajetUser.get(position);
         Trajet unTrajet = uneAssoc.getLeTrajet();
         Utilisateur unUser = uneAssoc.getLeUser();
+        Reserver laResa = uneAssoc.getLaResa();
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy 'à' HH:mm", Locale.FRANCE);
         String dateFormatee = sdf.format(unTrajet.getDateDebut());
         holder.setTxtTvHoraire(dateFormatee);
         holder.setTxtTvArrivee(unTrajet.getLieuArrive());
         holder.setTxtTvDepart(unTrajet.getLieuDepart());
-        holder.setTxtTvNomUtilisateur(unUser.getPrenom() + unUser.getNom());
+        holder.setTxtTvNomUtilisateur(unUser.getPrenom() + " " + unUser.getNom());
+        holder.setLaResaLiee(laResa);
 
+        if (laResa.isEtatAcceptation()){
+            holder.setTxtTvStatut("Accepté");
+        }else {
+            holder.setTxtTvStatut("En attente");
+        }
         if (isMine){
             holder.isMine();
         }else {

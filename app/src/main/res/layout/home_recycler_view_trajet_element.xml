@@ -101,30 +101,44 @@
                 android:textSize="15sp" />
         </LinearLayout>
 
+        <!-- NOUVEAU : Texte de statut (Affiché quand les boutons sont masqués) -->
+        <TextView
+            android:id="@+id/tv_statut_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Statut : Accepté"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="#2E7D32"
+            android:visibility="gone" />
+
         <!-- Section Actions (Boutons) -->
         <LinearLayout
+            android:id="@+id/layout_actions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="20dp">
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/btn_demande_refuser"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Refuser"
+                android:text="@string/btn_refuser"
                 android:textColor="#C62828"
                 android:textSize="14sp" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/btn_demande_accepter"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Accepter"
                 android:backgroundTint="#2E7D32"
+                android:text="@string/btn_accepter"
                 android:textColor="@android:color/white"
                 android:textSize="14sp" />
 

@@ -22,16 +22,58 @@ public interface TrajetDAO {
     @Query("SELECT * FROM Trajet WHERE idU = :idU")
     LiveData<List<Trajet>> getTrajetByIdU(int idU);
 
-    @Query("SELECT * FROM Trajet " +
+    // Pour les demandes de réservation à valider (Conducteur qui regarde)
+    // Table Reserver (prefix resa_)
+    // Table Utilisateur (prefix user_)
+    // Table Trajet (sans prefixe)
+    @Query("SELECT " +
+            "Reserver.idT AS resa_idT, " +
+            "Reserver.idU AS resa_idU, " +
+            "Reserver.etatAcceptation AS resa_etatAcceptation, " +
+            "Utilisateur.idU AS user_idU, " +
+            "Utilisateur.nom AS user_nom, " +
+            "Utilisateur.prenom AS user_prenom, " +
+            "Utilisateur.mail AS user_mail, " +
+            "Utilisateur.motDePasse AS user_motDePasse, " +
+            "Utilisateur.note AS user_note, " +
+            "Utilisateur.nbTrajetsProposes AS user_nbTrajetsProposes, " +
+            "Utilisateur.nbTrajetsReserves AS user_nbTrajetsReserves, " +
+            "Utilisateur.description AS user_description, " +
+            "Utilisateur.photo AS user_photo, " +
+            "Utilisateur.dateInscription AS user_dateInscription, " +
+            "Utilisateur.preferences AS user_preferences, " +
+            "Trajet.* " +
+            "FROM Trajet " +
             "INNER JOIN Reserver ON Trajet.idT = Reserver.idT " +
             "INNER JOIN Utilisateur ON Reserver.idU = Utilisateur.idU " +
             "WHERE Trajet.idU = :idU AND Reserver.etatAcceptation = 0")
     LiveData<List<AssocTrajetUtilisateur>> getTrajetAValider(int idU);
 
-    @Query("SELECT * FROM Trajet " +
+    //Pour les trajets acceptés (Passager qui regarde son planning)
+    // Table Reserver (prefix resa_)
+    // Table Utilisateur (prefix user_)
+    // Table Trajet (sans prefixe)
+    @Query("SELECT " +
+            "Reserver.idT AS resa_idT, " +
+            "Reserver.idU AS resa_idU, " +
+            "Reserver.etatAcceptation AS resa_etatAcceptation, " +
+            "Utilisateur.idU AS user_idU, " +
+            "Utilisateur.nom AS user_nom, " +
+            "Utilisateur.prenom AS user_prenom, " +
+            "Utilisateur.mail AS user_mail, " +
+            "Utilisateur.motDePasse AS user_motDePasse, " +
+            "Utilisateur.note AS user_note, " +
+            "Utilisateur.nbTrajetsProposes AS user_nbTrajetsProposes, " +
+            "Utilisateur.nbTrajetsReserves AS user_nbTrajetsReserves, " +
+            "Utilisateur.description AS user_description, " +
+            "Utilisateur.photo AS user_photo, " +
+            "Utilisateur.dateInscription AS user_dateInscription, " +
+            "Utilisateur.preferences AS user_preferences, " +
+            "Trajet.* " +
+            "FROM Trajet " +
             "INNER JOIN Reserver ON Trajet.idT = Reserver.idT " +
             "INNER JOIN Utilisateur ON Reserver.idU = Utilisateur.idU " +
-            "WHERE Reserver.idU = :idU AND Reserver.etatAcceptation = 1")
+            "WHERE Reserver.idU = :idU ")
     LiveData<List<AssocTrajetUtilisateur>> getTrajetAPrendre(int idU);
     @Insert
     long insert(Trajet objTrajet);

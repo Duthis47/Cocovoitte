@@ -17,7 +17,7 @@
     <string name="tv_password">mot de passe</string>
     <string name="btn_submit">valider</string>
     <string name="tv_driveProp">Vos Trajets Proposés</string>
-    <string name="tv_driveT">Vos Trajets à Prendre</string>
+    <string name="tv_driveT">Vos Trajets Reservés</string>
     <string name="tv_driveV">Vos Trajets à Valider</string>
     <string name="tv_lastName">nom</string>
     <string name="tv_firstName">prénom</string>
@@ -28,4 +28,7 @@
     <string name="btn_seeReviews">voir les avis</string>
     <string name="tv_preferences">Préférences</string>
     <string name="tv_reviewsCount">avis laissés</string>
+    <string name="btn_refuser">Refuser</string>
+    <string name="btn_accepter">Accepter</string>
+    <string name="tv_bienvenue">Bienvenue</string>
 </resources>
