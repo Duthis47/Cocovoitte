@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.cocovoitte.Classes.UtilisateurLocal;
 import com.example.cocovoitte.Fragment.ProfileFragment;
+import com.example.cocovoitte.Fragment.SearchFragment;
 import com.example.cocovoitte.Fragment.SettingsFragment;
 import com.example.cocovoitte.Fragment.SignUpFragment;
 import com.example.cocovoitte.Fragment.HomeFragment;
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 if (idButton == R.id.menu_home) {
                     selectedFragment = new HomeFragment();
                 } else if (idButton == R.id.menu_rechercher){
+                    selectedFragment = new SearchFragment();
                     //
                 } else if (idButton == R.id.menu_proposer) {
                     //
