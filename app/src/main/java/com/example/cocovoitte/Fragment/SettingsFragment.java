@@ -64,7 +64,6 @@ public class SettingsFragment extends Fragment {
         btn_disconnect = view.findViewById(R.id.btn_disconnect);
         et_description = view.findViewById(R.id.et_description);
         btn_changeDescription = view.findViewById(R.id.btn_changeDescription);
-
         et_preferences = view.findViewById(R.id.et_addPreference);
         btn_addPreference = view.findViewById(R.id.btn_addPreference);
         ll_preferences = view.findViewById(R.id.ll_preferences);
@@ -72,12 +71,14 @@ public class SettingsFragment extends Fragment {
 
         db.utilisateurLocalDAO().getLocalUser().observe(getViewLifecycleOwner(),userLocal-> {
             user = userLocal;
+            //affiche la description
             et_description.setText(user.getDescription());
 
+            //affiche les preferences
             if (user.getPreferences() != null && !user.getPreferences().isEmpty()) {
                 ll_preferences.removeAllViews();
                 String[] preferences = user.getPreferences().split(";");
-
+                et_description.setText(user.getPreferences());
                 for (String elem : preferences) {
                     LinearLayout unLayoutPref = new LinearLayout(getContext());
                     TextView unePref = new TextView(getContext());
@@ -91,6 +92,7 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+        //met à jour la description
         btn_changeDescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,10 +104,8 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-
-
-
-
+        //TOUJOURS DES PROBLEMES AVEC LE STRING PREFERENCES ET LE NULL
+        //on ajoute une preference
         btn_addPreference.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,7 +122,7 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-
+        //deconnecte l'utlisateur en le supprimant localement
         btn_disconnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
