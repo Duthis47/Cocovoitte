@@ -1,14 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".Fragment.SettingsFragment">
+    android:fillViewport="true">
 
-    <Button
-        android:id="@+id/btn_disconnect"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btn_disconnect" />
-</LinearLayout>
+        android:orientation="vertical"
+        android:padding="10dp"
+        tools:context=".Fragment.SettingsFragment">
+
+        <!-- SECTION DESCRIPTION -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            app:cardCornerRadius="8dp">
+
+            <!-- ON AJOUTE UN LINEARLAYOUT ICI -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_description"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:hint="@string/et_addDescription"
+                    android:inputType="textMultiLine"
+                    android:minLines="3" />
+
+                <Button
+                    android:id="@+id/btn_changeDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:text="@string/btn_submit" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- SECTION PHOTO DE PROFIL -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_profile_picture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Photo de profil" />
+
+                <Button
+                    android:id="@+id/btn_changeProfilePicture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_modify" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- SECTION PREFERENCES -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_preferences"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_preferences"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/ll_preferences"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"></LinearLayout>
+
+                <EditText
+                    android:id="@+id/et_addPreference"
+                    android:layout_width="match_parent"
+                    android:layout_height="57dp"
+                    android:hint="@string/et_add_preference" />
+
+                <Button
+                    android:id="@+id/btn_addPreference"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ajouter" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/btn_disconnect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#DE2020"
+            android:text="Se déconnecter" />
+
+    </LinearLayout>
+</ScrollView>

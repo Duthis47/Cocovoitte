@@ -22,7 +22,7 @@ public class Utilisateur {
     private String description;
     private String photo;
     private Date dateInscription;
-    private ArrayList preferences; //liste des precisions apportées par l'utilisateur
+    private String preferences; //liste des precisions apportées par l'utilisateur
 
     public Utilisateur(int idU, String nom, String prenom, String mail, String motDePasse){
         this.idU = idU;
@@ -36,7 +36,7 @@ public class Utilisateur {
         this.description = "";
         this.photo = "";
         this.dateInscription = new Date(System.currentTimeMillis());
-        this.preferences = new ArrayList<>();
+        this.preferences = "";
     }
 
     @Ignore
@@ -115,7 +115,7 @@ public class Utilisateur {
         return dateInscription;
     }
 
-    public ArrayList<String> getPreferences() {
+    public String getPreferences() {
         return preferences;
     }
 
@@ -139,7 +139,7 @@ public class Utilisateur {
         this.dateInscription = dateInscription;
     }
 
-    public void setPreferences(ArrayList<String> preferences) {
+    public void setPreferences(String preferences) {
         this.preferences = preferences;
     }
 }

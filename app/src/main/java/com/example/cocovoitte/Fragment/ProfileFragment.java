@@ -87,13 +87,16 @@ public class ProfileFragment extends Fragment {
             tv_reviewsCount.setText(String.format("%s %s", "10", getString(R.string.tv_reviewsCount))); //faire requete pour le nombre d'avis
 
             ll_preferences.removeAllViews();
-            for (String preference : user.getPreferences()){
-                TextView unePref = new TextView(getContext());
-                unePref.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                unePref.setText(preference);
-                ll_preferences.addView(unePref);
-            }
 
+            if (!user.getPreferences().isEmpty()){
+                String[] preferences = user.getPreferences().split(";");
+                for (String preference : preferences){
+                    TextView unePref = new TextView(getContext());
+                    unePref.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    unePref.setText(preference);
+                    ll_preferences.addView(unePref);
+                }
+            }
         });
 
         btn_seeReviews.setOnClickListener(new View.OnClickListener(){

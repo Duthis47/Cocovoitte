@@ -23,7 +23,7 @@ public class UtilisateurLocal {
     private String description;
     private String photo;
     private Date dateInscription;
-    private ArrayList preferences;
+    private String preferences;
 
     public UtilisateurLocal(int idU, String nom, String prenom, String mail, String motDePasse) {
         this.idU = idU;
@@ -37,7 +37,7 @@ public class UtilisateurLocal {
         this.description = "";
         this.photo = "";
         this.dateInscription = new Date(System.currentTimeMillis());
-        this.preferences = new ArrayList<>();
+        this.preferences = "";
     }
 
     @Ignore
@@ -118,7 +118,7 @@ public class UtilisateurLocal {
         return dateInscription;
     }
 
-    public ArrayList<String> getPreferences() {
+    public String getPreferences() {
         return preferences;
     }
 
@@ -142,7 +142,7 @@ public class UtilisateurLocal {
         this.dateInscription = dateInscription;
     }
 
-    public void setPreferences(ArrayList<String> preferences) {
+    public void setPreferences(String preferences) {
         this.preferences = preferences;
     }
 }

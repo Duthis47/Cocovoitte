@@ -11,16 +11,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.example.cocovoitte.Classes.UtilisateurLocal;
 import com.example.cocovoitte.MainActivity;
 import com.example.cocovoitte.R;
 import com.example.cocovoitte.WelcomeActivity;
 import com.example.cocovoitte.database.AppDatabase;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class SettingsFragment extends Fragment {
 
-    private Button btn_disconnect;
     private AppDatabase db;
+    private Button btn_disconnect;
+    private EditText et_description;
+    private Button btn_changeDescription;
+    private Button btn_changeProfilePicture; //JSP
+    private EditText et_preferences;
+    private Button btn_addPreference;
+    private UtilisateurLocal user;
+    private LinearLayout ll_preferences;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -48,6 +62,65 @@ public class SettingsFragment extends Fragment {
 
         db = AppDatabase.getDatabase(requireActivity().getApplicationContext());
         btn_disconnect = view.findViewById(R.id.btn_disconnect);
+        et_description = view.findViewById(R.id.et_description);
+        btn_changeDescription = view.findViewById(R.id.btn_changeDescription);
+
+        et_preferences = view.findViewById(R.id.et_addPreference);
+        btn_addPreference = view.findViewById(R.id.btn_addPreference);
+        ll_preferences = view.findViewById(R.id.ll_preferences);
+
+
+        db.utilisateurLocalDAO().getLocalUser().observe(getViewLifecycleOwner(),userLocal-> {
+            user = userLocal;
+            et_description.setText(user.getDescription());
+
+            if (!user.getPreferences().isEmpty()) {
+                ll_preferences.removeAllViews();
+                String[] preferences = user.getPreferences().split(";");
+                LinearLayout unLayoutPref = new LinearLayout(getContext());
+                for (String elem : preferences) {
+                    TextView unePref = new TextView(getContext());
+                    unePref.setText(elem);
+                    Button unBtnSuppr = new Button(getContext());
+
+                    unLayoutPref.addView(unePref);
+
+                    ll_preferences.addView(unLayoutPref);
+                }
+            }
+        });
+
+        btn_changeDescription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppDatabase.databaseWriteExecutor.execute(()->{
+                    int id = user.getIdU();
+                    db.utilisateurDAO().updateDescription(id, et_description.getText().toString());
+                    db.utilisateurLocalDAO().updateDescription(id, et_description.getText().toString());
+                });
+            }
+        });
+
+
+
+
+
+        btn_addPreference.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!et_preferences.getText().toString().isEmpty()){
+                    AppDatabase.databaseWriteExecutor.execute(()->{
+                        int id = user.getIdU();
+                        String preferences = user.getPreferences();
+                        preferences = preferences + ";" + et_preferences.getText().toString();
+                        et_preferences.setText("");
+                        db.utilisateurLocalDAO().updatePreferences(id, preferences);
+                        db.utilisateurDAO().updatePreferences(id, preferences);
+                    });
+                }
+            }
+        });
+
 
         btn_disconnect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,8 +138,6 @@ public class SettingsFragment extends Fragment {
                         startActivity(unIntent);
                     });
                 });
-
-
             }
         });
 

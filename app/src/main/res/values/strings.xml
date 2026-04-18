@@ -31,4 +31,9 @@
     <string name="btn_refuser">Refuser</string>
     <string name="btn_accepter">Accepter</string>
     <string name="tv_bienvenue">Bienvenue</string>
+    <string name="et_add_preference">ajouter une preference</string>
+    <string name="et_addDescription">ajouter une description</string>
+    <string name="tv_description">description</string>
+    <string name="tv_profilePicture">photo de profil</string>
+    <string name="btn_modify">modifier</string>
 </resources>

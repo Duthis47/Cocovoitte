@@ -30,4 +30,9 @@
     <string name="tv_driveProp">Published Rides</string>
     <string name="tv_driveT">Booked Rides</string>
     <string name="tv_bienvenue">Welcome</string>
+    <string name="et_add_preference">add a preference</string>
+    <string name="et_addDescription">add a description</string>
+    <string name="tv_description">description</string>
+    <string name="tv_profilePicture">profile picture</string>
+    <string name="btn_modify">modify</string>
 </resources>
