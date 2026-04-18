@@ -88,7 +88,7 @@ public class ProfileFragment extends Fragment {
 
             ll_preferences.removeAllViews();
 
-            if (!user.getPreferences().isEmpty()){
+            if (user.getPreferences() != null && !user.getPreferences().isEmpty()){
                 String[] preferences = user.getPreferences().split(";");
                 for (String preference : preferences){
                     TextView unePref = new TextView(getContext());

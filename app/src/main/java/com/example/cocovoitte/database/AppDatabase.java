@@ -72,6 +72,8 @@ public abstract class AppDatabase extends RoomDatabase {
                     Log.d("AppDatabase", "creation du jeu d'essai");
                     AppDatabase.databaseWriteExecutor.execute(() -> {
                         //Instanciation au début du programme
+                        Utilisateur utilisateur = new Utilisateur("a","a","a","a");
+                        INSTANCE.utilisateurDAO().insert(utilisateur);
                     });
                 }
                 @Override

@@ -74,11 +74,12 @@ public class SettingsFragment extends Fragment {
             user = userLocal;
             et_description.setText(user.getDescription());
 
-            if (!user.getPreferences().isEmpty()) {
+            if (user.getPreferences() != null && !user.getPreferences().isEmpty()) {
                 ll_preferences.removeAllViews();
                 String[] preferences = user.getPreferences().split(";");
-                LinearLayout unLayoutPref = new LinearLayout(getContext());
+
                 for (String elem : preferences) {
+                    LinearLayout unLayoutPref = new LinearLayout(getContext());
                     TextView unePref = new TextView(getContext());
                     unePref.setText(elem);
                     Button unBtnSuppr = new Button(getContext());
