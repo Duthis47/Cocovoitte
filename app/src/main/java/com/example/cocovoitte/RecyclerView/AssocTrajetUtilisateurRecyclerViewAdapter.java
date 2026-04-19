@@ -3,7 +3,7 @@ package com.example.cocovoitte.RecyclerView;
 import com.example.cocovoitte.Classes.Reserver;
 import com.example.cocovoitte.Classes.Trajet;
 import com.example.cocovoitte.Classes.Utilisateur;
-import com.example.cocovoitte.Classes.AssocTrajetUtilisateur;
+import com.example.cocovoitte.Classes.AssocTrajetReserverUtilisateur;
 
 
 import java.util.ArrayList;
@@ -14,14 +14,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cocovoitte.Classes.Trajet;
 import com.example.cocovoitte.R;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Locale;
 public class AssocTrajetUtilisateurRecyclerViewAdapter extends RecyclerView.Adapter<AssocTrajetUtilisateurHolder>{
-    private ArrayList<AssocTrajetUtilisateur> lstAssocTrajetUser;
+    private ArrayList<AssocTrajetReserverUtilisateur> lstAssocTrajetUser;
     private boolean isMine;
 
     public AssocTrajetUtilisateurRecyclerViewAdapter(boolean mine) {
@@ -29,7 +27,7 @@ public class AssocTrajetUtilisateurRecyclerViewAdapter extends RecyclerView.Adap
         isMine = mine;
     }
 
-    public void setLstTrajet(ArrayList<AssocTrajetUtilisateur> lesAssocs){
+    public void setLstTrajet(ArrayList<AssocTrajetReserverUtilisateur> lesAssocs){
         lstAssocTrajetUser = lesAssocs;
         notifyDataSetChanged();
     }
@@ -43,7 +41,7 @@ public class AssocTrajetUtilisateurRecyclerViewAdapter extends RecyclerView.Adap
 
     @Override
     public void onBindViewHolder(@NonNull AssocTrajetUtilisateurHolder holder, int position) {
-        AssocTrajetUtilisateur uneAssoc = lstAssocTrajetUser.get(position);
+        AssocTrajetReserverUtilisateur uneAssoc = lstAssocTrajetUser.get(position);
         Trajet unTrajet = uneAssoc.getLeTrajet();
         Utilisateur unUser = uneAssoc.getLeUser();
         Reserver laResa = uneAssoc.getLaResa();

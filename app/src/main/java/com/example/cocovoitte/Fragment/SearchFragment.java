@@ -1,24 +1,34 @@
 package com.example.cocovoitte.Fragment;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cocovoitte.Classes.AssocTrajetReserverUtilisateur;
 import com.example.cocovoitte.Classes.AssocTrajetUtilisateur;
 import com.example.cocovoitte.R;
 import com.example.cocovoitte.database.AppDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class SearchFragment extends Fragment {
     //Recuperation des layouts
@@ -28,14 +38,16 @@ public class SearchFragment extends Fragment {
     private FrameLayout containerBigSearch;
 
     //Recuperation des éléments de la recherche
-    private TextView tvDepartSearch;
-    private TextView tvArriveSearch;
+    private EditText etDepartSearch;
+    private EditText etArriveSearch;
     private TextView tvDateSearch; //On va y mettre un DatePickerDialog
     private TextView tvNbPassager;
     private Button btnMoinsPassager;
     private Button btnPlusPassager;
     private Button btnSearchSubmit;
+    private LinearLayout btnSelectDate;
     private int nbPassager = 1;
+    private Calendar calendar = Calendar.getInstance();
 
     //Recuepration des éléments de la mini barre de recherche
     private TextView tvSummarySearch;
@@ -47,7 +59,11 @@ public class SearchFragment extends Fragment {
     //Variable pour gestion Recherche
     private String villeDepart;
     private String villeArrive;
-    private String dateDepart;
+    private Date dateDepart;
+
+    //Formateur de date
+    private SimpleDateFormat displayFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+
 
     public SearchFragment() {
 
@@ -67,16 +83,16 @@ public class SearchFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_search, container, false);
     }
 
-
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        db = AppDatabase.getDatabase(view.getContext());
         rvResultats = view.findViewById(R.id.rv_results);
         containerSmallSearch = view.findViewById(R.id.container_small_search);
         containerBigSearch = view.findViewById(R.id.container_big_search);
         viewDimmer = view.findViewById(R.id.view_dimmer);
 
         //Gestion de la Recherche
-        tvDepartSearch = view.findViewById(R.id.tv_departure_search);
-        tvArriveSearch = view.findViewById(R.id.tv_arrival_search);
+        etDepartSearch = view.findViewById(R.id.et_departure_search);
+        etArriveSearch = view.findViewById(R.id.et_arrival_search);
         tvDateSearch = view.findViewById(R.id.tv_date_search);
         tvNbPassager = view.findViewById(R.id.tv_nb_passagers_search);
         btnMoinsPassager = view.findViewById(R.id.btn_minus);
@@ -84,7 +100,7 @@ public class SearchFragment extends Fragment {
         btnSearchSubmit = view.findViewById(R.id.btn_search_submit);
         tvSummarySearch = view.findViewById(R.id.tv_search_summary);
         llSmallSearch = view.findViewById(R.id.btn_expand_search);
-
+        btnSelectDate = view.findViewById(R.id.btn_select_date);
         btnMoinsPassager.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,10 +119,42 @@ public class SearchFragment extends Fragment {
         btnSearchSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                villeDepart = etDepartSearch.getText().toString();
+                villeArrive = etArriveSearch.getText().toString();
+                if (villeDepart.isEmpty() || villeArrive.isEmpty() || dateDepart == null) {
+                    //On affiche un pop up pour forcer le bon remplissage
+                    Toast.makeText(getContext(), "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                db.trajetDAO().getTrajetRecherche(villeDepart, villeArrive, nbPassager, dateDepart).observe(getViewLifecycleOwner(), lstTrajet ->{
+                    lesTrajetsAAffiches = new ArrayList<>(lstTrajet);
+                    Log.d("testBDD", lesTrajetsAAffiches.toString());
+                });
                 setMode(1);
             }
         });
 
+        btnSelectDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePicker = new DatePickerDialog(view.getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        Calendar temp = Calendar.getInstance();
+                        temp.set(year, month, dayOfMonth, 0, 0, 0);
+                        temp.set(Calendar.MILLISECOND, 0);
+
+                        dateDepart = temp.getTime();
+                        tvDateSearch.setText(displayFormat.format(dateDepart));
+                    }
+                }, year, month , day);
+                datePicker.show();
+            }
+        });
         //Clic sur searchBar
         llSmallSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,6 +174,7 @@ public class SearchFragment extends Fragment {
         //On initialise l'affichage
         setMode(0);
     }
+
     //Gestion des différents affichages
     //0 : Initialisation (fond blanc + rechercher)
     //1 : Passage au Search Bar + Recycler VIew
@@ -163,15 +212,19 @@ public class SearchFragment extends Fragment {
 
     //Utilisé pour un belle affichage
     public void setSmallSearch(){
-        String txt = villeDepart + "→"+ villeArrive + "•" + dateDepart +"•" + String.valueOf(nbPassager);
+        String dateDepartChaine = displayFormat.format(dateDepart);
+        String txt = villeDepart + " → "+ villeArrive + " • " + dateDepartChaine +" • " + String.valueOf(nbPassager);
         tvSummarySearch.setText(txt);
     }
 
     //Utilisé pour remplir les paramètres par défaut
     public void setBigSearch(){
-        tvDepartSearch.setText(villeDepart);
-        tvArriveSearch.setText(villeArrive);
-        tvDateSearch.setText("");
+        etDepartSearch.setText(villeDepart);
+        etArriveSearch.setText(villeArrive);
+
+        if (dateDepart != null) {
+            tvDateSearch.setText(displayFormat.format(dateDepart));
+        }
         updateAffichNbPass();
     }
 }

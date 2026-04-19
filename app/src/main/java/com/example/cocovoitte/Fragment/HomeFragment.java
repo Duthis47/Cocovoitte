@@ -1,7 +1,5 @@
 package com.example.cocovoitte.Fragment;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.cocovoitte.Classes.AssocTrajetUtilisateur;
+import com.example.cocovoitte.Classes.AssocTrajetReserverUtilisateur;
 import com.example.cocovoitte.Classes.Trajet;
 import com.example.cocovoitte.Classes.UtilisateurLocal;
 import com.example.cocovoitte.R;
@@ -37,9 +35,9 @@ public class HomeFragment extends Fragment {
     private RecyclerView rvDriveProp;
     private ArrayList<Trajet> lesTrajetsProposes;
     private RecyclerView rvDriveT;
-    private ArrayList<AssocTrajetUtilisateur> lesTrajetsAPrendre;
+    private ArrayList<AssocTrajetReserverUtilisateur> lesTrajetsAPrendre;
     private RecyclerView rvDriveV;
-    private ArrayList<AssocTrajetUtilisateur> lesTrajetsValides;
+    private ArrayList<AssocTrajetReserverUtilisateur> lesTrajetsValides;
 
 
     public HomeFragment() {

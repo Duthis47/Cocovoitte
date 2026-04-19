@@ -7,9 +7,11 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.cocovoitte.Classes.AssocTrajetReserverUtilisateur;
 import com.example.cocovoitte.Classes.AssocTrajetUtilisateur;
 import com.example.cocovoitte.Classes.Trajet;
 
+import java.util.Date;
 import java.util.List;
 
 @Dao
@@ -47,7 +49,7 @@ public interface TrajetDAO {
             "INNER JOIN Reserver ON Trajet.idT = Reserver.idT " +
             "INNER JOIN Utilisateur ON Reserver.idU = Utilisateur.idU " +
             "WHERE Trajet.idU = :idU AND Reserver.etatAcceptation = 0")
-    LiveData<List<AssocTrajetUtilisateur>> getTrajetAValider(int idU);
+    LiveData<List<AssocTrajetReserverUtilisateur>> getTrajetAValider(int idU);
 
     //Pour les trajets acceptés (Passager qui regarde son planning)
     // Table Reserver (prefix resa_)
@@ -74,7 +76,30 @@ public interface TrajetDAO {
             "INNER JOIN Reserver ON Trajet.idT = Reserver.idT " +
             "INNER JOIN Utilisateur ON Reserver.idU = Utilisateur.idU " +
             "WHERE Reserver.idU = :idU ")
-    LiveData<List<AssocTrajetUtilisateur>> getTrajetAPrendre(int idU);
+    LiveData<List<AssocTrajetReserverUtilisateur>> getTrajetAPrendre(int idU);
+
+
+    @Query("SELECT " +
+            "Utilisateur.idU AS user_idU, " +
+            "Utilisateur.nom AS user_nom, " +
+            "Utilisateur.prenom AS user_prenom, " +
+            "Utilisateur.mail AS user_mail, " +
+            "Utilisateur.motDePasse AS user_motDePasse, " +
+            "Utilisateur.note AS user_note, " +
+            "Utilisateur.nbTrajetsProposes AS user_nbTrajetsProposes, " +
+            "Utilisateur.nbTrajetsReserves AS user_nbTrajetsReserves, " +
+            "Utilisateur.description AS user_description, " +
+            "Utilisateur.photo AS user_photo, " +
+            "Utilisateur.dateInscription AS user_dateInscription, " +
+            "Utilisateur.preferences AS user_preferences, " +
+            "Trajet.* " +
+            "FROM Trajet " +
+            "INNER JOIN Utilisateur ON Trajet.idU = Utilisateur.idU " +
+            "WHERE Trajet.dateDebut = :jourRecherche " +
+            "AND LOWER(Trajet.lieuArrive) = LOWER(:villeArrive) " +
+            "AND LOWER(Trajet.lieuDepart) = LOWER(:villeDepart) " +
+            "AND Trajet.nbPassagerP >= (SELECT COUNT(*) FROM Reserver WHERE Reserver.idT = Trajet.idT) + :nbPassager")
+    LiveData<List<AssocTrajetUtilisateur>> getTrajetRecherche(String villeDepart, String villeArrive, int nbPassager, Date jourRecherche);
     @Insert
     long insert(Trajet objTrajet);
     @Update

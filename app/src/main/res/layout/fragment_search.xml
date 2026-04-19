@@ -135,12 +135,15 @@
                         android:background="@android:color/holo_green_dark"
                         android:layout_marginEnd="16dp" />
 
-                    <TextView
-                        android:id="@+id/tv_departure_search"
-                        android:layout_width="wrap_content"
+                    <EditText
+                        android:id="@+id/et_departure_search"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Lieu de départ"
-                        android:textColor="#757575"
+                        android:hint="Lieu de départ"
+                        android:background="@null"
+                        android:inputType="textPostalAddress"
+                        android:maxLines="1"
+                        android:textColor="#424242"
                         android:textSize="16sp" />
                 </LinearLayout>
 
@@ -166,12 +169,15 @@
                         android:background="@android:color/holo_red_dark"
                         android:layout_marginEnd="16dp" />
 
-                    <TextView
-                        android:id="@+id/tv_arrival_search"
-                        android:layout_width="wrap_content"
+                    <EditText
+                        android:id="@+id/et_arrival_search"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Lieu d'arrivée"
-                        android:textColor="#757575"
+                        android:hint="Lieu d'arrivée"
+                        android:background="@null"
+                        android:inputType="textPostalAddress"
+                        android:maxLines="1"
+                        android:textColor="#424242"
                         android:textSize="16sp" />
                 </LinearLayout>
 

@@ -20,6 +20,8 @@ public class Trajet {
 
     @PrimaryKey(autoGenerate = true)
     private int idT;
+
+    //Pour l'instant on stock les villes, a voir si on fait avec API de gelocalisation
     private String lieuDepart;
     private String lieuArrive;
     private Date dateDebut;
