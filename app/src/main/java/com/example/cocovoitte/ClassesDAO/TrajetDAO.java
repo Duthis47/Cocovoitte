@@ -79,6 +79,7 @@ public interface TrajetDAO {
     LiveData<List<AssocTrajetReserverUtilisateur>> getTrajetAPrendre(int idU);
 
 
+    //TODO: Rajouter un système pour empecher l'affichage des trajets deja reservés ou en attente (donc présence de (idU, idT) dans Reserver
     @Query("SELECT " +
             "Utilisateur.idU AS user_idU, " +
             "Utilisateur.nom AS user_nom, " +
@@ -95,12 +96,14 @@ public interface TrajetDAO {
             "Trajet.* , (SELECT COUNT(*) FROM Reserver WHERE Reserver.idT = Trajet.idT) as nbPlacePrise " +
             "FROM Trajet " +
             "INNER JOIN Utilisateur ON Trajet.idU = Utilisateur.idU " +
+            "LEFT JOIN Reserver ON Trajet.idT = Reserver.idT " +
             "WHERE Trajet.dateDebut > :jourRecherche " +
             "AND Trajet.dateDebut < :jourSuivant " +
             "AND LOWER(Trajet.lieuArrive) = LOWER(:villeArrive) " +
             "AND LOWER(Trajet.lieuDepart) = LOWER(:villeDepart) " +
-            "AND Trajet.nbPassagerP >= nbPlacePrise + :nbPassager")
-    LiveData<List<AssocTrajetUtilisateur>> getTrajetRecherche(String villeDepart, String villeArrive, int nbPassager, Date jourRecherche, Date jourSuivant);
+            "AND Trajet.nbPassagerP >= nbPlacePrise + :nbPassager " +
+            "AND Trajet.idU != :idU ")
+    LiveData<List<AssocTrajetUtilisateur>> getTrajetRecherche(String villeDepart, String villeArrive, int nbPassager, Date jourRecherche, Date jourSuivant, int idU);
     @Insert
     long insert(Trajet objTrajet);
     @Update

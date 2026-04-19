@@ -1,17 +1,22 @@
 package com.example.cocovoitte.RecyclerView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cocovoitte.Classes.Reserver;
 import com.example.cocovoitte.Classes.Trajet;
 import com.example.cocovoitte.Classes.Utilisateur;
 import com.example.cocovoitte.R;
+import com.example.cocovoitte.database.AppDatabase;
 
 public class AssocTrajetUserViewHolder extends RecyclerView.ViewHolder {
 
@@ -30,8 +35,8 @@ public class AssocTrajetUserViewHolder extends RecyclerView.ViewHolder {
     private Button btnReserver;
 
     private int idUserLiee;
-
     private int idTrajetLiee;
+    private AppDatabase db;
 
     public AssocTrajetUserViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -44,17 +49,34 @@ public class AssocTrajetUserViewHolder extends RecyclerView.ViewHolder {
         tvNomConducteur = itemView.findViewById(R.id.tv_driver_name);
         llUser = itemView.findViewById(R.id.ll_user);
         btnReserver = itemView.findViewById(R.id.btn_reserver_item);
+        db= AppDatabase.getDatabase(itemView.getContext());
 
         btnReserver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //On redirige vers la page de détail trajet ( a faire)
+                //TODO: On redirige vers la page de détail trajet ( a faire)
+                //En attendant je considère que c'est demande de reservation
+
+                //Je recupere l'id du XML de stockage
+                SharedPreferences prefs = v.getContext().getSharedPreferences("CocovoittePrefs", Context.MODE_PRIVATE);
+
+                int idUserLocal = (int) prefs.getLong("USER_ID", -1);
+
+                //Si pas connecté on autorise pas l'insertion
+                if (idUserLocal != -1) {
+                    AppDatabase.databaseWriteExecutor.execute(() -> {
+                        Reserver nouvelleResa = new Reserver(idTrajetLiee, idUserLocal);
+                        db.reserverDAO().insert(nouvelleResa);
+                    });
+                } else {
+                    Toast.makeText(v.getContext(), "Erreur : vous n'êtes pas connecté", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         llUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Redirection vers la page détail d'un utilisateur (a faire)
+                //TODO: Redirection vers la page détail d'un utilisateur (a faire)
             }
         });
     }

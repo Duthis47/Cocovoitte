@@ -87,8 +87,6 @@ public class HomeFragment extends Fragment {
 
         welcomeTxt = view.findViewById(R.id.tv_welcome);
 
-
-
         db.utilisateurLocalDAO().getLocalUser().observe(getViewLifecycleOwner(), userLocal -> {
             localUser = userLocal;
             String prenomUser = "";

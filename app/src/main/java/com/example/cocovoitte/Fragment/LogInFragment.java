@@ -1,6 +1,8 @@
 package com.example.cocovoitte.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -74,6 +76,14 @@ public class LogInFragment extends Fragment {
                         tv_error.setText("");
                         //si l'utilisateur existe, on se connecte en ajoutant l'utilisateur localement
                         db.utilisateurLocalDAO().insert(new UtilisateurLocal(utilisateur));
+
+                        //Je rajoute dans un XML l'id de l'utilisateur local pour simplifier les prochains traitements
+                        int idU = utilisateur.getIdU();
+                        SharedPreferences prefs = getContext().getSharedPreferences("CocovoittePrefs", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putLong("USER_ID", idU);
+                        editor.apply();
+
                         requireActivity().runOnUiThread(() -> {
                             Intent unIntent = new Intent(requireActivity(), MainActivity.class);
                             //On supprime la pile des activités avant de rediriger vers la page etant donné qu'on ne pourra pas revenir en arriere

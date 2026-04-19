@@ -85,6 +85,12 @@ public class SignUpFragment extends Fragment {
                     nouvelUtilisateurLocal.setIdU((int) idU);
                     db.utilisateurLocalDAO().insert(nouvelUtilisateurLocal);
 
+                    //Je rajoute dans un XML l'id de l'utilisateur local pour simplifier les prochains traitements
+                    SharedPreferences prefs = getContext().getSharedPreferences("CocovoittePrefs", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putLong("USER_ID", idU);
+                    editor.apply();
+
                     //Ajout de valeurs pour tester le tableau de départ
                     db.trajetDAO().insert(new Trajet("test", "test", new Date(),10, 3,10, new ArrayList<>(),false, 1));
                     db.trajetDAO().insert(new Trajet("test3", "test3", new Date(),10, 3, 12.5f, new ArrayList<>(),false, 1));
@@ -96,6 +102,7 @@ public class SignUpFragment extends Fragment {
                     db.reserverDAO().insert(x);
                     x.setEtatAcceptation(true);
                     db.reserverDAO().update(x);
+
                     // On redirige vers la page d'accueil
                     requireActivity().runOnUiThread(() -> {
                         Intent unIntent = new Intent(requireActivity(), MainActivity.class);

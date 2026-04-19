@@ -44,8 +44,6 @@ public class AssocTrajetUserRecyclerViewAdapter extends RecyclerView.Adapter<Ass
         holder.setTxtTvDepart(unTrajet.getLieuDepart());
         holder.setTxtTvPrix(String.valueOf(unTrajet.getTarif()) + " €");
         holder.setTxtTvPlaces(String.valueOf(unTrajet.getNbPassagerP() - uneAssoc.getNbPlacePrise())+ " place(s) restante(s)");
-        //TODO: Ici j'y metterais le resultat de la requete secondaire mais plus tard ca demmandera ajout dans la classe d'association d'un champ en plus
-        //holder.setTxtTvPlaces();
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy 'à' HH:mm", Locale.FRANCE);
         String dateFormatee = sdf.format(unTrajet.getDateDebut());

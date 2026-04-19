@@ -1,6 +1,8 @@
 package com.example.cocovoitte.Fragment;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -135,7 +137,10 @@ public class SearchFragment extends Fragment {
                 rvResultats.setAdapter(adapter);
                 Log.d("testBDDReq", villeDepart + "-" + villeArrive + "-" +nbPassager +"-"+dateDepart.getTime());
                 Date dateSuivante = new Date(dateDepart.getTime() + msInADay);
-                db.trajetDAO().getTrajetRecherche(villeDepart, villeArrive, nbPassager, dateDepart, dateSuivante).observe(getViewLifecycleOwner(), lstTrajet ->{
+
+                SharedPreferences prefs = view.getContext().getSharedPreferences("CocovoittePrefs", Context.MODE_PRIVATE);
+                int idU = (int) prefs.getLong("USER_ID", -1);
+                db.trajetDAO().getTrajetRecherche(villeDepart, villeArrive, nbPassager, dateDepart, dateSuivante, idU).observe(getViewLifecycleOwner(), lstTrajet ->{
                     lesTrajetsAAffiches = new ArrayList<>(lstTrajet);
                     adapter.setLstAssocTrajetUser(lesTrajetsAAffiches);
                     adapter.notifyDataSetChanged();
