@@ -86,11 +86,11 @@ public class SignUpFragment extends Fragment {
                     db.utilisateurLocalDAO().insert(nouvelUtilisateurLocal);
 
                     //Ajout de valeurs pour tester le tableau de départ
-                    db.trajetDAO().insert(new Trajet("test", "test", new Date(),10, 3, new ArrayList<>(),false, 1));
-                    db.trajetDAO().insert(new Trajet("test3", "test3", new Date(),10, 3, new ArrayList<>(),false, 1));
+                    db.trajetDAO().insert(new Trajet("test", "test", new Date(),10, 3,10, new ArrayList<>(),false, 1));
+                    db.trajetDAO().insert(new Trajet("test3", "test3", new Date(),10, 3, 12.5f, new ArrayList<>(),false, 1));
                     Utilisateur nU = new Utilisateur("a", "b", "c@c", "d");
                     db.utilisateurDAO().insert(nU);
-                    db.trajetDAO().insert(new Trajet("test2", "test2", new Date(),10, 3, new ArrayList<>(),false, 2));
+                    db.trajetDAO().insert(new Trajet("test2", "test2", new Date(),10, 3, 5.3f, new ArrayList<>(),false, 2));
                     db.reserverDAO().insert(new Reserver(1, 2));
                     Reserver x = new Reserver(3, 1);
                     db.reserverDAO().insert(x);

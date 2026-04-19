@@ -17,7 +17,7 @@ import com.example.cocovoitte.Classes.AssocTrajetReserverUtilisateur;
 import com.example.cocovoitte.Classes.Trajet;
 import com.example.cocovoitte.Classes.UtilisateurLocal;
 import com.example.cocovoitte.R;
-import com.example.cocovoitte.RecyclerView.AssocTrajetUtilisateurRecyclerViewAdapter;
+import com.example.cocovoitte.RecyclerView.AssocTrajetReserverUtilisateurRecyclerViewAdapter;
 import com.example.cocovoitte.RecyclerView.TrajetRecyclerViewAdapter;
 import com.example.cocovoitte.database.AppDatabase;
 
@@ -70,19 +70,19 @@ public class HomeFragment extends Fragment {
         //On prepare les trajets proposés (je suis conducteur et je vois les trajets que je vais faire)
         rvDriveProp = view.findViewById(R.id.rv_driveProp);
         rvDriveProp.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        TrajetRecyclerViewAdapter adapterR = new TrajetRecyclerViewAdapter(false);
+        TrajetRecyclerViewAdapter adapterR = new TrajetRecyclerViewAdapter();
         rvDriveProp.setAdapter(adapterR);
 
         //On prépare les trajets a prendre (je suis passager et je vois les trajets ou je serai passager)
         rvDriveT = view.findViewById(R.id.rv_driveT);
         rvDriveT.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        AssocTrajetUtilisateurRecyclerViewAdapter adapterProp = new AssocTrajetUtilisateurRecyclerViewAdapter(false);
+        AssocTrajetReserverUtilisateurRecyclerViewAdapter adapterProp = new AssocTrajetReserverUtilisateurRecyclerViewAdapter(false);
         rvDriveT.setAdapter(adapterProp);
 
         //On prépare les demandes a valider (je suis conducteur et je veux accepter des passagers)
         rvDriveV = view.findViewById(R.id.rv_driveV);
         rvDriveV.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        AssocTrajetUtilisateurRecyclerViewAdapter adapterV = new AssocTrajetUtilisateurRecyclerViewAdapter(true);
+        AssocTrajetReserverUtilisateurRecyclerViewAdapter adapterV = new AssocTrajetReserverUtilisateurRecyclerViewAdapter(true);
         rvDriveV.setAdapter(adapterV);
 
         welcomeTxt = view.findViewById(R.id.tv_welcome);

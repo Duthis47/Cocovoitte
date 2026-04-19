@@ -11,9 +11,7 @@ import com.example.cocovoitte.Classes.Reserver;
 import com.example.cocovoitte.R;
 import com.example.cocovoitte.database.AppDatabase;
 
-import org.w3c.dom.Text;
-
-public class AssocTrajetUtilisateurHolder extends RecyclerView.ViewHolder{
+public class AssocTrajetReserverUtilisateurHolder extends RecyclerView.ViewHolder{
 
     private TextView tvHoraire;
     private TextView tvDepart;
@@ -25,7 +23,7 @@ public class AssocTrajetUtilisateurHolder extends RecyclerView.ViewHolder{
 
     private AppDatabase db;
     private Reserver laResaLiee;
-    public AssocTrajetUtilisateurHolder(@NonNull View itemView) {
+    public AssocTrajetReserverUtilisateurHolder(@NonNull View itemView) {
         super(itemView);
         tvHoraire = itemView.findViewById(R.id.tv_horaire_value);
         tvDepart = itemView.findViewById(R.id.tv_depart_value);

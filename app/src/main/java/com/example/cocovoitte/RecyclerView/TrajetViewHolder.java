@@ -2,6 +2,8 @@ package com.example.cocovoitte.RecyclerView;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,7 +19,8 @@ public class TrajetViewHolder extends RecyclerView.ViewHolder {
     private TextView tvArrivee;
     private TextView tvNbPlaces;
     private TextView tvTarifs;
-
+    private LinearLayout llUser;
+    private Button btnReserver;
 
     public TrajetViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -26,6 +29,14 @@ public class TrajetViewHolder extends RecyclerView.ViewHolder {
         tvArrivee = itemView.findViewById(R.id.tv_arrivee_value);
         tvNbPlaces = itemView.findViewById(R.id.tv_places);
         tvTarifs = itemView.findViewById(R.id.tv_prix);
+        llUser = itemView.findViewById(R.id.ll_user);
+        btnReserver = itemView.findViewById(R.id.btn_reserver_item);
+
+        //J'enleve le surplus (pour pas avoir a faire 2 layouts)
+        tvTarifs.setVisibility(View.GONE);
+        tvNbPlaces.setVisibility(View.GONE);
+        llUser.setVisibility(View.GONE);
+        btnReserver.setVisibility(View.GONE);
     }
 
     public void setTxtTvHoraire(String txt) {
@@ -38,19 +49,5 @@ public class TrajetViewHolder extends RecyclerView.ViewHolder {
 
     public void setTxtTvDepart(String txt) {
         this.tvDepart.setText(txt);
-    }
-    public void setTxtTvPrix(String txt) {
-        this.tvTarifs.setText(txt);
-    }
-    public void setTxtTvPlaces(String txt) {
-        this.tvNbPlaces.setText(txt);
-    }
-    public void InSearch(){
-        this.tvTarifs.setVisibility(View.VISIBLE);
-        this.tvNbPlaces.setVisibility(View.VISIBLE);
-    }
-    public void notInSearch(){
-        this.tvTarifs.setVisibility(View.INVISIBLE);
-        this.tvNbPlaces.setVisibility(View.INVISIBLE);
     }
 }

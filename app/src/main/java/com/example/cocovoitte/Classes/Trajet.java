@@ -29,8 +29,9 @@ public class Trajet {
     private int nbPassagerP;
     private Boolean estRegulier = false;
     private ArrayList<Boolean> jourFrequence = new ArrayList<>(List.of(false, false, false, false, false, false, false));
+    private float tarif;
     private int idU;
-    public Trajet(int idT, String lieuDepart, String lieuArrive, Date dateDebut, float dureeTrajet, int nbPassagerP, ArrayList<Boolean> jourFrequence, Boolean estRegulier, int idU) {
+    public Trajet(int idT, String lieuDepart, String lieuArrive, Date dateDebut, float dureeTrajet, int nbPassagerP, float tarif, ArrayList<Boolean> jourFrequence, Boolean estRegulier, int idU) {
         this.idT = idT;
         this.jourFrequence = jourFrequence;
         this.estRegulier = estRegulier;
@@ -39,11 +40,12 @@ public class Trajet {
         this.dateDebut = dateDebut;
         this.lieuArrive = lieuArrive;
         this.lieuDepart = lieuDepart;
+        this.tarif = tarif;
         this.idU = idU;
     }
 
     @Ignore
-    public Trajet(String lieuDepart, String lieuArrive, Date dateDebut, float dureeTrajet, int nbPassagerP, ArrayList<Boolean> jourFrequence, Boolean estRegulier, int idU) {
+    public Trajet(String lieuDepart, String lieuArrive, Date dateDebut, float dureeTrajet, int nbPassagerP, float tarif, ArrayList<Boolean> jourFrequence, Boolean estRegulier, int idU) {
         this.jourFrequence = jourFrequence;
         this.estRegulier = estRegulier;
         this.nbPassagerP = nbPassagerP;
@@ -52,7 +54,7 @@ public class Trajet {
         this.lieuArrive = lieuArrive;
         this.lieuDepart = lieuDepart;
         this.idU = idU;
-
+        this.tarif = tarif;
     }
 
     public int getIdT() {
@@ -77,6 +79,14 @@ public class Trajet {
 
     public void setLieuArrive(String lieuArrive) {
         this.lieuArrive = lieuArrive;
+    }
+
+    public float getTarif() {
+        return tarif;
+    }
+
+    public void setTarif(float tarif) {
+        this.tarif = tarif;
     }
 
     public Date getDateDebut() {

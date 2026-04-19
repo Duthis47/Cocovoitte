@@ -18,11 +18,11 @@ import com.example.cocovoitte.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
-public class AssocTrajetUtilisateurRecyclerViewAdapter extends RecyclerView.Adapter<AssocTrajetUtilisateurHolder>{
+public class AssocTrajetReserverUtilisateurRecyclerViewAdapter extends RecyclerView.Adapter<AssocTrajetReserverUtilisateurHolder>{
     private ArrayList<AssocTrajetReserverUtilisateur> lstAssocTrajetUser;
     private boolean isMine;
 
-    public AssocTrajetUtilisateurRecyclerViewAdapter(boolean mine) {
+    public AssocTrajetReserverUtilisateurRecyclerViewAdapter(boolean mine) {
         lstAssocTrajetUser = new ArrayList<>();
         isMine = mine;
     }
@@ -34,13 +34,13 @@ public class AssocTrajetUtilisateurRecyclerViewAdapter extends RecyclerView.Adap
 
     @NonNull
     @Override
-    public AssocTrajetUtilisateurHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AssocTrajetReserverUtilisateurHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_recycler_view_trajet_element, parent, false);
-        return new AssocTrajetUtilisateurHolder(view);
+        return new AssocTrajetReserverUtilisateurHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AssocTrajetUtilisateurHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AssocTrajetReserverUtilisateurHolder holder, int position) {
         AssocTrajetReserverUtilisateur uneAssoc = lstAssocTrajetUser.get(position);
         Trajet unTrajet = uneAssoc.getLeTrajet();
         Utilisateur unUser = uneAssoc.getLeUser();

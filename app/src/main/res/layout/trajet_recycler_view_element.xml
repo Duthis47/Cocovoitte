@@ -2,6 +2,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="12dp"
@@ -9,7 +10,6 @@
     app:cardCornerRadius="12dp"
     app:cardElevation="4dp">
 
-    <!-- TON LINEAR LAYOUT PRINCIPAL -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -50,69 +50,133 @@
             android:background="#E0E0E0"
             android:layout_marginVertical="12dp" />
 
-        <!-- Ligne 2 : Itinéraire (Ville Depart) -->
+        <!-- ITINÉRAIRE -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:orientation="vertical">
+
+            <!-- Ville Depart -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <View
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:background="@android:color/holo_green_dark"
+                    android:layout_marginEnd="12dp"/>
+                <TextView
+                    android:id="@+id/tv_depart_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ville Départ"
+                    android:textColor="#424242"
+                    android:textSize="15sp" />
+            </LinearLayout>
 
             <View
-                android:layout_width="8dp"
-                android:layout_height="8dp"
-                android:background="@android:color/holo_green_dark"
-                android:layout_marginEnd="12dp"/>
+                android:layout_width="1dp"
+                android:layout_height="15dp"
+                android:background="#BDBDBD"
+                android:layout_marginStart="3dp"
+                android:layout_marginVertical="2dp" />
 
-            <TextView
-                android:id="@+id/tv_depart_value"
-                android:layout_width="wrap_content"
+            <!-- Ville Arrivée -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Ville Départ"
-                android:textColor="#424242"
-                android:textSize="15sp" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <View
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:background="@android:color/holo_red_dark"
+                    android:layout_marginEnd="12dp"/>
+                <TextView
+                    android:id="@+id/tv_arrivee_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ville Arrivée"
+                    android:textColor="#424242"
+                    android:textSize="15sp" />
+            </LinearLayout>
         </LinearLayout>
 
-        <!-- Petit trait vertical entre les villes -->
+        <!-- Séparateur -->
         <View
-            android:layout_width="1dp"
-            android:layout_height="15dp"
-            android:background="#BDBDBD"
-            android:layout_marginStart="3dp"
-            android:layout_marginVertical="2dp" />
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F5F5F5"
+            android:layout_marginVertical="12dp" />
 
-        <!-- Ligne 3 : Itinéraire (Ville Arrivée) -->
+        <!-- SECTION CONDUCTEUR -->
+        <LinearLayout
+            android:id="@+id/ll_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="12dp"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="0dp">
+
+                <ImageView
+                    android:id="@+id/iv_driver_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@android:drawable/sym_def_app_icon"
+                    tools:src="@tools:sample/avatars" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tv_driver_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="Jean Dupont"
+                android:textColor="#616161"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- LIGNE BASSE : Places restantes + Bouton Réserver -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-
-            <View
-                android:layout_width="8dp"
-                android:layout_height="8dp"
-                android:background="@android:color/holo_red_dark"
-                android:layout_marginEnd="12dp"/>
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_arrivee_value"
+                android:id="@+id/tv_places"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="3 places restantes"
+                android:textColor="#757575"
+                android:textSize="13sp"
+                android:textStyle="italic" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_reserver_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ville Arrivée"
-                android:textColor="#424242"
-                android:textSize="15sp" />
-        </LinearLayout>
+                android:text="Réserver"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                app:cornerRadius="8dp"
+                app:backgroundTint="#1A237E"
+                android:minHeight="40dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp" />
 
-        <!-- Ligne 4 : Places disponibles (en bas à droite) -->
-        <TextView
-            android:id="@+id/tv_places"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginTop="8dp"
-            android:text="3 places restantes"
-            android:textColor="#757575"
-            android:textSize="12sp"
-            android:textStyle="italic" />
+        </LinearLayout>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

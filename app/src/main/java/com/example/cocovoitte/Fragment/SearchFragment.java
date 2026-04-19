@@ -17,11 +17,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cocovoitte.Classes.AssocTrajetReserverUtilisateur;
 import com.example.cocovoitte.Classes.AssocTrajetUtilisateur;
 import com.example.cocovoitte.R;
+import com.example.cocovoitte.RecyclerView.AssocTrajetUserRecyclerViewAdapter;
 import com.example.cocovoitte.database.AppDatabase;
 
 import java.text.SimpleDateFormat;
@@ -55,6 +57,8 @@ public class SearchFragment extends Fragment {
     //Gestion de la BDD
     private AppDatabase db;
     private ArrayList<AssocTrajetUtilisateur> lesTrajetsAAffiches;
+    private long msInADay =  24 * 60 * 60 * 1000;
+
 
     //Variable pour gestion Recherche
     private String villeDepart;
@@ -126,10 +130,16 @@ public class SearchFragment extends Fragment {
                     Toast.makeText(getContext(), "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                db.trajetDAO().getTrajetRecherche(villeDepart, villeArrive, nbPassager, dateDepart).observe(getViewLifecycleOwner(), lstTrajet ->{
+                rvResultats.setLayoutManager(new LinearLayoutManager(view.getContext()));
+                AssocTrajetUserRecyclerViewAdapter adapter = new AssocTrajetUserRecyclerViewAdapter();
+                rvResultats.setAdapter(adapter);
+                Log.d("testBDDReq", villeDepart + "-" + villeArrive + "-" +nbPassager +"-"+dateDepart.getTime());
+                Date dateSuivante = new Date(dateDepart.getTime() + msInADay);
+                db.trajetDAO().getTrajetRecherche(villeDepart, villeArrive, nbPassager, dateDepart, dateSuivante).observe(getViewLifecycleOwner(), lstTrajet ->{
                     lesTrajetsAAffiches = new ArrayList<>(lstTrajet);
-                    Log.d("testBDD", lesTrajetsAAffiches.toString());
+                    adapter.setLstAssocTrajetUser(lesTrajetsAAffiches);
+                    adapter.notifyDataSetChanged();
+                    Log.d("testBDDRes", lesTrajetsAAffiches.toString());
                 });
                 setMode(1);
             }

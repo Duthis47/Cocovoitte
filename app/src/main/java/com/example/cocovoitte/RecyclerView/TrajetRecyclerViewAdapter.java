@@ -15,10 +15,8 @@ import java.util.ArrayList;
 import java.util.Locale;
 public class TrajetRecyclerViewAdapter extends RecyclerView.Adapter<TrajetViewHolder> {
     private ArrayList<Trajet> lstTrajet;
-    private boolean isOnSearch;
-    public TrajetRecyclerViewAdapter(boolean search) {
+    public TrajetRecyclerViewAdapter() {
         lstTrajet = new ArrayList<>();
-        isOnSearch = search;
     }
 
     public void setLstTrajet(ArrayList<Trajet> lesTrajets){
@@ -42,12 +40,6 @@ public class TrajetRecyclerViewAdapter extends RecyclerView.Adapter<TrajetViewHo
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy 'à' HH:mm", Locale.FRANCE);
         String dateFormatee = sdf.format(unTrajet.getDateDebut());
         holder.setTxtTvHoraire(dateFormatee);
-
-        if (!isOnSearch){
-            holder.notInSearch();
-        }else {
-            holder.InSearch();
-        }
     }
 
     @Override
