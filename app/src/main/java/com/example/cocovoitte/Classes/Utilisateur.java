@@ -45,6 +45,13 @@ public class Utilisateur {
         this.prenom = prenom;
         this.mail = mail;
         this.motDePasse = motDePasse;
+        this.note = 0;
+        this.nbTrajetsProposes = 0;
+        this.nbTrajetsReserves = 0;
+        this.description = "";
+        this.photo = "";
+        this.dateInscription = new Date();
+        this.preferences = new ArrayList<String>();
     }
 
     public int getIdU() {

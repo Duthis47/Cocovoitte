@@ -74,8 +74,9 @@ public class SettingsFragment extends Fragment {
 
         db.utilisateurLocalDAO().getLocalUser().observe(getViewLifecycleOwner(),userLocal-> {
             user = userLocal;
-            //affiche la description
-            et_description.setText(user.getDescription());
+            if (user != null) {
+                //affiche la description
+                et_description.setText(user.getDescription());
 
             //affiche les preferences
             if (user.getPreferences() != null && !user.getPreferences().isEmpty()) {
@@ -88,9 +89,10 @@ public class SettingsFragment extends Fragment {
                     unePref.setText(elem);
                     Button unBtnSuppr = new Button(getContext());
 
-                    unLayoutPref.addView(unePref);
+                        unLayoutPref.addView(unePref);
 
-                    ll_preferences.addView(unLayoutPref);
+                        ll_preferences.addView(unLayoutPref);
+                    }
                 }
             }
         });
