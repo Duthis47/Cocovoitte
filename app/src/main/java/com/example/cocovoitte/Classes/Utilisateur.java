@@ -36,7 +36,7 @@ public class Utilisateur {
         this.description = "";
         this.photo = "";
         this.dateInscription = new Date();
-        this.preferences = new ArrayList<>();
+        this.preferences = new ArrayList<String>();
     }
 
     @Ignore

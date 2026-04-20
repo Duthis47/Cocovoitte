@@ -19,6 +19,8 @@ import com.example.cocovoitte.Classes.UtilisateurLocal;
 import com.example.cocovoitte.R;
 import com.example.cocovoitte.database.AppDatabase;
 
+import java.util.ArrayList;
+
 public class ProfileFragment extends Fragment {
 
     private AppDatabase db;
@@ -89,7 +91,7 @@ public class ProfileFragment extends Fragment {
             ll_preferences.removeAllViews();
 
             if (user.getPreferences() != null && !user.getPreferences().isEmpty()){
-                String[] preferences = user.getPreferences().split(";");
+                ArrayList<String> preferences = user.getPreferences();
                 for (String preference : preferences){
                     TextView unePref = new TextView(getContext());
                     unePref.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));

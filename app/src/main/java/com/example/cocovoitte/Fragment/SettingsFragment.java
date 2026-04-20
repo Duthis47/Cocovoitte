@@ -79,7 +79,7 @@ public class SettingsFragment extends Fragment {
             //affiche les preferences
             if (user.getPreferences() != null && !user.getPreferences().isEmpty()) {
                 ll_preferences.removeAllViews();
-                String[] preferences = user.getPreferences().split(";");
+                ArrayList<String> preferences = user.getPreferences();
                 et_description.setText(user.getDescription());
                 for (String elem : preferences) {
                     LinearLayout unLayoutPref = new LinearLayout(getContext());
@@ -111,20 +111,16 @@ public class SettingsFragment extends Fragment {
         btn_addPreference.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    AppDatabase.databaseWriteExecutor.execute(()->{
-                        int id = user.getIdU();
-                        String preferences = user.getPreferences();
-                        if (!et_preferences.getText().toString().isEmpty() && user.getPreferences() != null) {
-                            preferences = preferences + ";" + et_preferences.getText().toString();
-                        }else {
-                            preferences = et_preferences.getText().toString();
-                        }
-                        et_preferences.setText("");
-                        db.utilisateurLocalDAO().updatePreferences(id, preferences);
-                        db.utilisateurDAO().updatePreferences(id, preferences);
-                    });
-                }
-            });
+                AppDatabase.databaseWriteExecutor.execute(()->{
+                    int id = user.getIdU();
+                    ArrayList<String> preferences = user.getPreferences();
+                    preferences.add(et_preferences.getText().toString());
+                    et_preferences.setText("");
+                    db.utilisateurLocalDAO().updatePreferences(id, preferences);
+                    db.utilisateurDAO().updatePreferences(id, preferences);
+                });
+            }
+        });
 
         //deconnecte l'utlisateur en le supprimant localement
         btn_disconnect.setOnClickListener(new View.OnClickListener() {
