@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 import com.example.cocovoitte.Classes.UtilisateurLocal;
 import com.example.cocovoitte.MainActivity;
 import com.example.cocovoitte.R;
+import com.example.cocovoitte.RecyclerView.ListePreferencesViewAdapter;
 import com.example.cocovoitte.WelcomeActivity;
 import com.example.cocovoitte.database.AppDatabase;
 
@@ -35,7 +38,8 @@ public class SettingsFragment extends Fragment {
     private EditText et_preferences;
     private Button btn_addPreference;
     private UtilisateurLocal user;
-    private LinearLayout ll_preferences;
+    private RecyclerView rv_preferences;
+
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -69,31 +73,19 @@ public class SettingsFragment extends Fragment {
         btn_changeDescription = view.findViewById(R.id.btn_changeDescription);
         et_preferences = view.findViewById(R.id.et_addPreference);
         btn_addPreference = view.findViewById(R.id.btn_addPreference);
-        ll_preferences = view.findViewById(R.id.ll_preferences);
+        rv_preferences = view.findViewById(R.id.rv_preferences);
+
 
 
         db.utilisateurLocalDAO().getLocalUser().observe(getViewLifecycleOwner(),userLocal-> {
             user = userLocal;
-            if (user != null) {
+            if (userLocal != null) {
                 //affiche la description
                 et_description.setText(user.getDescription());
 
-            //affiche les preferences
-            if (user.getPreferences() != null && !user.getPreferences().isEmpty()) {
-                ll_preferences.removeAllViews();
-                List<String> preferences = user.getPreferences();
-                et_description.setText(user.getDescription());
-                for (String elem : preferences) {
-                    LinearLayout unLayoutPref = new LinearLayout(getContext());
-                    TextView unePref = new TextView(getContext());
-                    unePref.setText(elem);
-                    Button unBtnSuppr = new Button(getContext());
-
-                        unLayoutPref.addView(unePref);
-
-                        ll_preferences.addView(unLayoutPref);
-                    }
-                }
+                //affiche les preferences
+                rv_preferences.setLayoutManager(new LinearLayoutManager(getContext()));
+                rv_preferences.setAdapter(new ListePreferencesViewAdapter(getContext(), user.getPreferences(),user));
             }
         });
 
@@ -109,7 +101,6 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        //TOUJOURS DES PROBLEMES AVEC LE STRING PREFERENCES ET LE NULL
         //on ajoute une preference
         btn_addPreference.setOnClickListener(new View.OnClickListener() {
             @Override

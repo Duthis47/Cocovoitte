@@ -91,6 +91,8 @@ public class ProfileFragment extends Fragment {
 
             ll_preferences.removeAllViews();
 
+
+            //TODO: régler le problème de superposition du recyclerView et du tv preferences dans le profil
             if (user.getPreferences() != null && !user.getPreferences().isEmpty()){
                 List<String> preferences = user.getPreferences();
                 for (String preference : preferences){
