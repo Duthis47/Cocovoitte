@@ -93,16 +93,18 @@ public interface TrajetDAO {
             "Utilisateur.photo AS user_photo, " +
             "Utilisateur.dateInscription AS user_dateInscription, " +
             "Utilisateur.preferences AS user_preferences, " +
-            "Trajet.* , (SELECT COUNT(*) FROM Reserver WHERE Reserver.idT = Trajet.idT) as nbPlacePrise " +
+            "Trajet.* ,Trajet.idT as idTrajet, (SELECT COUNT(*) FROM Reserver WHERE Reserver.idT = Trajet.idT) as nbPlacePrise " +
             "FROM Trajet " +
             "INNER JOIN Utilisateur ON Trajet.idU = Utilisateur.idU " +
-            "LEFT JOIN Reserver ON Trajet.idT = Reserver.idT " +
             "WHERE Trajet.dateDebut > :jourRecherche " +
             "AND Trajet.dateDebut < :jourSuivant " +
             "AND LOWER(Trajet.lieuArrive) = LOWER(:villeArrive) " +
             "AND LOWER(Trajet.lieuDepart) = LOWER(:villeDepart) " +
             "AND Trajet.nbPassagerP >= nbPlacePrise + :nbPassager " +
-            "AND Trajet.idU != :idU ")
+            "AND Trajet.idU != :idU " +
+            "AND NOT EXISTS(SELECT * FROM Trajet INNER JOIN Reserver ON Trajet.idT = Reserver.idT WHERE Trajet.idU = :idU AND Trajet.idT = idTrajet)")
+
+    //AND NOT EXIST(SELECT * FROM Trajet INNER JOIN Reserver ON Trajet.idT = Reserver.idT WHERE )
     LiveData<List<AssocTrajetUtilisateur>> getTrajetRecherche(String villeDepart, String villeArrive, int nbPassager, Date jourRecherche, Date jourSuivant, int idU);
     @Insert
     long insert(Trajet objTrajet);
