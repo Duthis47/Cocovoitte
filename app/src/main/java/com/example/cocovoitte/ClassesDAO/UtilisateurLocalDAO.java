@@ -24,7 +24,7 @@ public interface UtilisateurLocalDAO {
     void updateDescription(int id, String description);
 
     @Query("SELECT preferences FROM UtilisateurLocal WHERE idU = :id")
-    ArrayList<String> getPreferences(int id);
+    List<String> getPreferences(int id);
 
     @Query("UPDATE UtilisateurLocal SET preferences = :preferences WHERE idU = :id")
     void updatePreferences(int id, ArrayList<String> preferences);

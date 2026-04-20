@@ -36,17 +36,19 @@ public class Converters {
     }
 
     @TypeConverter
-    public static String fromStringList(ArrayList<String> list) {
+    public static String fromStringList(ArrayList<String> list) { //convertie un arraylist de string en string
         StringBuilder sb = new StringBuilder();
-        for (String b : list) {
-            String txt = b+";";
-            sb.append(txt);
+        if (list != null) {
+            for (String b : list) {
+                String txt = b + ";";
+                sb.append(txt);
+            }
         }
         return sb.toString();
     }
 
     @TypeConverter
-    public static ArrayList<String> toStringList(String value) {
+    public static ArrayList<String> toStringList(String value) { //convertie un string en arraylist de string
         ArrayList<String> list = new ArrayList<>(Arrays.asList(value.split(";")));
         return list;
     }
