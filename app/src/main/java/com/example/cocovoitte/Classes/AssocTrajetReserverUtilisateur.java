@@ -6,7 +6,7 @@ public class AssocTrajetReserverUtilisateur {
     @Embedded(prefix="resa_")
     Reserver laResa;
 
-@Embedded(prefix="user_")
+    @Embedded(prefix="user_")
     Utilisateur leUser;
 
     @Embedded

@@ -79,7 +79,7 @@ public interface TrajetDAO {
     LiveData<List<AssocTrajetReserverUtilisateur>> getTrajetAPrendre(int idU);
 
 
-    //TODO: Rajouter un système pour empecher l'affichage des trajets deja reservés ou en attente (donc présence de (idU, idT) dans Reserver
+    //TODO: Rajouter un système pour empecher l'affichage des trajets deja reservés ou en attente (donc présence de (idU, idT) dans Reserver)
     @Query("SELECT " +
             "Utilisateur.idU AS user_idU, " +
             "Utilisateur.nom AS user_nom, " +
