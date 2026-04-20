@@ -13,16 +13,16 @@ import com.example.cocovoitte.Classes.UtilisateurLocal;
 import com.example.cocovoitte.R;
 import com.example.cocovoitte.database.AppDatabase;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ListePreferencesViewAdapter extends RecyclerView.Adapter<PreferenceViewHolder> {
 
     public AppDatabase db;
     public Context context;
-    public ArrayList<String> preferences;
+    public List<String> preferences;
     public UtilisateurLocal user;
 
-    public ListePreferencesViewAdapter(Context context, ArrayList<String> preferences, UtilisateurLocal userLocal) {
+    public ListePreferencesViewAdapter(Context context, List<String> preferences, UtilisateurLocal userLocal) {
         this.context = context;
         this.preferences = preferences;
         db = AppDatabase.getDatabase(context);
