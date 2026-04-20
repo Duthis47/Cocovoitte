@@ -23,6 +23,7 @@ import com.example.cocovoitte.database.AppDatabase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class SettingsFragment extends Fragment {
 
@@ -79,7 +80,7 @@ public class SettingsFragment extends Fragment {
             //affiche les preferences
             if (user.getPreferences() != null && !user.getPreferences().isEmpty()) {
                 ll_preferences.removeAllViews();
-                ArrayList<String> preferences = user.getPreferences();
+                List<String> preferences = user.getPreferences();
                 et_description.setText(user.getDescription());
                 for (String elem : preferences) {
                     LinearLayout unLayoutPref = new LinearLayout(getContext());
@@ -113,7 +114,7 @@ public class SettingsFragment extends Fragment {
             public void onClick(View view) {
                 AppDatabase.databaseWriteExecutor.execute(()->{
                     int id = user.getIdU();
-                    ArrayList<String> preferences = user.getPreferences();
+                    List<String> preferences = user.getPreferences();
                     preferences.add(et_preferences.getText().toString());
                     et_preferences.setText("");
                     db.utilisateurLocalDAO().updatePreferences(id, preferences);

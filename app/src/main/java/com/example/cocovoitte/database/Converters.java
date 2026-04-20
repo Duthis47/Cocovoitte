@@ -5,6 +5,7 @@ import androidx.room.TypeConverter;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Converters {
     @TypeConverter
@@ -36,7 +37,8 @@ public class Converters {
     }
 
     @TypeConverter
-    public static String fromStringList(ArrayList<String> list) {
+    public static String fromStringList(List<String> list) {
+        if (list == null) return null; // IMPORTANT
         StringBuilder sb = new StringBuilder();
         for (String b : list) {
             String txt = b+";";
@@ -47,7 +49,10 @@ public class Converters {
 
     @TypeConverter
     public static ArrayList<String> toStringList(String value) {
-        ArrayList<String> list = new ArrayList<>(Arrays.asList(value.split(";")));
-        return list;
+        if (value == null || value.isEmpty()) {
+            return new ArrayList<>();
+        }
+        String[] items = value.split(";");
+        return new ArrayList<>(Arrays.asList(items));
     }
 }

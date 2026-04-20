@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey;
 
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 
 //Unique classe qui serait sur le téléphone normallement
@@ -23,7 +24,7 @@ public class UtilisateurLocal {
     private String description;
     private String photo;
     private Date dateInscription;
-    private ArrayList<String> preferences;
+    private List<String> preferences;
 
     public UtilisateurLocal(int idU, String nom, String prenom, String mail, String motDePasse) {
         this.idU = idU;
@@ -118,7 +119,7 @@ public class UtilisateurLocal {
         return dateInscription;
     }
 
-    public ArrayList<String> getPreferences() {
+    public List<String> getPreferences() {
         return preferences;
     }
 
