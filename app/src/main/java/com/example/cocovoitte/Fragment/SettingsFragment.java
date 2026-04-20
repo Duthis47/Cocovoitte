@@ -73,23 +73,25 @@ public class SettingsFragment extends Fragment {
 
         db.utilisateurLocalDAO().getLocalUser().observe(getViewLifecycleOwner(),userLocal-> {
             user = userLocal;
-            //affiche la description
-            et_description.setText(user.getDescription());
-
-            //affiche les preferences
-            if (user.getPreferences() != null && !user.getPreferences().isEmpty()) {
-                ll_preferences.removeAllViews();
-                ArrayList<String> preferences = user.getPreferences();
+            if (user != null) {
+                //affiche la description
                 et_description.setText(user.getDescription());
-                for (String elem : preferences) {
-                    LinearLayout unLayoutPref = new LinearLayout(getContext());
-                    TextView unePref = new TextView(getContext());
-                    unePref.setText(elem);
-                    Button unBtnSuppr = new Button(getContext());
 
-                    unLayoutPref.addView(unePref);
+                //affiche les preferences
+                if (user.getPreferences() != null && !user.getPreferences().isEmpty()) {
+                    ll_preferences.removeAllViews();
+                    ArrayList<String> preferences = user.getPreferences();
+                    et_description.setText(user.getDescription());
+                    for (String elem : preferences) {
+                        LinearLayout unLayoutPref = new LinearLayout(getContext());
+                        TextView unePref = new TextView(getContext());
+                        unePref.setText(elem);
+                        Button unBtnSuppr = new Button(getContext());
 
-                    ll_preferences.addView(unLayoutPref);
+                        unLayoutPref.addView(unePref);
+
+                        ll_preferences.addView(unLayoutPref);
+                    }
                 }
             }
         });

@@ -25,19 +25,19 @@ public class UtilisateurLocal {
     private Date dateInscription;
     private ArrayList<String> preferences;
 
-    public UtilisateurLocal(int idU, String nom, String prenom, String mail, String motDePasse) {
+    public UtilisateurLocal(int idU, String nom, String prenom, String mail, String motDePasse, float note, int nbTrajetsProposes, int nbTrajetsReserves, String description, String photo, Date dateInscription, ArrayList<String> preferences) {
         this.idU = idU;
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
         this.motDePasse = motDePasse;
-        this.note = 0;
-        this.nbTrajetsProposes = 0;
-        this.nbTrajetsReserves = 0;
-        this.description = "";
-        this.photo = "";
-        this.dateInscription = new Date(System.currentTimeMillis());
-        this.preferences = new ArrayList<String>();
+        this.note = note;
+        this.nbTrajetsProposes = nbTrajetsProposes;
+        this.nbTrajetsReserves = nbTrajetsReserves;
+        this.description = description;
+        this.photo = photo;
+        this.dateInscription = dateInscription;
+        this.preferences = preferences;
     }
 
     @Ignore
@@ -48,6 +48,12 @@ public class UtilisateurLocal {
         this.mail = user.getPrenom();
         this.motDePasse = user.getMotDePasse();
         this.note = user.getNote();
+        this.nbTrajetsProposes = user.getNbTrajetsProposes();
+        this.nbTrajetsReserves = user.getNbTrajetsReserves();
+        this.description = user.getDescription();
+        this.photo = user.getPhoto();
+        this.dateInscription = user.getDateInscription();
+        this.preferences = user.getPreferences();
     }
 
     public int getIdU() {
