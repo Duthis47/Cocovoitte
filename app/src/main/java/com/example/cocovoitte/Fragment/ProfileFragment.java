@@ -19,8 +19,10 @@ import com.example.cocovoitte.Classes.UtilisateurLocal;
 import com.example.cocovoitte.R;
 import com.example.cocovoitte.database.AppDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ProfileFragment extends Fragment {
 
@@ -35,6 +37,8 @@ public class ProfileFragment extends Fragment {
     private TextView tv_reviewsCount;
     private Button btn_seeReviews;
     private LinearLayout ll_preferences;
+    private SimpleDateFormat displayFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+
 
 
     public ProfileFragment() {
@@ -76,14 +80,13 @@ public class ProfileFragment extends Fragment {
 
 
 
-
         //on recupere les informations de l'utilisateur
         db.utilisateurLocalDAO().getLocalUser().observe(getViewLifecycleOwner(), user -> {
 
             iv_profilePicture.setImageResource(R.drawable.ic_launcher_background); //pour le moment tant qu'on sait pas faire photos
             tv_username.setText(String.format("%s %s", user.getPrenom(), user.getNom()));
             tv_description.setText(String.format("%s", user.getDescription()));
-            tv_inscriptionDate.setText(String.format("%s", user.getDateInscription()));
+            tv_inscriptionDate.setText(String.format("%s", displayFormat.format(user.getDateInscription())));
             tv_countProposedDrive.setText(String.format("%s", user.getNbTrajetsProposes()));
             tv_countBookedDrive.setText(String.format("%s", user.getNbTrajetsReserves()));
             rb_rate.setRating(user.getNote());

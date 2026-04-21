@@ -27,8 +27,7 @@ public interface UtilisateurLocalDAO {
     List<String> getPreferences(int id);
 
     @Query("UPDATE UtilisateurLocal SET preferences = :preferences WHERE idU = :id")
-    void updatePreferences(int id, List<String> preferences);
-
+    void updatePreferences(int id, String preferences);
 
     @Insert
     void insert(UtilisateurLocal objUtilisateur);

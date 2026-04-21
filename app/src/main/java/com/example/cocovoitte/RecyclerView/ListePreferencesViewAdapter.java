@@ -12,17 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cocovoitte.Classes.UtilisateurLocal;
 import com.example.cocovoitte.R;
 import com.example.cocovoitte.database.AppDatabase;
+import com.example.cocovoitte.database.Converters;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListePreferencesViewAdapter extends RecyclerView.Adapter<PreferenceViewHolder> {
 
     public AppDatabase db;
     public Context context;
-    public List<String> preferences;
+    public ArrayList<String> preferences;
     public UtilisateurLocal user;
 
-    public ListePreferencesViewAdapter(Context context, List<String> preferences, UtilisateurLocal userLocal) {
+    public ListePreferencesViewAdapter(Context context, ArrayList<String> preferences, UtilisateurLocal userLocal) {
         this.context = context;
         this.preferences = preferences;
         db = AppDatabase.getDatabase(context);
@@ -44,7 +46,8 @@ public class ListePreferencesViewAdapter extends RecyclerView.Adapter<Preference
                 preferences.remove(position);
                 notifyItemRemoved(position);
                 AppDatabase.databaseWriteExecutor.execute(()->{
-                    db.utilisateurLocalDAO().updatePreferences(user.getIdU(),preferences);
+                    String prefString = Converters.fromStringList(preferences);
+                    db.utilisateurLocalDAO().updatePreferences(user.getIdU(),prefString);
                 });
             }
         });

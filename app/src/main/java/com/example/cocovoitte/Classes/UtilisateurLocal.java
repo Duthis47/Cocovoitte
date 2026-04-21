@@ -24,7 +24,7 @@ public class UtilisateurLocal {
     private String description;
     private String photo;
     private Date dateInscription;
-    private List<String> preferences;
+    private ArrayList<String> preferences;
 
     public UtilisateurLocal(int idU, String nom, String prenom, String mail, String motDePasse, float note, int nbTrajetsProposes, int nbTrajetsReserves, String description, String photo, Date dateInscription, ArrayList<String> preferences) {
         this.idU = idU;
@@ -125,7 +125,7 @@ public class UtilisateurLocal {
         return dateInscription;
     }
 
-    public List<String> getPreferences() {
+    public ArrayList<String> getPreferences() {
         return preferences;
     }
 

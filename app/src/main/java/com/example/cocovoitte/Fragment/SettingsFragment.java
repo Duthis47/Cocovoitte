@@ -23,6 +23,7 @@ import com.example.cocovoitte.R;
 import com.example.cocovoitte.RecyclerView.ListePreferencesViewAdapter;
 import com.example.cocovoitte.WelcomeActivity;
 import com.example.cocovoitte.database.AppDatabase;
+import com.example.cocovoitte.database.Converters;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -107,11 +108,12 @@ public class SettingsFragment extends Fragment {
             public void onClick(View view) {
                 AppDatabase.databaseWriteExecutor.execute(()->{
                     int id = user.getIdU();
-                    List<String> preferences = user.getPreferences();
+                    ArrayList<String> preferences = user.getPreferences();
                     preferences.add(et_preferences.getText().toString());
                     et_preferences.setText("");
-                    db.utilisateurLocalDAO().updatePreferences(id, preferences);
-                    db.utilisateurDAO().updatePreferences(id, preferences);
+                    String prefString = Converters.fromStringList(preferences);
+                    db.utilisateurLocalDAO().updatePreferences(id, prefString);
+                    db.utilisateurDAO().updatePreferences(id, prefString);
                 });
             }
         });

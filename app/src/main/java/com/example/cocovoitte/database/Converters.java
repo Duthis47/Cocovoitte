@@ -37,7 +37,7 @@ public class Converters {
     }
 
     @TypeConverter
-    public static String fromStringList(List<String> list) {
+    public static String fromStringList(ArrayList<String> list) {
         if (list == null) return null; // IMPORTANT
         StringBuilder sb = new StringBuilder();
         for (String b : list) {
