@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Fragment.DriveOfferFragment">
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="proposer un trajet" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="lieu de depart" />
+
+    <EditText
+        android:id="@+id/et_lieuDepart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="lieuDepart"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="lieu d'arrivee" />
+
+    <EditText
+        android:id="@+id/et_lieuArrivee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="LieuArrive"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="date de depart" />
+
+    <TextView
+        android:id="@+id/tv_choixDateDepart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="choix de la date de depart" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="heure depart" />
+
+    <TextView
+        android:id="@+id/tv_choixHeureDepart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="choix de l'heure de depart" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="nombre de passagers" />
+
+    <Spinner
+        android:id="@+id/s_nbPassagers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="trajet régulier ?" />
+
+    <Spinner
+        android:id="@+id/s_trajetRegulier"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="frequence" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_margin="10dp">
+
+        <!-- Répéter ce bloc pour chaque jour -->
+        <ToggleButton
+            android:id="@+id/btn_lundi"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:textOn="Lun"
+            android:textOff="Lun"
+         />
+
+        <ToggleButton
+            android:id="@+id/btn_mardi"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:textOn="Mar"
+            android:textOff="Mar"
+            />
+
+        <ToggleButton
+            android:id="@+id/btn_mercredi"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:textOn="Mer"
+            android:textOff="Mer"
+            />
+
+        <ToggleButton
+            android:id="@+id/btn_jeudi"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:textOn="Jeu"
+            android:textOff="Jeu"
+            />
+
+        <ToggleButton
+            android:id="@+id/btn_vendredi"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:textOn="Ven"
+            android:textOff="Ven"
+             />
+
+        <ToggleButton
+            android:id="@+id/btn_samedi"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:textOn="Sam"
+            android:textOff="Sam" />
+
+        <ToggleButton
+            android:id="@+id/btn_dimanche"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:textOn="Dim"
+            android:textOff="Dim"
+            />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_publier"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="publier" />
+
+</LinearLayout>
