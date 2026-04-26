@@ -170,19 +170,19 @@
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_gen_qrcode"
+            android:id="@+id/btn_scan_qrcode"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Générer le QR Code"
+            android:text="Scanner le QR Code"
             android:textAllCaps="false"
             android:textColor="#1A237E"
-            app:strokeColor="#1A237E"
             app:cornerRadius="8dp"
             app:icon="@android:drawable/ic_menu_camera"
             app:iconGravity="textStart"
-            app:iconTint="#1A237E" />
+            app:iconTint="#1A237E"
+            app:strokeColor="#1A237E" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -3,6 +3,8 @@ package com.example.cocovoitte.Classes;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 
+import java.util.UUID;
+
 @Entity(primaryKeys = {"idT", "idU"},
 foreignKeys = {
         @ForeignKey(
@@ -19,12 +21,14 @@ foreignKeys = {
 public class Reserver {
     private int idT;
     private int idU;
-    private boolean etatAcceptation;
+    private String etatAcceptation; //Valeur = En Attente, Accepté ou Confirmé
+    private String uuid;
 
     public Reserver(int idT, int idU) {
         this.idT = idT;
         this.idU = idU;
-        this.etatAcceptation = false;
+        this.etatAcceptation = "En Attente";
+        this.uuid = "";
     }
 
     public int getIdT() {
@@ -43,11 +47,23 @@ public class Reserver {
         this.idU = idU;
     }
 
-    public boolean isEtatAcceptation() {
+    public String getEtatAcceptation() {
         return etatAcceptation;
     }
 
-    public void setEtatAcceptation(boolean etatAcceptation) {
+    public void setEtatAcceptation(String etatAcceptation) {
         this.etatAcceptation = etatAcceptation;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public void genUuid(){
+        setUuid(UUID.randomUUID().toString());
     }
 }

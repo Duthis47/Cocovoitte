@@ -53,11 +53,11 @@ public class AssocTrajetReserverUtilisateurRecyclerViewAdapter extends RecyclerV
         holder.setTxtTvDepart(unTrajet.getLieuDepart());
         holder.setTxtTvNomUtilisateur(unUser.getPrenom() + " " + unUser.getNom());
         holder.setLaResaLiee(laResa);
-
-        if (laResa.isEtatAcceptation()){
-            holder.setTxtTvStatut("Accepté");
+        holder.setTxtTvStatut(laResa.getEtatAcceptation());
+        if (laResa.getEtatAcceptation().equals("Accepté")){
+            holder.showQR();
         }else {
-            holder.setTxtTvStatut("En attente");
+            holder.hideQR();
         }
         if (isMine){
             holder.isMine();

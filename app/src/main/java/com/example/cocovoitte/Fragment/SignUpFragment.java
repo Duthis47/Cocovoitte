@@ -100,7 +100,7 @@ public class SignUpFragment extends Fragment {
                     db.reserverDAO().insert(new Reserver(1, 2));
                     Reserver x = new Reserver(3, 1);
                     db.reserverDAO().insert(x);
-                    x.setEtatAcceptation(true);
+                    x.setEtatAcceptation("Accepté");
                     db.reserverDAO().update(x);
 
                     // On redirige vers la page d'accueil
