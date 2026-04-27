@@ -51,8 +51,8 @@ public class SearchFragment extends Fragment {
     private Button btnSearchSubmit;
     private LinearLayout btnSelectDate;
     private int nbPassager = 1;
-    private Calendar calendar = Calendar.getInstance();
 
+    private Calendar calendar = Calendar.getInstance();
     //Recuepration des éléments de la mini barre de recherche
     private TextView tvSummarySearch;
     private LinearLayout llSmallSearch;
