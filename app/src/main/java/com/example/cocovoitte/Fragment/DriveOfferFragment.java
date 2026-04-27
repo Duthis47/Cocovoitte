@@ -1,6 +1,7 @@
 package com.example.cocovoitte.Fragment;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
@@ -8,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.os.Trace;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,31 +23,40 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.example.cocovoitte.Classes.Trajet;
+import com.example.cocovoitte.Classes.UtilisateurLocal;
 import com.example.cocovoitte.R;
+import com.example.cocovoitte.database.AppDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 public class DriveOfferFragment extends Fragment {
 
+    private AppDatabase db;
     private Calendar calendar = Calendar.getInstance();
-    private EditText et_lieuDepart;
-    private EditText et_lieuArrivee;
-    private TextView tv_choixDateDepart;
-    private TextView tv_choixHeureDepart;
+    private SimpleDateFormat displayFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+    private SimpleDateFormat displayFormatHours = new SimpleDateFormat("hh mm", Locale.getDefault());
+    private EditText et_lieuDepart, et_lieuArrivee, et_tarif;
+    private TextView tv_choixDateDepart, tv_choixHeureDepart;
     private Spinner s_nbPassagers;
     private Spinner s_trajetRegulier;
     private Spinner s_frequence;
     private ToggleButton btn_lundi, btn_mardi, btn_mercredi, btn_jeudi, btn_vendredi, btn_samedi, btn_dimanche;
 
     private Button btn_publier;
-    private LinearLayout btn_choixDateDepart;
+    private LinearLayout btn_choixDateDepart, btn_choixHeureDepart;
 
+    private UtilisateurLocal user;
 
     private Date dateDepart;
 
@@ -75,11 +86,14 @@ public class DriveOfferFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
 
 
+
+        db = AppDatabase.getDatabase(getContext());
         et_lieuDepart = view.findViewById(R.id.et_lieuDepart);
         et_lieuArrivee = view.findViewById(R.id.et_lieuArrivee);
 
         tv_choixDateDepart = view.findViewById(R.id.tv_choixDateDepart);
         tv_choixHeureDepart = view.findViewById(R.id.tv_choixHeureDepart);
+        et_tarif = view.findViewById(R.id.et_tarif);
 
         s_nbPassagers = view.findViewById(R.id.s_nbPassagers);
         s_trajetRegulier = view.findViewById(R.id.s_trajetRegulier);
@@ -95,6 +109,23 @@ public class DriveOfferFragment extends Fragment {
         btn_publier = view.findViewById(R.id.btn_publier);
 
         btn_choixDateDepart = view.findViewById(R.id.btn_choixDateDepart);
+        btn_choixHeureDepart = view.findViewById(R.id.btn_choixHeureDepart);
+
+        dateDepart = new Date();
+
+        db.utilisateurLocalDAO().getLocalUser().observe(getViewLifecycleOwner(), utilisateurLocal->{
+            user = utilisateurLocal;
+        });
+
+
+        btn_lundi.setChecked(false);
+        btn_mardi.setChecked(false);
+        btn_mercredi.setChecked(false);
+        btn_jeudi.setChecked(false);
+        btn_vendredi.setChecked(false);
+        btn_samedi.setChecked(false);
+        btn_dimanche.setChecked(false);
+
 
         ArrayList nbPassager = new ArrayList<>();
         nbPassager.add(1);
@@ -188,10 +219,28 @@ public class DriveOfferFragment extends Fragment {
                         temp.set(Calendar.MILLISECOND, 0);
 
                         dateDepart = temp.getTime();
-                        tv_choixDateDepart.setText(dateDepart.toString());
+                        tv_choixDateDepart.setText(displayFormat.format(dateDepart));
                     }
                 }, year, month , day);
                 datePicker.show();
+            }
+        });
+
+        btn_choixHeureDepart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                int minute = calendar.get(Calendar.MINUTE);
+                TimePickerDialog timePicker = new TimePickerDialog(view.getContext(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hours, int minutes) {
+
+                        dateDepart.setHours(hours);
+                        dateDepart.setMinutes(minutes);
+                        tv_choixHeureDepart.setText(displayFormatHours.format(dateDepart));
+                    }
+                }, hour, minute, true);
+                timePicker.show();
             }
         });
 
@@ -206,9 +255,59 @@ public class DriveOfferFragment extends Fragment {
             public void onClick(View v) {
                 String lieuDepart = et_lieuDepart.getText().toString();
                 String lieuArrivee = et_lieuArrivee.getText().toString();
+                int nbPassager = (int) s_nbPassagers.getSelectedItem();
+                float tarif = -1;
+                try {
+                    tarif = Float.parseFloat(et_tarif.getText().toString());
+                } catch (NumberFormatException ignored) {}
+                boolean estRegulier;
+                ArrayList<Boolean> jours = new ArrayList<>();
+                if (s_trajetRegulier.getSelectedItem().toString().equals("Oui")) {
+                    jours = getSelectedDays();
+                    estRegulier = true;
+                } else {
+                    estRegulier = false;
+                }
 
+                //TODO: verifier si la verification marche correctement (nottament si regulier est mis sur oui, il faut au moins un jour selectionné)
+                if (lieuDepart.isEmpty()) {
 
+                    Toast.makeText(getContext(), "Veuillez renseigner le lieu de depart", Toast.LENGTH_SHORT).show();
+                } else if (lieuArrivee.isEmpty()) {
+                    Toast.makeText(getContext(), "Veuillez renseigner le lieu de d'arrivée", Toast.LENGTH_SHORT).show();
+                } else if (et_tarif.getText().toString().isEmpty()) {
+                    Toast.makeText(getContext(), "Veuillez renseigner un tarif", Toast.LENGTH_SHORT).show();
+                } else if (tarif == -1) {
+                    Toast.makeText(getContext(), "Veuillez renseigner un tarif correct", Toast.LENGTH_SHORT).show();
+                } else if (tv_choixDateDepart.getText().toString().equals("-/-/-")) {
+                    Toast.makeText(getContext(), "Veuillez renseigner une date", Toast.LENGTH_SHORT).show();
+                } else if (tv_choixHeureDepart.getText().toString().equals("- : -") ) {
+                    Toast.makeText(getContext(), "Veuillez renseigner un horaire", Toast.LENGTH_SHORT).show();
+                }else if (estRegulier  && jours.isEmpty()) {
+                    Toast.makeText(getContext(), "Veuillez selectionner au moins un jour", Toast.LENGTH_SHORT).show();
+                } else {
+                    Trajet unTrajet = new Trajet(lieuDepart, lieuArrivee, dateDepart, 1, nbPassager, tarif, jours, estRegulier, user.getIdU());
 
+                    AppDatabase.databaseWriteExecutor.execute(() -> {
+                        db.trajetDAO().insert(unTrajet);
+                    });
+
+                    et_lieuDepart.setText("");
+                    et_lieuArrivee.setText("");
+                    et_tarif.setText("");
+                    s_nbPassagers.setSelection(0);
+                    s_trajetRegulier.setSelection(0);
+                    btn_lundi.setChecked(false);
+                    btn_mardi.setChecked(false);
+                    btn_mercredi.setChecked(false);
+                    btn_jeudi.setChecked(false);
+                    btn_vendredi.setChecked(false);
+                    btn_samedi.setChecked(false);
+                    btn_dimanche.setChecked(false);
+                    tv_choixDateDepart.setText("-/-/-");
+                    tv_choixHeureDepart.setText("- : -");
+                    Toast.makeText(getContext(), "trajet publié", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -220,16 +319,16 @@ public class DriveOfferFragment extends Fragment {
     }
 
 
-    ArrayList<String> getSelectedDays() {
-        ArrayList<String> selectedDays = new ArrayList<>();
+    ArrayList<Boolean> getSelectedDays() {
+        ArrayList<Boolean> selectedDays = new ArrayList<>();
 
-        if (btn_lundi.isChecked()) selectedDays.add("Lundi");
-        if (btn_mardi.isChecked()) selectedDays.add("Mardi");
-        if (btn_mercredi.isChecked()) selectedDays.add("Mercredi");
-        if (btn_jeudi.isChecked()) selectedDays.add("Jeudi");
-        if (btn_vendredi.isChecked()) selectedDays.add("Vendredi");
-        if (btn_samedi.isChecked()) selectedDays.add("Samedi");
-        if (btn_dimanche.isChecked()) selectedDays.add("Dimanche");
+        if(btn_lundi.isChecked()) { selectedDays.add(true); } else { selectedDays.add(false); }
+        if(btn_mardi.isChecked()) { selectedDays.add(true); } else { selectedDays.add(false); }
+        if(btn_mercredi.isChecked()) { selectedDays.add(true); } else { selectedDays.add(false); }
+        if(btn_jeudi.isChecked()) { selectedDays.add(true); } else { selectedDays.add(false); }
+        if(btn_vendredi.isChecked()) { selectedDays.add(true); } else { selectedDays.add(false); }
+        if(btn_samedi.isChecked()) { selectedDays.add(true); } else { selectedDays.add(false); }
+        if(btn_dimanche.isChecked()) { selectedDays.add(true); } else { selectedDays.add(false); }
         return selectedDays;
     }
 

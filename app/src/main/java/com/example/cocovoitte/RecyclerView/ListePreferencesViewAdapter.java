@@ -1,9 +1,12 @@
 package com.example.cocovoitte.RecyclerView;
 
+import static java.security.AccessController.getContext;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
@@ -49,6 +52,7 @@ public class ListePreferencesViewAdapter extends RecyclerView.Adapter<Preference
                     String prefString = Converters.fromStringList(preferences);
                     db.utilisateurLocalDAO().updatePreferences(user.getIdU(),prefString);
                 });
+                Toast.makeText(context, "preference supprimée", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cocovoitte.Classes.UtilisateurLocal;
 import com.example.cocovoitte.MainActivity;
@@ -98,6 +99,7 @@ public class SettingsFragment extends Fragment {
                     db.utilisateurDAO().updateDescription(id, et_description.getText().toString());
                     db.utilisateurLocalDAO().updateDescription(id, et_description.getText().toString());
                 });
+                Toast.makeText(getContext(), "desciption mise à jour", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -114,6 +116,7 @@ public class SettingsFragment extends Fragment {
                     db.utilisateurLocalDAO().updatePreferences(id, prefString);
                     db.utilisateurDAO().updatePreferences(id, prefString);
                 });
+                Toast.makeText(getContext(), "preference ajoutée", Toast.LENGTH_SHORT).show();
             }
         });
 

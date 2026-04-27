@@ -90,12 +90,11 @@ public class ProfileFragment extends Fragment {
             tv_countProposedDrive.setText(String.format("%s", user.getNbTrajetsProposes()));
             tv_countBookedDrive.setText(String.format("%s", user.getNbTrajetsReserves()));
             rb_rate.setRating(user.getNote());
-            tv_reviewsCount.setText(String.format("%s %s", "10", getString(R.string.tv_reviewsCount))); //faire requete pour le nombre d'avis
+            tv_reviewsCount.setText(String.format("%s %s", "0", getString(R.string.tv_reviewsCount))); //TODO: faire requete pour obtenir le nombre d'avis
 
             ll_preferences.removeAllViews();
 
 
-            //TODO: régler le problème de superposition du recyclerView et du tv preferences dans le profil
             if (user.getPreferences() != null && !user.getPreferences().isEmpty()){
                 List<String> preferences = user.getPreferences();
                 for (String preference : preferences){
