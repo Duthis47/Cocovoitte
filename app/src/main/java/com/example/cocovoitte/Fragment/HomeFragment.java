@@ -1,5 +1,7 @@
 package com.example.cocovoitte.Fragment;
 
+import static java.lang.Long.parseLong;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -14,8 +16,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cocovoitte.Classes.AssocTrajetReserverUtilisateur;
+import com.example.cocovoitte.Classes.Reserver;
 import com.example.cocovoitte.Classes.Trajet;
 import com.example.cocovoitte.Classes.UtilisateurLocal;
 import com.example.cocovoitte.R;
@@ -26,6 +30,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -134,6 +139,35 @@ public class HomeFragment extends Fragment {
             if (contents != null) {
                 // Gestion du contents
                 Log.d("ok3",  contents);
+                String[] splitContents = contents.split("/");
+                String uuid = splitContents[0];
+                String timestamp = splitContents[1];
+                Long timestampUUID= Long.parseLong(timestamp);
+                Long timestampActuel = System.currentTimeMillis();
+
+                //On verifie que ca fait pas plus de 5 minutes
+                if (timestampUUID + 300000 >= timestampActuel){
+                    AppDatabase.databaseWriteExecutor.execute(() -> {
+                        Reserver laResa = db.reserverDAO().getResaByUUID(uuid);
+
+                        if (laResa != null){
+                            //On met a jour la reservation
+                            laResa.setEtatAcceptation("Confirmé");
+                            db.reserverDAO().update(laResa);
+                            getActivity().runOnUiThread(() -> {
+                                Toast.makeText(getContext(), "Trajet validé !", Toast.LENGTH_SHORT).show();
+                            });
+                        }else {
+                            getActivity().runOnUiThread(() -> {
+                                Toast.makeText(getContext(), " Pas de resa correspondantes", Toast.LENGTH_SHORT).show();
+                            });
+                        }
+                    });
+                }else {
+                    getActivity().runOnUiThread(() -> {
+                        Toast.makeText(getContext(), "Delai trop long, regenerez le QR COde", Toast.LENGTH_SHORT).show();
+                    });
+                }
             }
         }
 

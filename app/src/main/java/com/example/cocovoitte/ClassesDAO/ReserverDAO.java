@@ -15,6 +15,9 @@ import java.util.List;
 public interface ReserverDAO {
     @Query("SELECT * FROM Reserver")
     LiveData<List<Reserver>> getAll();
+
+    @Query("SELECT * FROM Reserver WHERE uuid = :uuid")
+    Reserver getResaByUUID(String uuid);
     @Insert
     void insert(Reserver objReserver);
     @Update

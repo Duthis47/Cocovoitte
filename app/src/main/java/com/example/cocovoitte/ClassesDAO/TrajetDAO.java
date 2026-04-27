@@ -48,7 +48,7 @@ public interface TrajetDAO {
             "FROM Trajet " +
             "INNER JOIN Reserver ON Trajet.idT = Reserver.idT " +
             "INNER JOIN Utilisateur ON Reserver.idU = Utilisateur.idU " +
-            "WHERE Trajet.idU = :idU AND Reserver.etatAcceptation = 0")
+            "WHERE Trajet.idU = :idU AND Reserver.etatAcceptation = 'En Attente'")
     LiveData<List<AssocTrajetReserverUtilisateur>> getTrajetAValider(int idU);
 
     //Pour les trajets acceptés (Passager qui regarde son planning)
