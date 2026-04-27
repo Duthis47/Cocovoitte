@@ -118,6 +118,14 @@ public class DriveOfferFragment extends Fragment {
         });
 
 
+        btn_lundi.setChecked(false);
+        btn_mardi.setChecked(false);
+        btn_mercredi.setChecked(false);
+        btn_jeudi.setChecked(false);
+        btn_vendredi.setChecked(false);
+        btn_samedi.setChecked(false);
+        btn_dimanche.setChecked(false);
+
 
         ArrayList nbPassager = new ArrayList<>();
         nbPassager.add(1);
@@ -248,7 +256,10 @@ public class DriveOfferFragment extends Fragment {
                 String lieuDepart = et_lieuDepart.getText().toString();
                 String lieuArrivee = et_lieuArrivee.getText().toString();
                 int nbPassager = (int) s_nbPassagers.getSelectedItem();
-                float tarif = Float.parseFloat(et_tarif.getText().toString());
+                float tarif = -1;
+                try {
+                    tarif = Float.parseFloat(et_tarif.getText().toString());
+                } catch (NumberFormatException ignored) {}
                 boolean estRegulier;
                 ArrayList<Boolean> jours = new ArrayList<>();
                 if (s_trajetRegulier.getSelectedItem().toString().equals("Oui")) {
@@ -258,27 +269,45 @@ public class DriveOfferFragment extends Fragment {
                     estRegulier = false;
                 }
 
-                Trajet unTrajet = new Trajet(lieuDepart, lieuArrivee, dateDepart, 1, nbPassager, tarif, jours, estRegulier,user.getIdU());
+                //TODO: verifier si la verification marche correctement (nottament si regulier est mis sur oui, il faut au moins un jour selectionné)
+                if (lieuDepart.isEmpty()) {
 
-                AppDatabase.databaseWriteExecutor.execute(() -> {
-                    db.trajetDAO().insert(unTrajet);
-                });
+                    Toast.makeText(getContext(), "Veuillez renseigner le lieu de depart", Toast.LENGTH_SHORT).show();
+                } else if (lieuArrivee.isEmpty()) {
+                    Toast.makeText(getContext(), "Veuillez renseigner le lieu de d'arrivée", Toast.LENGTH_SHORT).show();
+                } else if (et_tarif.getText().toString().isEmpty()) {
+                    Toast.makeText(getContext(), "Veuillez renseigner un tarif", Toast.LENGTH_SHORT).show();
+                } else if (tarif == -1) {
+                    Toast.makeText(getContext(), "Veuillez renseigner un tarif correct", Toast.LENGTH_SHORT).show();
+                } else if (tv_choixDateDepart.getText().toString().equals("-/-/-")) {
+                    Toast.makeText(getContext(), "Veuillez renseigner une date", Toast.LENGTH_SHORT).show();
+                } else if (tv_choixHeureDepart.getText().toString().equals("- : -") ) {
+                    Toast.makeText(getContext(), "Veuillez renseigner un horaire", Toast.LENGTH_SHORT).show();
+                }else if (estRegulier  && jours.isEmpty()) {
+                    Toast.makeText(getContext(), "Veuillez selectionner au moins un jour", Toast.LENGTH_SHORT).show();
+                } else {
+                    Trajet unTrajet = new Trajet(lieuDepart, lieuArrivee, dateDepart, 1, nbPassager, tarif, jours, estRegulier, user.getIdU());
 
-                et_lieuDepart.setText("");
-                et_lieuArrivee.setText("");
-                et_tarif.setText("");
-                s_nbPassagers.setSelection(0);
-                s_trajetRegulier.setSelection(0);
-                btn_lundi.setChecked(false);
-                btn_mardi.setChecked(false);
-                btn_mercredi.setChecked(false);
-                btn_jeudi.setChecked(false);
-                btn_vendredi.setChecked(false);
-                btn_samedi.setChecked(false);
-                btn_dimanche.setChecked(false);
-                tv_choixDateDepart.setText("-/-/-");
-                tv_choixHeureDepart.setText("- : -");
-                Toast.makeText(getContext(), "trajet publié", Toast.LENGTH_SHORT).show();
+                    AppDatabase.databaseWriteExecutor.execute(() -> {
+                        db.trajetDAO().insert(unTrajet);
+                    });
+
+                    et_lieuDepart.setText("");
+                    et_lieuArrivee.setText("");
+                    et_tarif.setText("");
+                    s_nbPassagers.setSelection(0);
+                    s_trajetRegulier.setSelection(0);
+                    btn_lundi.setChecked(false);
+                    btn_mardi.setChecked(false);
+                    btn_mercredi.setChecked(false);
+                    btn_jeudi.setChecked(false);
+                    btn_vendredi.setChecked(false);
+                    btn_samedi.setChecked(false);
+                    btn_dimanche.setChecked(false);
+                    tv_choixDateDepart.setText("-/-/-");
+                    tv_choixHeureDepart.setText("- : -");
+                    Toast.makeText(getContext(), "trajet publié", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
