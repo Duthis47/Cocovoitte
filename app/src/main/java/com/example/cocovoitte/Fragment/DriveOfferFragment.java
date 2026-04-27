@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.os.Trace;
@@ -55,7 +56,7 @@ public class DriveOfferFragment extends Fragment {
 
     private Button btn_publier;
     private LinearLayout btn_choixDateDepart, btn_choixHeureDepart;
-
+    private CardView cvFreqH;
     private UtilisateurLocal user;
 
     private Date dateDepart;
@@ -98,6 +99,7 @@ public class DriveOfferFragment extends Fragment {
         s_nbPassagers = view.findViewById(R.id.s_nbPassagers);
         s_trajetRegulier = view.findViewById(R.id.s_trajetRegulier);
 
+        cvFreqH = view.findViewById(R.id.cv_freqH);
         btn_lundi = view.findViewById(R.id.btn_lundi);
         btn_mardi = view.findViewById(R.id.btn_mardi);
         btn_mercredi = view.findViewById(R.id.btn_mercredi);
@@ -181,21 +183,23 @@ public class DriveOfferFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();
                 if (selectedItem.equals("Oui")) {
-                    btn_lundi.setVisibility(View.VISIBLE);
+                    cvFreqH.setVisibility(View.VISIBLE);
+                    /*btn_lundi.setVisibility(View.VISIBLE);
                     btn_mardi.setVisibility(View.VISIBLE);
                     btn_mercredi.setVisibility(View.VISIBLE);
                     btn_jeudi.setVisibility(View.VISIBLE);
                     btn_vendredi.setVisibility(View.VISIBLE);
                     btn_samedi.setVisibility(View.VISIBLE);
-                    btn_dimanche.setVisibility(View.VISIBLE);
+                    btn_dimanche.setVisibility(View.VISIBLE);*/
                 } else {
-                    btn_lundi.setVisibility(View.GONE);
+                    cvFreqH.setVisibility(View.GONE);
+                   /* btn_lundi.setVisibility(View.GONE);
                     btn_mardi.setVisibility(View.GONE);
                     btn_mercredi.setVisibility(View.GONE);
                     btn_jeudi.setVisibility(View.GONE);
                     btn_vendredi.setVisibility(View.GONE);
                     btn_samedi.setVisibility(View.GONE);
-                    btn_dimanche.setVisibility(View.GONE);
+                    btn_dimanche.setVisibility(View.GONE);*/
                 }
             }
             @Override
