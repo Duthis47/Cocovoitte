@@ -14,7 +14,6 @@
         android:padding="16dp"
         tools:context=".Fragment.SettingsFragment">
 
-        <!-- TITRE DE LA PAGE -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -24,7 +23,6 @@
             android:textColor="#333333"
             android:layout_marginBottom="24dp"/>
 
-        <!-- SECTION DESCRIPTION -->
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_description"
             android:layout_width="match_parent"
@@ -79,7 +77,6 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- SECTION PHOTO DE PROFIL -->
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_profile_picture"
             android:layout_width="match_parent"
@@ -123,7 +120,6 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- SECTION PREFERENCES -->
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_preferences"
             android:layout_width="match_parent"
@@ -177,7 +173,6 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- BOUTON DECONNEXION -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_disconnect"
             android:layout_width="match_parent"

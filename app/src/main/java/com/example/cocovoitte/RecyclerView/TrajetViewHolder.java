@@ -1,6 +1,7 @@
 package com.example.cocovoitte.RecyclerView;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,13 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.cocovoitte.Fragment.HomeFragment;
+import com.example.cocovoitte.MainActivity;
 import com.example.cocovoitte.R;
+import com.google.zxing.integration.android.IntentIntegrator;
 
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
@@ -28,7 +34,7 @@ public class TrajetViewHolder extends RecyclerView.ViewHolder {
     private Button btnReserver;
     private Button btnScanQR;
 
-    public TrajetViewHolder(@NonNull View itemView) {
+    public TrajetViewHolder(@NonNull View itemView, Fragment leFr) {
         super(itemView);
         tvHoraire = itemView.findViewById(R.id.tv_horaire);
         tvDepart = itemView.findViewById(R.id.tv_depart_value);
@@ -45,7 +51,17 @@ public class TrajetViewHolder extends RecyclerView.ViewHolder {
         llUser.setVisibility(View.GONE);
         btnReserver.setVisibility(View.GONE);
 
-
+        btnScanQR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("ok3", (v.getContext() instanceof MainActivity)+"");
+                IntentIntegrator integrator = IntentIntegrator.forSupportFragment(leFr);
+                integrator.setOrientationLocked(true);
+                integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
+                integrator.setPrompt("Scan QR Code");
+                integrator.initiateScan();
+            }
+        });
     }
 
     public void setTxtTvHoraire(String txt) {

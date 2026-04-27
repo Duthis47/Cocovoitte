@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cocovoitte.Classes.Trajet;
@@ -15,8 +16,10 @@ import java.util.ArrayList;
 import java.util.Locale;
 public class TrajetRecyclerViewAdapter extends RecyclerView.Adapter<TrajetViewHolder> {
     private ArrayList<Trajet> lstTrajet;
-    public TrajetRecyclerViewAdapter() {
+    private Fragment fragmentLie;
+    public TrajetRecyclerViewAdapter(Fragment leFragment) {
         lstTrajet = new ArrayList<>();
+        fragmentLie = leFragment;
     }
 
     public void setLstTrajet(ArrayList<Trajet> lesTrajets){
@@ -27,8 +30,9 @@ public class TrajetRecyclerViewAdapter extends RecyclerView.Adapter<TrajetViewHo
     @NonNull
     @Override
     public TrajetViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        //On lui donne le fragment aussi pour le scan de QRCode
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.trajet_recycler_view_element, parent, false);
-        return new TrajetViewHolder(view);
+        return new TrajetViewHolder(view, fragmentLie);
     }
 
     @Override

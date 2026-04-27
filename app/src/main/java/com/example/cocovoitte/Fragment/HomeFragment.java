@@ -1,5 +1,6 @@
 package com.example.cocovoitte.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,8 @@ import com.example.cocovoitte.R;
 import com.example.cocovoitte.RecyclerView.AssocTrajetReserverUtilisateurRecyclerViewAdapter;
 import com.example.cocovoitte.RecyclerView.TrajetRecyclerViewAdapter;
 import com.example.cocovoitte.database.AppDatabase;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 
@@ -70,7 +74,7 @@ public class HomeFragment extends Fragment {
         //On prepare les trajets proposés (je suis conducteur et je vois les trajets que je vais faire)
         rvDriveProp = view.findViewById(R.id.rv_driveProp);
         rvDriveProp.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        TrajetRecyclerViewAdapter adapterR = new TrajetRecyclerViewAdapter();
+        TrajetRecyclerViewAdapter adapterR = new TrajetRecyclerViewAdapter(this);
         rvDriveProp.setAdapter(adapterR);
 
         //On prépare les trajets a prendre (je suis passager et je vois les trajets ou je serai passager)
@@ -118,4 +122,22 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        // Vérifie si le résultat n'est pas vide
+        if (intentResult != null) {
+            // Récupère le contenu du QR code
+            String contents = intentResult.getContents();
+
+            // Si le contenu existe
+            if (contents != null) {
+                // Gestion du contents
+                Log.d("ok3",  contents);
+            }
+        }
+
+        //On est obligé d'appeler la fonction parente
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }

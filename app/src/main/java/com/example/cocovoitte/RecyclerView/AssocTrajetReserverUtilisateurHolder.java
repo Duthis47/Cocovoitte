@@ -1,6 +1,7 @@
 package com.example.cocovoitte.RecyclerView;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,6 +97,8 @@ public class AssocTrajetReserverUtilisateurHolder extends RecyclerView.ViewHolde
                                 db.reserverDAO().update(laResaLiee);
                             });
                     QRGEncoder qrgEncoder = new QRGEncoder(uuid, null, QRGContents.Type.TEXT, qrSize);
+                    qrgEncoder.setColorBlack(Color.WHITE);
+                    qrgEncoder.setColorWhite(Color.BLACK);
                     qrCodeImg.setImageBitmap(qrgEncoder.getBitmap());
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -110,7 +113,7 @@ public class AssocTrajetReserverUtilisateurHolder extends RecyclerView.ViewHolde
                 popUpView.findViewById(R.id.root_popup_qr).setOnClickListener(view -> {
                     popupWindow.dismiss();
                 });
-
+                popUpView.setBackgroundColor(Color.WHITE);
                 // 5. Afficher la popup
                 popupWindow.showAtLocation(v, android.view.Gravity.CENTER, 0, 0);
             }
