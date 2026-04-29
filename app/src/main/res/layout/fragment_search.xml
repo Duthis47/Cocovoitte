@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- On met le recycler en premier pour qu'il soit tout en bas -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_results"
         android:layout_width="match_parent"
@@ -14,7 +13,6 @@
         app:layout_constraintTop_toBottomOf="@id/container_small_search"
         app:layout_constraintBottom_toBottomOf="parent" />
 
-    <!-- Elle est en haut, visible uniquement quand on a des résultats -->
     <FrameLayout
         android:id="@+id/container_small_search"
         android:layout_width="match_parent"
@@ -87,7 +85,6 @@
         </androidx.cardview.widget.CardView>
     </FrameLayout>
 
-    <!-- Une vue, invisible par défaut, qui couvre tout l'écran -->
     <View
         android:id="@+id/view_dimmer"
         android:layout_width="match_parent"
@@ -96,7 +93,6 @@
         android:visibility="gone"
         android:elevation="10dp" />
 
-    <!-- Elle est au centre au début, puis en haut pendant le "fading" -->
     <FrameLayout
         android:id="@+id/container_big_search"
         android:layout_width="match_parent"
@@ -236,6 +232,7 @@
                             android:id="@+id/btn_minus"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
+                            android:textSize="20sp"
                             android:text="-" />
 
                         <TextView
@@ -253,6 +250,7 @@
                             android:id="@+id/btn_plus"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
+                            android:textSize="20sp"
                             android:text="+" />
                     </LinearLayout>
                 </LinearLayout>

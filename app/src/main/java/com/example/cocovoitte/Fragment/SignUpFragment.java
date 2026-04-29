@@ -1,5 +1,7 @@
 package com.example.cocovoitte.Fragment;
 
+import static com.example.cocovoitte.Utils.ValidationUtils.isEmailValide;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,6 +22,7 @@ import com.example.cocovoitte.Classes.Trajet;
 import com.example.cocovoitte.Classes.Utilisateur;
 import com.example.cocovoitte.Classes.UtilisateurLocal;
 import com.example.cocovoitte.MainActivity;
+import com.example.cocovoitte.Utils.ValidationUtils;
 import com.example.cocovoitte.database.AppDatabase;
 import com.example.cocovoitte.R;
 
@@ -57,7 +60,6 @@ public class SignUpFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_sign_up, container, false);
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         db = AppDatabase.getDatabase(requireActivity().getApplicationContext());
@@ -74,6 +76,11 @@ public class SignUpFragment extends Fragment {
                 String firstName = et_firstName.getText().toString();
                 String lastName = et_lastName.getText().toString();
                 String email = et_email.getText().toString();
+
+                if (!ValidationUtils.isEmailValide(email)){
+                    et_email.setError("Email invalide"); // Petit bonus : affiche une erreur sur le champ
+                    return;
+                }
                 String password = et_password.getText().toString();
                 //on enregistre l'utilisateur dans la bd
                 Utilisateur nouvelUtilisateur = new Utilisateur(lastName, firstName, email, password);
