@@ -77,8 +77,9 @@ public class SignUpFragment extends Fragment {
                 String lastName = et_lastName.getText().toString();
                 String email = et_email.getText().toString();
 
+                //On vérifie si c'est bien une adresse mail
                 if (!ValidationUtils.isEmailValide(email)){
-                    et_email.setError("Email invalide"); // Petit bonus : affiche une erreur sur le champ
+                    et_email.setError("Email invalide");
                     return;
                 }
                 String password = et_password.getText().toString();
