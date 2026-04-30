@@ -25,11 +25,24 @@ public class ExampleUnitTest {
         assertTrue(ValidationUtils.isEmailValide("mathis@gmail.com"));
         assertTrue(ValidationUtils.isEmailValide("test.pro@isnum.fr"));
     }
-
     @Test
     public void emailInvalide_RetourneFalse() {
         assertFalse(ValidationUtils.isEmailValide("mathis-at-gmail.com"));
         assertFalse(ValidationUtils.isEmailValide("mathis@"));
         assertFalse(ValidationUtils.isEmailValide(null));
+    }
+
+    @Test
+    public void passwordValide_RetourneTrue(){
+        assertTrue(ValidationUtils.isPasswordValid("Motdepasse3"));
+        assertTrue(ValidationUtils.isPasswordValid("MotDePasseSecurisee.1"));
+        assertTrue(ValidationUtils.isPasswordValid("TestTest32"));
+    }
+
+    @Test
+    public void passwordValide_RetourneFalse(){
+        assertFalse(ValidationUtils.isPasswordValid(null));
+        assertFalse(ValidationUtils.isPasswordValid("test"));
+        assertFalse(ValidationUtils.isPasswordValid("Test."));
     }
 }
