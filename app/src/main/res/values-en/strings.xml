@@ -72,4 +72,6 @@
     <string name="tv_scanQRcode">Scan the QR code</string>
     <string name="tv_addPreferences">Add a preference</string>
     <string name="btn_logOut">Log out</string>
+    <string name="txt_scanQRCode">Scan the QR Code</string>
+    <string name="txt_everyoneHere">Everyone is here</string>
 </resources>

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cocovoitte.Classes.Trajet;
+import com.example.cocovoitte.Classes.TrajetComplet;
 import com.example.cocovoitte.R;
 
 import java.text.SimpleDateFormat;
@@ -17,14 +18,14 @@ import java.util.Locale;
 
 //Adapter liée au Holder de la classe Trajet
 public class TrajetRecyclerViewAdapter extends RecyclerView.Adapter<TrajetViewHolder> {
-    private ArrayList<Trajet> lstTrajet;
+    private ArrayList<TrajetComplet> lstTrajet;
     private Fragment fragmentLie;
     public TrajetRecyclerViewAdapter(Fragment leFragment) {
         lstTrajet = new ArrayList<>();
         fragmentLie = leFragment;
     }
 
-    public void setLstTrajet(ArrayList<Trajet> lesTrajets){
+    public void setLstTrajet(ArrayList<TrajetComplet> lesTrajets){
         lstTrajet = lesTrajets;
         notifyDataSetChanged();
     }
@@ -40,13 +41,20 @@ public class TrajetRecyclerViewAdapter extends RecyclerView.Adapter<TrajetViewHo
     @Override
     public void onBindViewHolder(@NonNull TrajetViewHolder holder, int position) {
         //On recupere le trajet associé puis on gere l'affichage
-        Trajet unTrajet = lstTrajet.get(position);
+        TrajetComplet unTrajetComplet = lstTrajet.get(position);
+        Trajet unTrajet = unTrajetComplet.getLeTrajet();
         holder.setTxtTvArrivee(unTrajet.getLieuArrive());
         holder.setTxtTvDepart(unTrajet.getLieuDepart());
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy 'à' HH:mm", Locale.FRANCE);
         String dateFormatee = sdf.format(unTrajet.getDateDebut());
         holder.setTxtTvHoraire(dateFormatee);
+
+        if (unTrajetComplet.getNbPlaceValidee() >= unTrajet.getNbPassagerP()){
+            holder.allPassengerHere(true);
+        }else {
+            holder.allPassengerHere(false);
+        }
     }
 
     @Override

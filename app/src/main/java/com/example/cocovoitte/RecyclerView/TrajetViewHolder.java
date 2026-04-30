@@ -1,5 +1,7 @@
 package com.example.cocovoitte.RecyclerView;
 
+import static android.provider.Settings.System.getString;
+
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cocovoitte.Fragment.HomeFragment;
 import com.example.cocovoitte.MainActivity;
 import com.example.cocovoitte.R;
+import com.google.android.material.button.MaterialButton;
 import com.google.zxing.integration.android.IntentIntegrator;
 
 import androidmads.library.qrgenearator.QRGContents;
@@ -32,7 +35,7 @@ public class TrajetViewHolder extends RecyclerView.ViewHolder {
     private TextView tvTarifs;
     private LinearLayout llUser;
     private Button btnReserver;
-    private Button btnScanQR;
+    private MaterialButton btnScanQR;
 
     public TrajetViewHolder(@NonNull View itemView, Fragment leFr) {
         super(itemView);
@@ -75,5 +78,18 @@ public class TrajetViewHolder extends RecyclerView.ViewHolder {
 
     public void setTxtTvDepart(String txt) {
         this.tvDepart.setText(txt);
+    }
+
+    public void allPassengerHere(boolean yes){
+        Context context = itemView.getContext();
+        this.btnScanQR.setEnabled(!yes);
+        if (yes) {
+            this.btnScanQR.setText(context.getString(R.string.txt_everyoneHere));
+            this.btnScanQR.setIconResource(R.drawable.outline_directions_car_24);
+        }else {
+            this.btnScanQR.setText(R.string.txt_scanQRCode);
+            this.btnScanQR.setIconResource(R.drawable.outline_photo_camera_24);
+
+        }
     }
 }

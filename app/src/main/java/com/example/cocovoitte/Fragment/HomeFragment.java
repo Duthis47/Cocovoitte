@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +20,7 @@ import android.widget.Toast;
 import com.example.cocovoitte.Classes.AssocTrajetReserverUtilisateur;
 import com.example.cocovoitte.Classes.Reserver;
 import com.example.cocovoitte.Classes.Trajet;
+import com.example.cocovoitte.Classes.TrajetComplet;
 import com.example.cocovoitte.Classes.UtilisateurLocal;
 import com.example.cocovoitte.R;
 import com.example.cocovoitte.RecyclerView.AssocTrajetReserverUtilisateurRecyclerViewAdapter;
@@ -30,7 +30,6 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,7 +43,7 @@ public class HomeFragment extends Fragment {
     private AppDatabase db;
     private UtilisateurLocal localUser;
     private RecyclerView rvDriveProp;
-    private ArrayList<Trajet> lesTrajetsProposes;
+    private ArrayList<TrajetComplet> lesTrajetsProposes;
     private RecyclerView rvDriveT;
     private ArrayList<AssocTrajetReserverUtilisateur> lesTrajetsAPrendre;
     private RecyclerView rvDriveV;
@@ -104,7 +103,7 @@ public class HomeFragment extends Fragment {
             String prenomUser = "";
             if (localUser != null){
                 prenomUser= getString(R.string.tv_bienvenue) + " " +  localUser.getPrenom();
-                db.trajetDAO().getTrajetByIdU(localUser.getIdU()).observe(getViewLifecycleOwner(), lesTrajetsProp -> {
+                db.trajetDAO().getTrajetCompletByIdU(localUser.getIdU()).observe(getViewLifecycleOwner(), lesTrajetsProp -> {
                     lesTrajetsProposes =  new ArrayList<>(lesTrajetsProp);
                     adapterR.setLstTrajet(lesTrajetsProposes);
                     adapterR.notifyDataSetChanged();
@@ -150,6 +149,9 @@ public class HomeFragment extends Fragment {
                         if (laResa != null){
                             //On met a jour la reservation
                             laResa.setEtatAcceptation("Confirmé");
+                            Trajet leTrajet = db.trajetDAO().getTrajetByIdR(laResa.getIdT(), laResa.getIdU());
+                            leTrajet.addOneScan();
+                            db.trajetDAO().update(leTrajet);
                             db.reserverDAO().update(laResa);
                             getActivity().runOnUiThread(() -> {
                                 Toast.makeText(getContext(), "Trajet validé !", Toast.LENGTH_SHORT).show();

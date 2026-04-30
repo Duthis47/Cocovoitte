@@ -78,9 +78,15 @@ public abstract class AppDatabase extends RoomDatabase {
                         INSTANCE.utilisateurDAO().insert(utilisateur);
                         INSTANCE.utilisateurDAO().insert(utilisateur2);
 
-                        Trajet trajet1 = new Trajet(1,"anglet", "susmiou", new Date(2026,4,30, 15,0), 0, 1, 15, new ArrayList<>(List.of(false, false, false, false, false, false, false)), false, utilisateur.getIdU());
+                        Trajet trajet1 = new Trajet("anglet", "susmiou", new Date(2026,4,30, 15,0), 0, 2, 15, new ArrayList<>(List.of(false, false, false, false, false, false, false)), false, utilisateur.getIdU());
                         INSTANCE.trajetDAO().insert(trajet1);
 
+                        Trajet trajet2 = new Trajet("Paris", "Marseille", new Date(2026,4,30, 15,0), 0, 1, 15, new ArrayList<>(List.of(false, false, false, false, false, false, false)), false, utilisateur.getIdU());
+                        long idT1 = INSTANCE.trajetDAO().insert(trajet2);
+
+                        Reserver resa1 = new Reserver((int) idT1, utilisateur2.getIdU());
+                        resa1.setEtatAcceptation("Confirmé");
+                        INSTANCE.reserverDAO().insert(resa1);
                     });
                 }
                 @Override

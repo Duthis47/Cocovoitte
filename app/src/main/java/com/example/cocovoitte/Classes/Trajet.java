@@ -31,7 +31,9 @@ public class Trajet {
     private ArrayList<Boolean> jourFrequence = new ArrayList<>(List.of(false, false, false, false, false, false, false));
     private float tarif;
     private int idU;
-    public Trajet(int idT, String lieuDepart, String lieuArrive, Date dateDebut, float dureeTrajet, int nbPassagerP, float tarif, ArrayList<Boolean> jourFrequence, Boolean estRegulier, int idU) {
+    private int nbScan;
+
+    public Trajet(int idT, String lieuDepart, String lieuArrive, Date dateDebut, float dureeTrajet, int nbPassagerP, float tarif, ArrayList<Boolean> jourFrequence, Boolean estRegulier, int idU, int nbScan) {
         this.idT = idT;
         this.jourFrequence = jourFrequence;
         this.estRegulier = estRegulier;
@@ -42,6 +44,7 @@ public class Trajet {
         this.lieuDepart = lieuDepart;
         this.tarif = tarif;
         this.idU = idU;
+        this.nbScan = nbScan;
     }
 
     @Ignore
@@ -55,6 +58,7 @@ public class Trajet {
         this.lieuDepart = lieuDepart;
         this.idU = idU;
         this.tarif = tarif;
+        this.nbScan = 0;
     }
 
     public int getIdT() {
@@ -135,5 +139,17 @@ public class Trajet {
 
     public void setIdU(int idU) {
         this.idU = idU;
+    }
+
+    public int getNbScan() {
+        return nbScan;
+    }
+
+    public void setNbScan(int nbScan) {
+        this.nbScan = nbScan;
+    }
+
+    public void addOneScan(){
+        this.nbScan += 1;
     }
 }

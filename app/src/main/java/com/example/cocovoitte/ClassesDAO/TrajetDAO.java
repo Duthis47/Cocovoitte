@@ -10,6 +10,7 @@ import androidx.room.Update;
 import com.example.cocovoitte.Classes.AssocTrajetReserverUtilisateur;
 import com.example.cocovoitte.Classes.AssocTrajetUtilisateur;
 import com.example.cocovoitte.Classes.Trajet;
+import com.example.cocovoitte.Classes.TrajetComplet;
 
 import java.util.Date;
 import java.util.List;
@@ -21,8 +22,12 @@ public interface TrajetDAO {
 
 
     //On utilise ca avec idU = UtilisateurLocal.idU afin de recup mes trajets proposées
-    @Query("SELECT * FROM Trajet WHERE idU = :idU")
-    LiveData<List<Trajet>> getTrajetByIdU(int idU);
+    @Query("SELECT Trajet.*, (SELECT COUNT(*) FROM Reserver WHERE Reserver.idT = Trajet.idT AND Reserver.etatAcceptation = 'Confirmé') as nbPlaceValidee FROM Trajet WHERE idU = :idU")
+    LiveData<List<TrajetComplet>> getTrajetCompletByIdU(int idU);
+
+    @Query("SELECT Trajet.* FROM Trajet INNER JOIN Reserver on Trajet.idT = Reserver.idT WHERE Reserver.idT = :idT AND Reserver.idU = :idU")
+    Trajet getTrajetByIdR(int idT, int idU);
+
 
     // Pour les demandes de réservation à valider (Conducteur qui regarde)
     // Table Reserver (prefix resa_)
@@ -108,6 +113,9 @@ public interface TrajetDAO {
 
     //AND NOT EXIST(SELECT * FROM Trajet INNER JOIN Reserver ON Trajet.idT = Reserver.idT WHERE )
     LiveData<List<AssocTrajetUtilisateur>> getTrajetRecherche(String villeDepart, String villeArrive, int nbPassager, Date jourRecherche, Date jourSuivant, int idU);
+
+    @Query("SELECT COUNT(*) FROM Reserver WHERE idT = :idT") //On récupère le nombre de personne ayant résa le trajet
+    int getNbResaByTrajet(int idT);
     @Insert
     long insert(Trajet objTrajet);
     @Update
