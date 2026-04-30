@@ -1,5 +1,7 @@
 package com.example.cocovoitte.Utils;
 
+
+//Classe pour les outils de validation (utile pour test unitaire)
 public class ValidationUtils {
     public static boolean isEmailValide(String email) {
         if (email == null) return false;

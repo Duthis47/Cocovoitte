@@ -1,5 +1,7 @@
 package com.example.cocovoitte.RecyclerView;
 
+import static android.view.View.VISIBLE;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.View;
@@ -37,6 +39,7 @@ public class AssocTrajetUserViewHolder extends RecyclerView.ViewHolder {
     private int idUserLiee;
     private int idTrajetLiee;
     private AppDatabase db;
+    private Button btnQr;
 
     public AssocTrajetUserViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -49,6 +52,8 @@ public class AssocTrajetUserViewHolder extends RecyclerView.ViewHolder {
         tvNomConducteur = itemView.findViewById(R.id.tv_driver_name);
         llUser = itemView.findViewById(R.id.ll_user);
         btnReserver = itemView.findViewById(R.id.btn_reserver_item);
+        btnQr = itemView.findViewById(R.id.btn_scan_qrcode);
+        btnQr.setVisibility(View.GONE);
         db= AppDatabase.getDatabase(itemView.getContext());
 
         btnReserver.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +85,6 @@ public class AssocTrajetUserViewHolder extends RecyclerView.ViewHolder {
             }
         });
     }
-
     public void setTxtTvHoraire(String txt) {
         this.tvHoraire.setText(txt) ;
     }

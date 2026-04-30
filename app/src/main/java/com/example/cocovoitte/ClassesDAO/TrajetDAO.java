@@ -79,6 +79,9 @@ public interface TrajetDAO {
     LiveData<List<AssocTrajetReserverUtilisateur>> getTrajetAPrendre(int idU);
 
 
+    //Pour les trajets dans la recherche
+    // Table Utilisateur (prefix user_)
+    // Table Trajet (sans prefixe)
     @Query("SELECT " +
             "Utilisateur.idU AS user_idU, " +
             "Utilisateur.nom AS user_nom, " +

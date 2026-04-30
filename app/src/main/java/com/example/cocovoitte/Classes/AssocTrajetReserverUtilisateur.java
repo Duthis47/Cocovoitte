@@ -2,6 +2,8 @@ package com.example.cocovoitte.Classes;
 
 import androidx.room.Embedded;
 
+
+//Classe d'association afin de lier les objets de types Trajet, Reserver et Utilisateur
 public class AssocTrajetReserverUtilisateur {
     @Embedded(prefix="resa_")
     Reserver laResa;
