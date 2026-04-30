@@ -6,16 +6,15 @@
         android:title="@string/title_Accueil"
         android:visible="true" />
     <item android:title="@string/title_Rechercher"
-        android:icon="@drawable/baseline_home_24"
+        android:icon="@drawable/outline_feature_search_24"
         android:id= "@+id/menu_rechercher"/>
-
     <item android:title="@string/title_Proposer"
-        android:icon="@drawable/baseline_home_24"
+        android:icon="@drawable/outline_add_road_24"
         android:id= "@+id/menu_proposer"/>
     <item android:title="@string/title_Profil"
-        android:icon="@drawable/baseline_home_24"
+        android:icon="@drawable/outline_accessibility_24"
         android:id= "@+id/menu_Profil"/>
     <item android:title="@string/title_Parametres"
-        android:icon="@drawable/baseline_home_24"
+        android:icon="@drawable/outline_build_24"
         android:id= "@+id/menu_parametres"/>
 </menu>
