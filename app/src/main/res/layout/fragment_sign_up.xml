@@ -16,11 +16,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Créer un compte"
-            android:textSize="22sp"
-            android:textStyle="bold"
+            android:layout_marginBottom="24dp"
+            android:text="@string/tv_createAccount"
             android:textColor="#333333"
-            android:layout_marginBottom="24dp"/>
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
         <!-- Nom -->
         <com.google.android.material.textfield.TextInputLayout
