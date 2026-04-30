@@ -26,6 +26,7 @@ import com.example.cocovoitte.ClassesDAO.UtilisateurLocalDAO;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -72,8 +73,14 @@ public abstract class AppDatabase extends RoomDatabase {
                     Log.d("AppDatabase", "creation du jeu d'essai");
                     AppDatabase.databaseWriteExecutor.execute(() -> {
                         //Instanciation au début du programme
-                        Utilisateur utilisateur = new Utilisateur("a","a","a","a");
+                        Utilisateur utilisateur = new Utilisateur(1,"Lucas","Oustaloup","loustaloup@moi.com","Azerty1234");
+                        Utilisateur utilisateur2 = new Utilisateur(2,"Mathis","Ducrot","mducrot@moi.com","Azerty1234");
                         INSTANCE.utilisateurDAO().insert(utilisateur);
+                        INSTANCE.utilisateurDAO().insert(utilisateur2);
+
+                        Trajet trajet1 = new Trajet(1,"anglet", "susmiou", new Date(2026,4,30, 15,0), 0, 1, 15, new ArrayList<>(List.of(false, false, false, false, false, false, false)), false, utilisateur.getIdU());
+                        INSTANCE.trajetDAO().insert(trajet1);
+
                     });
                 }
                 @Override
