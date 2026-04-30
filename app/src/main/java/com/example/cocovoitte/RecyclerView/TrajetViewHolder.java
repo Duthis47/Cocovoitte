@@ -89,7 +89,6 @@ public class TrajetViewHolder extends RecyclerView.ViewHolder {
         }else {
             this.btnScanQR.setText(R.string.txt_scanQRCode);
             this.btnScanQR.setIconResource(R.drawable.outline_photo_camera_24);
-
         }
     }
 }
