@@ -27,7 +27,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Le covoiturage facile"
+            android:text="@string/tv_slogan"
             android:textColor="#777777" />
     </LinearLayout>
 

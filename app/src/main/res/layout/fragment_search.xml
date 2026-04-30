@@ -101,8 +101,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <androidx.cardview.widget.CardView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -135,8 +133,8 @@
                         android:id="@+id/et_departure_search"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Lieu de départ"
                         android:background="@null"
+                        android:hint="@string/tv_startingPlace"
                         android:inputType="textPostalAddress"
                         android:maxLines="1"
                         android:textColor="#424242"
@@ -169,8 +167,8 @@
                         android:id="@+id/et_arrival_search"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Lieu d'arrivée"
                         android:background="@null"
+                        android:hint="@string/tv_arrivalPlace"
                         android:inputType="textPostalAddress"
                         android:maxLines="1"
                         android:textColor="#424242"
@@ -210,7 +208,7 @@
                             android:id="@+id/tv_date_search"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Aujourd'hui"
+                            android:text="@string/tv_today"
                             android:textColor="#424242"
                             android:textSize="15sp" />
                     </LinearLayout>
@@ -260,11 +258,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:layout_marginTop="8dp"
-                    android:text="Rechercher"
+                    android:text="@string/tv_lookFor"
                     android:textAllCaps="false"
+                    android:textColor="@android:color/white"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:textColor="@android:color/white"
                     app:backgroundTint="#1A237E"
                     app:cornerRadius="12dp" />
 

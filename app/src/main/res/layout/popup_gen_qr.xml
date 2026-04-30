@@ -26,7 +26,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Validation du trajet"
+                android:text="@string/tv_driveValidation"
                 android:textColor="#1A237E"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -59,7 +59,7 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Fermer"
+                android:text="@string/btn_close"
                 android:textColor="#C62828"
                 app:rippleColor="#FFEBEE" />
 

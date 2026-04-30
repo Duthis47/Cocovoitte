@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:paddingVertical="32dp"
-                android:text="Bienvenue"
+                android:text="@string/tv_welcome"
                 android:textColor="#1A237E"
                 android:textSize="28sp"
                 android:textStyle="bold" />

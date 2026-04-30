@@ -17,12 +17,12 @@
             android:id="@+id/textView7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Proposer un trajet"
+            android:layout_marginBottom="20dp"
+            android:text="@string/tv_driveOffer"
+            android:textAlignment="center"
             android:textColor="#1A237E"
             android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="20dp"
-            android:textAlignment="center" />
+            android:textStyle="bold" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -41,7 +41,7 @@
                     android:id="@+id/textView8"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Lieu de départ"
+                    android:text="@string/tv_startingPlace"
                     android:textColor="#1A237E"
                     android:textStyle="bold" />
 
@@ -49,15 +49,15 @@
                     android:id="@+id/et_lieuDepart"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Ex: Paris"
-                    android:inputType="text"
-                    android:layout_marginBottom="12dp" />
+                    android:layout_marginBottom="12dp"
+                    android:hint="@string/hint_startingPlace"
+                    android:inputType="text" />
 
                 <TextView
                     android:id="@+id/textView11"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Lieu d'arrivée"
+                    android:text="@string/tv_arrivalPlace"
                     android:textColor="#1A237E"
                     android:textStyle="bold" />
 
@@ -65,15 +65,15 @@
                     android:id="@+id/et_lieuArrivee"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Ex: Lyon"
-                    android:inputType="text"
-                    android:layout_marginBottom="12dp" />
+                    android:layout_marginBottom="12dp"
+                    android:hint="@string/hint_arrivalPlace"
+                    android:inputType="text" />
 
                 <TextView
                     android:id="@+id/textView5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Tarif par passager (€)"
+                    android:text="@string/tv_costPerPassenger"
                     android:textColor="#1A237E"
                     android:textStyle="bold" />
 
@@ -103,7 +103,7 @@
                     android:id="@+id/textView17"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Date de départ"
+                    android:text="@string/tv_departureDate"
                     android:textColor="#1A237E"
                     android:textStyle="bold" />
 
@@ -121,16 +121,16 @@
                         android:id="@+id/tv_choixDateDepart"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Sélectionner une date"
                         android:drawableStart="@android:drawable/ic_menu_my_calendar"
-                        android:drawablePadding="8dp" />
+                        android:drawablePadding="8dp"
+                        android:text="@string/et_selectADate" />
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/textView12"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Heure de départ"
+                    android:text="@string/tv_departureTime"
                     android:textColor="#1A237E"
                     android:textStyle="bold" />
 
@@ -147,9 +147,9 @@
                         android:id="@+id/tv_choixHeureDepart"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Sélectionner une heure"
                         android:drawableStart="@android:drawable/ic_menu_recent_history"
-                        android:drawablePadding="8dp" />
+                        android:drawablePadding="8dp"
+                        android:text="@string/et_selectTime" />
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -171,7 +171,7 @@
                     android:id="@+id/textView14"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nombre de passagers"
+                    android:text="@string/tv_numberOfPassenger"
                     android:textColor="#1A237E"
                     android:textStyle="bold" />
 
@@ -185,7 +185,7 @@
                     android:id="@+id/textView15"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Trajet régulier ?"
+                    android:text="@string/tv_isRegularDrive"
                     android:textColor="#1A237E"
                     android:textStyle="bold" />
 
@@ -215,7 +215,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="Fréquence hebdomadaire"
+                    android:text="@string/tv_frequency"
                     android:textColor="#1A237E"
                     android:textStyle="bold" />
 
@@ -231,8 +231,8 @@
                         android:layout_height="40dp"
                         android:layout_weight="1"
                         android:backgroundTint="#E0E0E0"
-                        android:textOff="L"
-                        android:textOn="L"
+                        android:textOff="@string/tv_Monday"
+                        android:textOn="@string/tv_Monday"
                         android:textSize="12sp" />
 
                     <ToggleButton
@@ -241,8 +241,8 @@
                         android:layout_height="40dp"
                         android:layout_weight="1"
                         android:backgroundTint="#E0E0E0"
-                        android:textOff="M"
-                        android:textOn="M"
+                        android:textOff="@string/tv_Tuesday"
+                        android:textOn="@string/tv_Tuesday"
                         android:textSize="12sp" />
 
                     <ToggleButton
@@ -251,8 +251,8 @@
                         android:layout_height="40dp"
                         android:layout_weight="1"
                         android:backgroundTint="#E0E0E0"
-                        android:textOff="M"
-                        android:textOn="M"
+                        android:textOff="@string/tv_Wednesday"
+                        android:textOn="@string/tv_Wednesday"
                         android:textSize="12sp" />
 
                     <ToggleButton
@@ -261,8 +261,8 @@
                         android:layout_height="40dp"
                         android:layout_weight="1"
                         android:backgroundTint="#E0E0E0"
-                        android:textOff="J"
-                        android:textOn="J"
+                        android:textOff="@string/tv_Thursday"
+                        android:textOn="@string/tv_Thursday"
                         android:textSize="12sp" />
 
                     <ToggleButton
@@ -271,8 +271,8 @@
                         android:layout_height="40dp"
                         android:layout_weight="1"
                         android:backgroundTint="#E0E0E0"
-                        android:textOff="V"
-                        android:textOn="V"
+                        android:textOff="@string/tv_Friday"
+                        android:textOn="@string/tv_Friday"
                         android:textSize="12sp" />
 
                     <ToggleButton
@@ -281,8 +281,8 @@
                         android:layout_height="40dp"
                         android:layout_weight="1"
                         android:backgroundTint="#E0E0E0"
-                        android:textOff="S"
-                        android:textOn="S"
+                        android:textOff="@string/tv_Saturday"
+                        android:textOn="@string/tv_Saturday"
                         android:textSize="12sp" />
 
                     <ToggleButton
@@ -291,8 +291,8 @@
                         android:layout_height="40dp"
                         android:layout_weight="1"
                         android:backgroundTint="#E0E0E0"
-                        android:textOff="D"
-                        android:textOn="D"
+                        android:textOff="@string/tv_Sunday"
+                        android:textOn="@string/tv_Sunday"
                         android:textSize="12sp" />
 
                 </LinearLayout>
