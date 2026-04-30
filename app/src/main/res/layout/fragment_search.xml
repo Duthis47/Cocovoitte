@@ -226,12 +226,11 @@
                         android:orientation="horizontal">
 
                         <!-- Bouton Moins -->
-                        <Button
+                        <ImageButton
                             android:id="@+id/btn_minus"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
-                            android:textSize="20sp"
-                            android:text="-" />
+                            android:src="@drawable/outline_check_indeterminate_small_24" />
 
                         <TextView
                             android:id="@+id/tv_nb_passagers_search"
@@ -244,12 +243,11 @@
                             android:textColor="#1A237E" />
 
                         <!-- Bouton Plus -->
-                        <Button
+                        <ImageButton
                             android:id="@+id/btn_plus"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
-                            android:textSize="20sp"
-                            android:text="+" />
+                            android:src="@drawable/outline_add_24" />
                     </LinearLayout>
                 </LinearLayout>
 

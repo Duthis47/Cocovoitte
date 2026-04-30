@@ -85,11 +85,12 @@ public class SignUpFragment extends Fragment {
 
                 String password = et_password.getText().toString();
 
+                //On vérifie les conditions de la validité du mot de passe
                 if (!ValidationUtils.isPasswordValid(password)){
-                    et_email.setError("Mot de passe ne respecte pas le minimum (8 caractères, 1 Majuscule et 1 mot de passe");
+                    et_password.setError("Mot de passe ne respecte pas le minimum (8 caractères, 1 Majuscule et 1 mot de passe");
                     return;
                 }
-                
+
                 //on enregistre l'utilisateur dans la bd
                 Utilisateur nouvelUtilisateur = new Utilisateur(lastName, firstName, email, password);
                 UtilisateurLocal nouvelUtilisateurLocal = new UtilisateurLocal(nouvelUtilisateur);
@@ -122,12 +123,11 @@ public class SignUpFragment extends Fragment {
                     requireActivity().runOnUiThread(() -> {
                         Intent unIntent = new Intent(requireActivity(), MainActivity.class);
                         //On supprime la pile des activités avant de rediriger vers la page etant donné qu'on ne pourra pas revenir en arriere
-                        unIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |  Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        unIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(unIntent);
                     });
                 });
             }
         });
-
     }
 }

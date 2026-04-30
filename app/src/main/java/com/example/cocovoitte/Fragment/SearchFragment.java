@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,8 +48,8 @@ public class SearchFragment extends Fragment {
     private EditText etArriveSearch;
     private TextView tvDateSearch; //On va y mettre un DatePickerDialog
     private TextView tvNbPassager;
-    private Button btnMoinsPassager;
-    private Button btnPlusPassager;
+    private ImageButton btnMoinsPassager;
+    private ImageButton btnPlusPassager;
     private Button btnSearchSubmit;
     private LinearLayout btnSelectDate;
     private int nbPassager = 1;
@@ -117,6 +118,7 @@ public class SearchFragment extends Fragment {
                 updateAffichNbPass();
             }
         });
+        btnMoinsPassager.setEnabled(false);
         btnPlusPassager.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
