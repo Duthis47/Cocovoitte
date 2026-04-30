@@ -70,4 +70,6 @@
     <string name="btn_close">CLOSE</string>
     <string name="btn_book">Book</string>
     <string name="tv_scanQRcode">Scan the QR code</string>
+    <string name="tv_addPreferences">Add a preference</string>
+    <string name="btn_logOut">Log out</string>
 </resources>

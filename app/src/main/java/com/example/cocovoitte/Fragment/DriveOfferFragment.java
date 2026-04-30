@@ -144,8 +144,8 @@ public class DriveOfferFragment extends Fragment {
 
         //Generation du spinner pour la régularité des trajets
         ArrayList<String> estTrajetRegulier = new ArrayList<String>();
-        estTrajetRegulier.add("@string/tv_yes");
-        estTrajetRegulier.add("@string/tv_no");
+        estTrajetRegulier.add(getString(R.string.tv_yes));
+        estTrajetRegulier.add(getString(R.string.tv_no));
 
         ArrayAdapter<String> estTrajetRegulierAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item);
         for (String elem : estTrajetRegulier){
@@ -184,7 +184,7 @@ public class DriveOfferFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();
-                if (selectedItem.equals("@string/tv_yes")) {
+                if (selectedItem.equals(getString(R.string.tv_yes))) {
                     cvFreqH.setVisibility(View.VISIBLE);
                 } else {
                     cvFreqH.setVisibility(View.GONE);

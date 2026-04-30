@@ -71,4 +71,6 @@
     <string name="btn_close">FERMER</string>
     <string name="btn_book">Réserver</string>
     <string name="tv_scanQRcode">Scanner le QR code</string>
+    <string name="tv_addPreferences">Ajouter une préférence</string>
+    <string name="btn_logOut">Se déconnecter</string>
 </resources>

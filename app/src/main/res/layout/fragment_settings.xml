@@ -17,11 +17,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Paramètres du profil"
-            android:textSize="22sp"
-            android:textStyle="bold"
+            android:layout_marginBottom="24dp"
+            android:text="@string/tv_profileParameter"
             android:textColor="#333333"
-            android:layout_marginBottom="24dp"/>
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_description"
@@ -167,8 +167,8 @@
                     android:id="@+id/btn_addPreference"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:text="Ajouter une préférence"
                     android:backgroundTint="#416228"
+                    android:text="@string/tv_addPreferences"
                     app:cornerRadius="8dp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -178,7 +178,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:backgroundTint="#DE2020"
-            android:text="Se déconnecter"
+            android:text="@string/btn_logOut"
             android:textSize="16sp"
             app:cornerRadius="12dp"
             app:icon="@android:drawable/ic_lock_power_off"
