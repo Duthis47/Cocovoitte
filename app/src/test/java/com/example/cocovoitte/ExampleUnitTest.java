@@ -11,6 +11,9 @@ import com.example.cocovoitte.Utils.ValidationUtils;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
+
+
+//Test unitaire pour perso (Mathis)
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {

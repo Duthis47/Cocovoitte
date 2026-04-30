@@ -20,6 +20,7 @@ import com.example.cocovoitte.database.Converters;
 import java.util.ArrayList;
 import java.util.List;
 
+//Adapter liée au Holder de la classe Preference
 public class ListePreferencesViewAdapter extends RecyclerView.Adapter<PreferenceViewHolder> {
 
     public AppDatabase db;
@@ -42,10 +43,12 @@ public class ListePreferencesViewAdapter extends RecyclerView.Adapter<Preference
 
     @Override
     public void onBindViewHolder(@NonNull PreferenceViewHolder holder, int position) {
+        //On gere chaque préférence une par une
         holder.tv_unePreference.setText(preferences.get(position));
         holder.btn_supprUnePreference.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //On remove de la liste et on prévient les adapter
                 preferences.remove(position);
                 notifyItemRemoved(position);
                 AppDatabase.databaseWriteExecutor.execute(()->{

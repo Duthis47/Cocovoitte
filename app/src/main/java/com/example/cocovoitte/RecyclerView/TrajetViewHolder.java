@@ -23,8 +23,8 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
 
+//View Holder pour les recycler view utilisant la classe Trajet
 public class TrajetViewHolder extends RecyclerView.ViewHolder {
-
     private TextView tvHoraire;
     private TextView tvDepart;
     private TextView tvArrivee;
@@ -54,6 +54,7 @@ public class TrajetViewHolder extends RecyclerView.ViewHolder {
         btnScanQR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Je lance le Scanner de QRCode
                 Log.d("ok3", (v.getContext() instanceof MainActivity)+"");
                 IntentIntegrator integrator = IntentIntegrator.forSupportFragment(leFr);
                 integrator.setOrientationLocked(true);

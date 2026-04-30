@@ -31,9 +31,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
-
+//Fragment d'inscription
 public class SignUpFragment extends Fragment {
-
     private AppDatabase db;
     private EditText et_firstName;
     private EditText et_lastName;
@@ -69,6 +68,7 @@ public class SignUpFragment extends Fragment {
         et_password = view.findViewById(R.id.et_password);
         btn_submit = view.findViewById(R.id.btn_submit);
 
+        //Clic sur le bouton d'inscription
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,7 +82,14 @@ public class SignUpFragment extends Fragment {
                     et_email.setError("Email invalide");
                     return;
                 }
+
                 String password = et_password.getText().toString();
+
+                if (!ValidationUtils.isPasswordValid(password)){
+                    et_email.setError("Mot de passe ne respecte pas le minimum (8 caractères, 1 Majuscule et 1 mot de passe");
+                    return;
+                }
+                
                 //on enregistre l'utilisateur dans la bd
                 Utilisateur nouvelUtilisateur = new Utilisateur(lastName, firstName, email, password);
                 UtilisateurLocal nouvelUtilisateurLocal = new UtilisateurLocal(nouvelUtilisateur);

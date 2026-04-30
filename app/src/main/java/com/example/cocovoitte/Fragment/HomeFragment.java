@@ -37,6 +37,8 @@ import java.util.Date;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
+//Fragment principal
 public class HomeFragment extends Fragment {
     private TextView welcomeTxt;
     private AppDatabase db;
@@ -96,6 +98,7 @@ public class HomeFragment extends Fragment {
 
         welcomeTxt = view.findViewById(R.id.tv_welcome);
 
+        //On va tout récuperer dans la BDD
         db.utilisateurLocalDAO().getLocalUser().observe(getViewLifecycleOwner(), userLocal -> {
             localUser = userLocal;
             String prenomUser = "";
@@ -116,10 +119,6 @@ public class HomeFragment extends Fragment {
                     adapterV.setLstTrajet(new ArrayList<>(lesTrajetsVal));
                     adapterV.notifyDataSetChanged();
                 });
-
-
-
-
             }else {
                 prenomUser="Bienvenue Guest";
             }
@@ -127,6 +126,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    //Ici, c'est le retour du QRCode
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
@@ -134,11 +134,9 @@ public class HomeFragment extends Fragment {
         if (intentResult != null) {
             // Récupère le contenu du QR code
             String contents = intentResult.getContents();
-
             // Si le contenu existe
             if (contents != null) {
-                // Gestion du contents
-                Log.d("ok3",  contents);
+                // Gestion du contents du QRCode
                 String[] splitContents = contents.split("/");
                 String uuid = splitContents[0];
                 String timestamp = splitContents[1];
@@ -149,7 +147,6 @@ public class HomeFragment extends Fragment {
                 if (timestampUUID + 300000 >= timestampActuel){
                     AppDatabase.databaseWriteExecutor.execute(() -> {
                         Reserver laResa = db.reserverDAO().getResaByUUID(uuid);
-
                         if (laResa != null){
                             //On met a jour la reservation
                             laResa.setEtatAcceptation("Confirmé");

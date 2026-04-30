@@ -41,8 +41,8 @@ import java.util.List;
 import java.util.Locale;
 
 
+//Fragment pour l'ajout de Trajet
 public class DriveOfferFragment extends Fragment {
-
     private AppDatabase db;
     private Calendar calendar = Calendar.getInstance();
     private SimpleDateFormat displayFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
@@ -85,9 +85,6 @@ public class DriveOfferFragment extends Fragment {
 
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-
-
-
         db = AppDatabase.getDatabase(getContext());
         et_lieuDepart = view.findViewById(R.id.et_lieuDepart);
         et_lieuArrivee = view.findViewById(R.id.et_lieuArrivee);
@@ -129,6 +126,7 @@ public class DriveOfferFragment extends Fragment {
         btn_dimanche.setChecked(false);
 
 
+        //Generation du spinner pour le nombre d'utilisateur
         ArrayList nbPassager = new ArrayList<>();
         nbPassager.add(1);
         nbPassager.add(2);
@@ -143,6 +141,8 @@ public class DriveOfferFragment extends Fragment {
         }
         s_nbPassagers.setAdapter(nbPassagerAdapter);
 
+
+        //Generation du spinner pour la régularité des trajets
         ArrayList<String> estTrajetRegulier = new ArrayList<String>();
         estTrajetRegulier.add("Oui");
         estTrajetRegulier.add("Non");
@@ -154,7 +154,7 @@ public class DriveOfferFragment extends Fragment {
         s_trajetRegulier.setAdapter(estTrajetRegulierAdapter);
 
 
-
+        //Event listener pour les boutons de régularité (Lundi, Mardi ...)
         CompoundButton.OnCheckedChangeListener dayListener = new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -169,6 +169,7 @@ public class DriveOfferFragment extends Fragment {
             }
         };
 
+        //Association du event listener
         btn_lundi.setOnCheckedChangeListener(dayListener);
         btn_mardi.setOnCheckedChangeListener(dayListener);
         btn_mercredi.setOnCheckedChangeListener(dayListener);
@@ -178,28 +179,15 @@ public class DriveOfferFragment extends Fragment {
         btn_dimanche.setOnCheckedChangeListener(dayListener);
 
 
+        //Affichage ou suppression du CardView selon le type de trajet (régulier ou non)
         s_trajetRegulier.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();
                 if (selectedItem.equals("Oui")) {
                     cvFreqH.setVisibility(View.VISIBLE);
-                    /*btn_lundi.setVisibility(View.VISIBLE);
-                    btn_mardi.setVisibility(View.VISIBLE);
-                    btn_mercredi.setVisibility(View.VISIBLE);
-                    btn_jeudi.setVisibility(View.VISIBLE);
-                    btn_vendredi.setVisibility(View.VISIBLE);
-                    btn_samedi.setVisibility(View.VISIBLE);
-                    btn_dimanche.setVisibility(View.VISIBLE);*/
                 } else {
                     cvFreqH.setVisibility(View.GONE);
-                   /* btn_lundi.setVisibility(View.GONE);
-                    btn_mardi.setVisibility(View.GONE);
-                    btn_mercredi.setVisibility(View.GONE);
-                    btn_jeudi.setVisibility(View.GONE);
-                    btn_vendredi.setVisibility(View.GONE);
-                    btn_samedi.setVisibility(View.GONE);
-                    btn_dimanche.setVisibility(View.GONE);*/
                 }
             }
             @Override
@@ -209,6 +197,7 @@ public class DriveOfferFragment extends Fragment {
         });
 
 
+        //CLis sur le TextView de la date
         btn_choixDateDepart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -230,6 +219,7 @@ public class DriveOfferFragment extends Fragment {
             }
         });
 
+        //Clic sur le TextView de l'heure
         btn_choixHeureDepart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -248,12 +238,8 @@ public class DriveOfferFragment extends Fragment {
             }
         });
 
-
-
-
-
-
-
+        //Clic sur le bouton publier
+        //On va faire toutes les vérifications à valider
         btn_publier.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -273,9 +259,8 @@ public class DriveOfferFragment extends Fragment {
                     estRegulier = false;
                 }
 
-                //TODO: verifier si la verification marche correctement (nottament si regulier est mis sur oui, il faut au moins un jour selectionné)
+                //Verification si tout est rempli
                 if (lieuDepart.isEmpty()) {
-
                     Toast.makeText(getContext(), "Veuillez renseigner le lieu de depart", Toast.LENGTH_SHORT).show();
                 } else if (lieuArrivee.isEmpty()) {
                     Toast.makeText(getContext(), "Veuillez renseigner le lieu de d'arrivée", Toast.LENGTH_SHORT).show();
@@ -287,9 +272,10 @@ public class DriveOfferFragment extends Fragment {
                     Toast.makeText(getContext(), "Veuillez renseigner une date", Toast.LENGTH_SHORT).show();
                 } else if (tv_choixHeureDepart.getText().toString().equals("- : -") ) {
                     Toast.makeText(getContext(), "Veuillez renseigner un horaire", Toast.LENGTH_SHORT).show();
-                }else if (estRegulier  && jours.isEmpty()) {
+                }else if (estRegulier  && !jours.contains(true)) {
                     Toast.makeText(getContext(), "Veuillez selectionner au moins un jour", Toast.LENGTH_SHORT).show();
                 } else {
+                    //Si tout est rempli on enregistre le nouveau trajet et on reset les composants
                     Trajet unTrajet = new Trajet(lieuDepart, lieuArrivee, dateDepart, 1, nbPassager, tarif, jours, estRegulier, user.getIdU());
 
                     AppDatabase.databaseWriteExecutor.execute(() -> {
@@ -314,15 +300,9 @@ public class DriveOfferFragment extends Fragment {
                 }
             }
         });
-
-
-
-
-
-
     }
 
-
+    //Fonction pour créer la liste des jours sélectionnés par l'utilisateur
     ArrayList<Boolean> getSelectedDays() {
         ArrayList<Boolean> selectedDays = new ArrayList<>();
 

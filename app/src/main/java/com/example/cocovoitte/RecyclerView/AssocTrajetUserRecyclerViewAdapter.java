@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
+//Adapter liée au Holder de la classe d'assoc TrajetUtilisateur
 public class AssocTrajetUserRecyclerViewAdapter extends RecyclerView.Adapter<AssocTrajetUserViewHolder> {
     private ArrayList<AssocTrajetUtilisateur> lstAssocTrajetUser;
     public AssocTrajetUserRecyclerViewAdapter() {
@@ -36,10 +37,12 @@ public class AssocTrajetUserRecyclerViewAdapter extends RecyclerView.Adapter<Ass
 
     @Override
     public void onBindViewHolder(@NonNull AssocTrajetUserViewHolder holder, int position) {
+        //On récupère a chaque fois le trajet et l'utilisateur liée
         AssocTrajetUtilisateur uneAssoc = lstAssocTrajetUser.get(position);
         Trajet unTrajet = uneAssoc.getLeTrajet();
         Utilisateur unUser = uneAssoc.getLeUser();
 
+        //on valorise l'affichage
         holder.setTxtTvArrivee(unTrajet.getLieuArrive());
         holder.setTxtTvDepart(unTrajet.getLieuDepart());
         holder.setTxtTvPrix(String.valueOf(unTrajet.getTarif()) + " €");

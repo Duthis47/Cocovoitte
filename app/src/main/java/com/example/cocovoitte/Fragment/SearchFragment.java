@@ -34,6 +34,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+//Fragment de recherche qui utilise un constraint layout pour gérer la superposition d'élément
 public class SearchFragment extends Fragment {
     //Recuperation des layouts
     private RecyclerView rvResultats;
@@ -52,23 +53,23 @@ public class SearchFragment extends Fragment {
     private LinearLayout btnSelectDate;
     private int nbPassager = 1;
 
+    //Variable pour gerer les dates
     private Calendar calendar = Calendar.getInstance();
+    private long msInADay =  24 * 60 * 60 * 1000;
+    private SimpleDateFormat displayFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()); //Formateur de date
+
     //Recuepration des éléments de la mini barre de recherche
     private TextView tvSummarySearch;
     private LinearLayout llSmallSearch;
     //Gestion de la BDD
     private AppDatabase db;
     private ArrayList<AssocTrajetUtilisateur> lesTrajetsAAffiches;
-    private long msInADay =  24 * 60 * 60 * 1000;
-
 
     //Variable pour gestion Recherche
     private String villeDepart;
     private String villeArrive;
     private Date dateDepart;
 
-    //Formateur de date
-    private SimpleDateFormat displayFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
 
 
     public SearchFragment() {
@@ -107,6 +108,8 @@ public class SearchFragment extends Fragment {
         tvSummarySearch = view.findViewById(R.id.tv_search_summary);
         llSmallSearch = view.findViewById(R.id.btn_expand_search);
         btnSelectDate = view.findViewById(R.id.btn_select_date);
+
+        //On gere les boutons pour le nombre de passager
         btnMoinsPassager.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,16 +125,20 @@ public class SearchFragment extends Fragment {
             }
         });
 
+        //Btn de validation de la recherche
         btnSearchSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 villeDepart = etDepartSearch.getText().toString();
                 villeArrive = etArriveSearch.getText().toString();
+
                 if (villeDepart.isEmpty() || villeArrive.isEmpty() || dateDepart == null) {
                     //On affiche un pop up pour forcer le bon remplissage
                     Toast.makeText(getContext(), "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                //On valorise le recycler view et on change la couche affiché
                 rvResultats.setLayoutManager(new LinearLayoutManager(view.getContext()));
                 AssocTrajetUserRecyclerViewAdapter adapter = new AssocTrajetUserRecyclerViewAdapter();
                 rvResultats.setAdapter(adapter);
@@ -150,6 +157,7 @@ public class SearchFragment extends Fragment {
             }
         });
 
+        //Gestion du TextView pour afficher le DatePicker
         btnSelectDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -170,6 +178,7 @@ public class SearchFragment extends Fragment {
                 datePicker.show();
             }
         });
+
         //Clic sur searchBar
         llSmallSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,7 +194,6 @@ public class SearchFragment extends Fragment {
                 setMode(1);
             }
         });
-
         //On initialise l'affichage
         setMode(0);
     }
@@ -218,6 +226,8 @@ public class SearchFragment extends Fragment {
                 break;
         }
     }
+
+    //Gestion de l'affichage des boutons Plus et Moins
     public void updateAffichNbPass(){
         tvNbPassager.setText(String.valueOf(nbPassager));
 

@@ -1,6 +1,8 @@
 package com.example.cocovoitte.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -30,8 +32,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SettingsFragment extends Fragment {
 
+//Fragment de la page de connexion
+public class SettingsFragment extends Fragment {
     private AppDatabase db;
     private Button btn_disconnect;
     private EditText et_description;
@@ -81,10 +84,10 @@ public class SettingsFragment extends Fragment {
         db.utilisateurLocalDAO().getLocalUser().observe(getViewLifecycleOwner(),userLocal-> {
             user = userLocal;
             if (userLocal != null) {
-                //affiche la description
+                //affiche la description de l'utilisateur
                 et_description.setText(user.getDescription());
 
-                //affiche les preferences
+                //affiche les preferences de l'utilisateur
                 rv_preferences.setLayoutManager(new LinearLayoutManager(getContext()));
                 rv_preferences.setAdapter(new ListePreferencesViewAdapter(getContext(), user.getPreferences(),user));
             }
@@ -135,7 +138,12 @@ public class SettingsFragment extends Fragment {
                         //On supprime la pile des activités avant de rediriger vers la page etant donné qu'on ne pourra pas revenir en arriere
                         unIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |  Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(unIntent);
-                        //TODO: Supprimer SharedPreferences
+
+                        //On supprime l'id des shared preferences
+                        SharedPreferences prefs = getContext().getSharedPreferences("CocovoittePrefs", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.remove("USER_ID");
+                        editor.apply();
                     });
                 });
             }

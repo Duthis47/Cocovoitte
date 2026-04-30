@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cocovoitte.R;
 
+//View Holder pour les recycler view utilisant la classe Preference
 public class PreferenceViewHolder extends RecyclerView.ViewHolder {
 
     TextView tv_unePreference;

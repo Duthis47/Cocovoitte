@@ -14,6 +14,8 @@ import com.example.cocovoitte.R;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
+
+//Adapter liée au Holder de la classe Trajet
 public class TrajetRecyclerViewAdapter extends RecyclerView.Adapter<TrajetViewHolder> {
     private ArrayList<Trajet> lstTrajet;
     private Fragment fragmentLie;
@@ -37,6 +39,7 @@ public class TrajetRecyclerViewAdapter extends RecyclerView.Adapter<TrajetViewHo
 
     @Override
     public void onBindViewHolder(@NonNull TrajetViewHolder holder, int position) {
+        //On recupere le trajet associé puis on gere l'affichage
         Trajet unTrajet = lstTrajet.get(position);
         holder.setTxtTvArrivee(unTrajet.getLieuArrive());
         holder.setTxtTvDepart(unTrajet.getLieuDepart());

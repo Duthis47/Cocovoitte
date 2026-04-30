@@ -20,8 +20,8 @@ import com.example.cocovoitte.Classes.Utilisateur;
 import com.example.cocovoitte.R;
 import com.example.cocovoitte.database.AppDatabase;
 
+//View Holder pour les recycler view utilisant la classe d'assoc TrajetUser
 public class AssocTrajetUserViewHolder extends RecyclerView.ViewHolder {
-
     private TextView tvHoraire;
     private TextView tvDepart;
     private TextView tvArrivee;
@@ -56,6 +56,7 @@ public class AssocTrajetUserViewHolder extends RecyclerView.ViewHolder {
         btnQr.setVisibility(View.GONE);
         db= AppDatabase.getDatabase(itemView.getContext());
 
+        //Clic sur le bouton de demande de réservation
         btnReserver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,11 +65,11 @@ public class AssocTrajetUserViewHolder extends RecyclerView.ViewHolder {
 
                 //Je recupere l'id du XML de stockage
                 SharedPreferences prefs = v.getContext().getSharedPreferences("CocovoittePrefs", Context.MODE_PRIVATE);
-
                 int idUserLocal = (int) prefs.getLong("USER_ID", -1);
 
                 //Si pas connecté on autorise pas l'insertion
                 if (idUserLocal != -1) {
+                    //On insère pour considérer qu'on à demander la resa
                     AppDatabase.databaseWriteExecutor.execute(() -> {
                         Reserver nouvelleResa = new Reserver(idTrajetLiee, idUserLocal);
                         db.reserverDAO().insert(nouvelleResa);

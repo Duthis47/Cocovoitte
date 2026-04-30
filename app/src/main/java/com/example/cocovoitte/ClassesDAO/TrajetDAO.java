@@ -104,7 +104,7 @@ public interface TrajetDAO {
             "AND LOWER(Trajet.lieuDepart) = LOWER(:villeDepart) " +
             "AND Trajet.nbPassagerP >= nbPlacePrise + :nbPassager " +
             "AND Trajet.idU != :idU " +
-            "AND NOT EXISTS(SELECT * FROM Trajet INNER JOIN Reserver ON Trajet.idT = Reserver.idT WHERE Trajet.idU = :idU AND Trajet.idT = idTrajet)")
+            "AND NOT EXISTS(SELECT * FROM Trajet INNER JOIN Reserver ON Trajet.idT = Reserver.idT WHERE Reserver.idU = :idU AND Reserver.idT = idTrajet)")
 
     //AND NOT EXIST(SELECT * FROM Trajet INNER JOIN Reserver ON Trajet.idT = Reserver.idT WHERE )
     LiveData<List<AssocTrajetUtilisateur>> getTrajetRecherche(String villeDepart, String villeArrive, int nbPassager, Date jourRecherche, Date jourSuivant, int idU);

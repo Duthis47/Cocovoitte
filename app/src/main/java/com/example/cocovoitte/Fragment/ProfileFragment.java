@@ -24,8 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+//Fragment de la page de Profil Utilisateur
 public class ProfileFragment extends Fragment {
-
     private AppDatabase db;
     private ImageView iv_profilePicture;
     private TextView tv_username;
@@ -80,7 +80,7 @@ public class ProfileFragment extends Fragment {
 
 
 
-        //on recupere les informations de l'utilisateur
+        //on recupere les informations de l'utilisateur local
         db.utilisateurLocalDAO().getLocalUser().observe(getViewLifecycleOwner(), user -> {
 
             iv_profilePicture.setImageResource(R.drawable.ic_launcher_background); //pour le moment tant qu'on sait pas faire photos
@@ -94,8 +94,9 @@ public class ProfileFragment extends Fragment {
 
             ll_preferences.removeAllViews();
 
-
+            //On verifie s'il a des préférences
             if (user.getPreferences() != null && !user.getPreferences().isEmpty()){
+                //Si oui on les affiche
                 List<String> preferences = user.getPreferences();
                 for (String preference : preferences){
                     TextView unePref = new TextView(getContext());

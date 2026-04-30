@@ -23,6 +23,8 @@ import java.util.UUID;
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
 
+
+//View Holder pour les recycler view utilisant la classe d'assoc TrajetReserverUtilisateur
 public class AssocTrajetReserverUtilisateurHolder extends RecyclerView.ViewHolder{
 
     private TextView tvHoraire;
@@ -48,17 +50,17 @@ public class AssocTrajetReserverUtilisateurHolder extends RecyclerView.ViewHolde
         btnGenQR = itemView.findViewById(R.id.btn_gen_qrcode);
         db = AppDatabase.getDatabase(itemView.getContext());
 
+        //On supprime de la BDD si on clic sur le bouton refuser
         btnRefuser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Trouver un moyen de récupérer l'objet lié
                 AppDatabase.databaseWriteExecutor.execute(() -> {
-
                     db.reserverDAO().delete(laResaLiee);
                 });
             }
         });
 
+        //On change l'état de la reservation en cas d'acceptation
         btnAccepter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,6 +73,7 @@ public class AssocTrajetReserverUtilisateurHolder extends RecyclerView.ViewHolde
             }
         });
 
+        //CLic sur le bouton de génération de QRCode
         btnGenQR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,43 +81,48 @@ public class AssocTrajetReserverUtilisateurHolder extends RecyclerView.ViewHolde
                 LayoutInflater inflater = LayoutInflater.from(context);
                 View popUpView = inflater.inflate(R.layout.popup_gen_qr, null);
 
-                // 1. Configurer la fenêtre (MATCH_PARENT pour l'assombrissement)
+                //On configure la fenêtre
                 PopupWindow popupWindow = new PopupWindow(popUpView,
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         true);
 
-                // 2. Générer le QR Code
+                //On génère le QRCode
                 ImageView qrCodeImg = popUpView.findViewById(R.id.iv_qrcode_gen);
-                // On calcule une taille (ex: 80% de la largeur de l'écran)
+
+                // On calcule une taille (70% de la largeur de l'écran)
                 int width = context.getResources().getDisplayMetrics().widthPixels;
                 int qrSize = (int) (width * 0.7);
 
                 try {
+                    //On génère l'UUID de la réservation qu'on enregistre dans la BDD
                     laResaLiee.genUuid();
                     String uuid = laResaLiee.getUuid() + "/" + (new Date().getTime());
                     AppDatabase.databaseWriteExecutor.execute(()-> {
-                                db.reserverDAO().update(laResaLiee);
-                            });
+                        db.reserverDAO().update(laResaLiee);
+                    });
+
+                    //On encode le QRCode afin de l'afficher
                     QRGEncoder qrgEncoder = new QRGEncoder(uuid, null, QRGContents.Type.TEXT, qrSize);
                     qrgEncoder.setColorBlack(Color.WHITE);
                     qrgEncoder.setColorWhite(Color.BLACK);
                     qrCodeImg.setImageBitmap(qrgEncoder.getBitmap());
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
-                // 3. Gérer le bouton Fermer
+                //Fermer avec clic sur bouton
                 popUpView.findViewById(R.id.btn_close_popup).setOnClickListener(view -> {
                     popupWindow.dismiss();
                 });
 
-                // 4. Optionnel : Fermer si on clique sur le fond noir
+                //Fermer avec clic sur le fond
                 popUpView.findViewById(R.id.root_popup_qr).setOnClickListener(view -> {
                     popupWindow.dismiss();
                 });
                 popUpView.setBackgroundColor(Color.WHITE);
-                // 5. Afficher la popup
+                //On affiche le popup du qrcode
                 popupWindow.showAtLocation(v, android.view.Gravity.CENTER, 0, 0);
             }
         });
@@ -136,6 +144,7 @@ public class AssocTrajetReserverUtilisateurHolder extends RecyclerView.ViewHolde
         this.tvNomUtilisateur.setText(txt) ;
     }
 
+    //Fonctions permettant de différencier les 2 recycler view
     public void isMine(){
         this.btnRefuser.setVisibility(View.VISIBLE);
         this.btnAccepter.setVisibility(View.VISIBLE);

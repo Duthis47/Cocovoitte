@@ -23,6 +23,8 @@ import com.example.cocovoitte.MainActivity;
 import com.example.cocovoitte.R;
 import com.example.cocovoitte.database.AppDatabase;
 
+
+//Fragment de Connexion
 public class LogInFragment extends Fragment {
 
     private AppDatabase db;
@@ -65,6 +67,7 @@ public class LogInFragment extends Fragment {
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //On gere le formulaire de connexion
                 String password = et_password.getText().toString();
                 String email = et_email.getText().toString();
 
